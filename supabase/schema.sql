@@ -40,6 +40,16 @@ create table if not exists public.dish_ratings (
   unique (menu_item_id, user_id)
 );
 
+--Profiles created by reviewees
+create table if not exists public.profiles (
+  user_id     uuid not null references auth.users(id) on delete cascade 
+                default auth.uid(),
+  user_handle text unique not null, -- this is similar to a unique username
+  display_name text, --what shows up
+  campus text, --pomona,pitzer,cmk,scripps,hmc
+  created_at timestamp not null default now()
+);
+
 -- ---------- INDEXES ----------
 -- These speed up common lookups: e.g. menus by date, reviews by dish.
 create index if not exists idx_menu_items_hall_date_meal
@@ -62,6 +72,7 @@ create index if not exists idx_dish_ratings_menu_item
 alter table public.halls        enable row level security;
 alter table public.menu_items   enable row level security;
 alter table public.dish_ratings enable row level security;
+alter table public.profiles enable row level security;
 
 -- Clean up old policies if re-running
 drop policy if exists halls_select_public      on public.halls;
