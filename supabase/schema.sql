@@ -72,7 +72,7 @@ create index if not exists idx_dish_ratings_menu_item
 alter table public.halls        enable row level security;
 alter table public.menu_items   enable row level security;
 alter table public.dish_ratings enable row level security;
-alter table public.profiles enable row level security;
+alter table public.profiles enable row level security; 
 
 -- Clean up old policies if re-running
 drop policy if exists halls_select_public      on public.halls;
@@ -86,6 +86,46 @@ drop policy if exists ratings_insert_own       on public.dish_ratings;
 drop policy if exists ratings_update_own       on public.dish_ratings;
 drop policy if exists ratings_delete_own       on public.dish_ratings;
 
+drop policy if exists profiles_select_own     on public.profiles;
+drop policy if exists profiles_insert_own     on public.profiles;
+drop policy if exists profiles_update_own     on public.profiles;
+drop policy if exists profiles_delete_own     on public.profiles;
+drop view if exists public.safe_profiles;
+
+-- ----- Profies -----
+-- Anyone can view safe-profile fields
+create view public.safe_profiles --creates safe_profiles in Schema (public)
+  with(security_invoker = true)
+  as select
+    user_handle, display_name, campus, created_at
+  from public.profiles;
+
+grant select on public.safe_profiles to anon, authenticated; --lets anyone read the safe views
+
+-- Logged-In Users can view their own profile
+create policy profiles_select_own
+  on public.profiles
+  for select to authenticated
+  using ((select auth.uid()) = user_id);
+
+-- Logged-In Users can insert their own profile
+create policy profiles_insert_own
+  on public.profiles
+  for insert to authenticated
+  with check ((select auth.uid()) = user_id);
+
+-- Logged-in users can only update their own profile
+create policy profiles_update_own
+  on public.profiles
+  for update to authenticated
+  using ((select auth.uid()) = user_id) -- checks if user owns profile
+  with check ((select auth.uid()) = user_id); -- user doesn't change user_id
+
+-- Logged-in users can only delete their own profile
+create policy profiles_delete_own
+  on public.profiles
+  for delete to authenticated
+  using ((select auth.uid()) = user_id);
 -- ----- HALLS -----
 -- Anyone (anon or logged-in) can view halls
 create policy halls_select_public
