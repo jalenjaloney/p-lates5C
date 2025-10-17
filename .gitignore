@@ -1,0 +1,75 @@
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Dependency directories
+node_modules/
+.pnpm-store/
+
+# Build outputs
+dist/
+dist-ssr/
+build/
+public/build/
+
+# Misc local files
+*.local
+
+# Vite cache (do not commit)
+.vite/
+**/.vite/
+
+# Editor directories and files
+.vscode/
+!.vscode/extensions.json
+.idea/
+.DS_Store
+Thumbs.db
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Environment
+.env
+.env.*.local
+.env.local
+.env.*
+.envrc
+
+# TypeScript
+*.tsbuildinfo
+
+# Python
+venv/
+__pycache__/
+*.py[cod]
+*.pyo
+.pytest_cache/
+
+# Testing / Coverage
+coverage/
+coverage-final.json
+lcov-report/
+
+# Other
+public/.cache/
+
+# Common caches
+.cache/
+.parcel-cache/
+.next/
+.nuxt/
+.sass-cache/
+
+# Local IDE/project files
+.vscode/settings.json
+.vscode/launch.json
+.idea/
+
