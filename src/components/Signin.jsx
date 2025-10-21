@@ -8,7 +8,7 @@ const [password, setPassword] = useState('')
 const [error, setError] = useState('')
 const [loading, setLoading] = useState('')
 
-const { session, signInwUser } = UserAuth();
+const { session, signInUser } = UserAuth();
 const navigate = useNavigate();
 console.log(session);
 
