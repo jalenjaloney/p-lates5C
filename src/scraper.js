@@ -13,7 +13,6 @@ function buildUrl() {
   return u.toString();
 }
 
-// Robustly extract the JSON object from JS/JSONP payloads
 function extractJsonFromJsPayload(s) {
   let t = s.trim();
 
@@ -47,7 +46,7 @@ async function main() {
   await fs.writeFile('data/frary-raw.json', JSON.stringify(data, null, 2));
   console.log('Saved data/frary-raw.json with', Object.keys(data).length, 'top-level keys');
 
-  // TODO: map to your schema once you inspect the keys
+  // TODO: map to schema
 }
 
 main().catch(err => {
