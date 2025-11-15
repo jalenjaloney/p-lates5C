@@ -4,2045 +4,6 @@
       {
         "@id": "1626",
         "@name": "Oldenborg FALL 2025 Week 3 NOV 10-14th",
-        "@servedate": "20251113",
-        "@location": "Oldenborg Dining",
-        "@mealperiodname": "Lunch",
-        "@menubulletin": "",
-        "nutrients": "Calories (kcal)~CAL|Total Lipid/Fat (g)~TL|Saturated fatty acid (g)~FAS|Trans Fat (g)~TRF|Cholesterol (mg)~CHO|Sodium (mg)~Na|Carbohydrate (g)~CRB|Total Dietary Fiber (g)~FIB|Total Sugars (g)~SUG|Added Sugar (g)~SugA|Protein (g)~PRO|Vitamin C (mg)~vC|Calcium (mg)~CA|Iron (mg)~Fe|Vitamin A (mcg RAE)~(rae)|Phosphorus (mg)~PHO|Potassium (mg)~K|Vitamin D(iu)~VITD",
-        "recipes": {
-          "recipe": [
-            {
-              "@id": "5626919",
-              "@category": "Mainline",
-              "@menuPosition": "3195638",
-              "@description": "Simply Baked Chicken",
-              "@shortName": "Simply Baked Chicken",
-              "@servingSize": "85.00",
-              "@servingSizeUnit": "FHP2",
-              "@alternatedescription": "N/A",
-              "@servingDescription": "3 Oz",
-              "@servingsPerContainer": "50",
-              "@approvedNutrition": "Yes",
-              "@showIngredients": "Yes",
-              "@displayonwebsite": "Yes",
-              "@localItems": "No",
-              "@itemDailyComment": "",
-              "@nutrients": "102.85|    3.50|    0.94|    0.02|   79.90|   80.75|    0.00|    0.00|    0.00|NA|   16.71|    0.00|    5.95|    0.69|    0.00|    0.00",
-              "allergens": {
-                "allergen": [
-                  {
-                    "@id": "Egg",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Fish",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Milk",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Peanut",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Shellfish",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Soy",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Tree Nut",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Wheat",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Tree Nut (Almond)",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Tree Nut (Cashew)",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Tree Nut (Chestnut)",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Tree Nut (Coconut)",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Tree Nut (Hazelnut)",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Tree Nut (Macadamia Nut)",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Tree Nut (Pecan)",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Tree Nut (Pine Nut)",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Tree Nut (Pistachio)",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Tree Nut (Walnut)",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Sesame",
-                    "#text": "No"
-                  }
-                ]
-              },
-              "dietaryChoices": {
-                "dietaryChoice": [
-                  {
-                    "@id": "Vegetarian",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Vegan",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Organic",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Gluten Free",
-                    "#text": "Yes"
-                  },
-                  {
-                    "@id": "Halal",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Kosher",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Contains Beef",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Contains Lamb",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Contains Poultry",
-                    "#text": "Yes"
-                  },
-                  {
-                    "@id": "Contains Pork",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Mindful Mondays",
-                    "#text": "No"
-                  }
-                ]
-              },
-              "sustainability": {
-                "dietaryChoice": [
-                  {
-                    "@id": "Local",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Sustainable",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Humanely Raised",
-                    "#text": "No"
-                  }
-                ]
-              },
-              "ingredients": {
-                "#cdata-section": "Chicken Skinless Thigh;"
-              }
-            },
-            {
-              "@id": "4397231",
-              "@category": "Mainline",
-              "@menuPosition": "3195645",
-              "@description": "Peruvian Lomo Saltado",
-              "@shortName": "Peruvian Lomo Saltado",
-              "@servingSize": "85.00",
-              "@servingSizeUnit": "FHP2",
-              "@alternatedescription": "N/A",
-              "@servingDescription": "3 Oz",
-              "@servingsPerContainer": "50",
-              "@approvedNutrition": "Yes",
-              "@showIngredients": "Yes",
-              "@displayonwebsite": "Yes",
-              "@localItems": "No",
-              "@itemDailyComment": "",
-              "@nutrients": "101.67|    9.84|    1.76|    0.02|   24.32|  124.34|    7.47|    0.96|    0.80|NA|    6.05|    3.23|   12.41|    0.79|   22.36|    0.00",
-              "allergens": {
-                "allergen": [
-                  {
-                    "@id": "Egg",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Fish",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Milk",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Peanut",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Shellfish",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Soy",
-                    "#text": "Yes"
-                  },
-                  {
-                    "@id": "Tree Nut",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Wheat",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Tree Nut (Almond)",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Tree Nut (Cashew)",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Tree Nut (Chestnut)",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Tree Nut (Coconut)",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Tree Nut (Hazelnut)",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Tree Nut (Macadamia Nut)",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Tree Nut (Pecan)",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Tree Nut (Pine Nut)",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Tree Nut (Pistachio)",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Tree Nut (Walnut)",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Sesame",
-                    "#text": "No"
-                  }
-                ]
-              },
-              "dietaryChoices": {
-                "dietaryChoice": [
-                  {
-                    "@id": "Vegetarian",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Vegan",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Organic",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Gluten Free",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Halal",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Kosher",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Contains Beef",
-                    "#text": "Yes"
-                  },
-                  {
-                    "@id": "Contains Lamb",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Contains Poultry",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Contains Pork",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Mindful Mondays",
-                    "#text": "No"
-                  }
-                ]
-              },
-              "sustainability": {
-                "dietaryChoice": [
-                  {
-                    "@id": "Local",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Sustainable",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Humanely Raised",
-                    "#text": "No"
-                  }
-                ]
-              },
-              "ingredients": {
-                "#cdata-section": "Beef;Fries (Potatoes, Vegetable Oil (Contains One Or More Of The Following Oils: Canola, Soybean, Cottonseed, Sunflower, Corn). Contains 2% or less of Dextrose, Sodium Acid Pyrophosphate Added To Maintain Natural Color.);Tomatoes;White Onion;Canola Oil;Water;Dried Aji amarillo chiles, silicon dioxide (anti-caking agent);Soy Sauce (Water, Whole Soybeans (OCIA certified), Salt, Alcohol (to preserve freshness).;Black Pepper;Parsley;Kosher Salt;White Distilled Vinegar (diluted with water to 5% acidity);Beef Base (Roasted Beef And Natural Juices, Maltodextrin, Salt, Cane Sugar, Beef Stock, Beef Fat, Yeast Extract, Potato Starch, Celery Concentrate, Dried Garlic, Dried Onion, Caramel Color, Natural Flavor. Organic);Vegetables and Vegetable Juice Concentrate (Carrots, Celery, Onion, Tomato) Salt, Soy Sauce (Water, Soybeans, Salt, Alcohol), Cane Sugar, Maltodextrin, Yeast Extract, Potato Starch, Onion Powder, Garlic Powder, Spice,;"
-              }
-            },
-            {
-              "@id": "3363911",
-              "@category": "Mainline",
-              "@menuPosition": "3195652",
-              "@description": "OLD Peruvian Inspired Potato and White Bean Causa Bake",
-              "@shortName": "OLD Peruvian Inspired Potato and White Bean Causa Bake",
-              "@servingSize": "170.00",
-              "@servingSizeUnit": "FHP2",
-              "@alternatedescription": "N/A",
-              "@servingDescription": "6 Oz",
-              "@servingsPerContainer": "40",
-              "@approvedNutrition": "Yes",
-              "@showIngredients": "Yes",
-              "@displayonwebsite": "Yes",
-              "@localItems": "No",
-              "@itemDailyComment": "",
-              "@nutrients": "107.88|    3.68|    0.52|NA|NA|  576.59|   16.04|    2.87|    0.79|    0.61|    2.45|   21.92|   20.08|    0.88|   10.43|    0.00",
-              "allergens": {
-                "allergen": [
-                  {
-                    "@id": "Egg",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Fish",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Milk",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Peanut",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Shellfish",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Soy",
-                    "#text": "Yes"
-                  },
-                  {
-                    "@id": "Tree Nut",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Wheat",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Tree Nut (Almond)",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Tree Nut (Cashew)",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Tree Nut (Chestnut)",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Tree Nut (Coconut)",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Tree Nut (Hazelnut)",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Tree Nut (Macadamia Nut)",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Tree Nut (Pecan)",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Tree Nut (Pine Nut)",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Tree Nut (Pistachio)",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Tree Nut (Walnut)",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Sesame",
-                    "#text": "No"
-                  }
-                ]
-              },
-              "dietaryChoices": {
-                "dietaryChoice": [
-                  {
-                    "@id": "Vegetarian",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Vegan",
-                    "#text": "Yes"
-                  },
-                  {
-                    "@id": "Organic",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Gluten Free",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Halal",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Kosher",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Contains Beef",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Contains Lamb",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Contains Poultry",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Contains Pork",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Mindful Mondays",
-                    "#text": "No"
-                  }
-                ]
-              },
-              "sustainability": {
-                "dietaryChoice": [
-                  {
-                    "@id": "Local",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Sustainable",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Humanely Raised",
-                    "#text": "No"
-                  }
-                ]
-              },
-              "ingredients": {
-                "#cdata-section": "Water;Yukon Gold Potato;Prepared Small White Beans, Water, Salt, Calcium Chloride and Disodium EDTA for color retention.;Avocado;Red Bell Pepper;Red Onion;Hydrolyzed Soy Protein, Onions, Salt, Sugar, Corn Starch, Carrots, Celery, Carrot Powder, Onion Powder, Maltodextrin, Carrot Juice Concentrate, Soybean Oil, Disodium Inosinate, Disodium Guanylate, Water, Natural Flavor.;Cilantro;Lime Juice (Lime Juice From Concentrate (Water, Concentrated Lime Juice), Sodium Benzoate (Preservative), Lime Oil, Sodium Metabisulfite (Preservative).);Extra Virgin Olive Oil;Garlic;Kosher Salt;Black Pepper;Aji Amarillo Peppers, Water, Salt, Citric Acid;"
-              }
-            },
-            {
-              "@id": "4487037",
-              "@category": "Mainline",
-              "@menuPosition": "3195657",
-              "@description": "Roasted Vegetables",
-              "@shortName": "Roasted Vegetables",
-              "@servingSize": "56.50",
-              "@servingSizeUnit": "SERV",
-              "@alternatedescription": "N/A",
-              "@servingDescription": "3 SERV",
-              "@servingsPerContainer": "1",
-              "@approvedNutrition": "Yes",
-              "@showIngredients": "Yes",
-              "@displayonwebsite": "Yes",
-              "@localItems": "No",
-              "@itemDailyComment": "",
-              "@nutrients": "131.20|    9.45|    0.76|    0.04|    0.00|  148.02|   11.61|    2.73|    4.78|NA|    1.72|   14.39|   42.17|    0.65|  142.59|    0.00",
-              "allergens": {
-                "allergen": [
-                  {
-                    "@id": "Egg",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Fish",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Milk",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Peanut",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Shellfish",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Soy",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Tree Nut",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Wheat",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Tree Nut (Almond)",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Tree Nut (Cashew)",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Tree Nut (Chestnut)",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Tree Nut (Coconut)",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Tree Nut (Hazelnut)",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Tree Nut (Macadamia Nut)",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Tree Nut (Pecan)",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Tree Nut (Pine Nut)",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Tree Nut (Pistachio)",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Tree Nut (Walnut)",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Sesame",
-                    "#text": "No"
-                  }
-                ]
-              },
-              "dietaryChoices": {
-                "dietaryChoice": [
-                  {
-                    "@id": "Vegetarian",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Vegan",
-                    "#text": "Yes"
-                  },
-                  {
-                    "@id": "Organic",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Gluten Free",
-                    "#text": "Yes"
-                  },
-                  {
-                    "@id": "Halal",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Kosher",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Contains Beef",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Contains Lamb",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Contains Poultry",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Contains Pork",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Mindful Mondays",
-                    "#text": "No"
-                  }
-                ]
-              },
-              "sustainability": {
-                "dietaryChoice": [
-                  {
-                    "@id": "Local",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Sustainable",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Humanely Raised",
-                    "#text": "No"
-                  }
-                ]
-              },
-              "ingredients": {
-                "#cdata-section": "Carrot, Red Onion, Yellow Squash, Canola Oil, Garlic, Ginger, Clove, Ground Allspice, Kosher Salt, Black Pepper, Chives"
-              }
-            },
-            {
-              "@id": "5247237",
-              "@category": "Mainline",
-              "@menuPosition": "3195666",
-              "@description": "Yucca Fries",
-              "@shortName": "Yucca Fries",
-              "@servingSize": "85.00",
-              "@servingSizeUnit": "FHP2",
-              "@alternatedescription": "N/A",
-              "@servingDescription": "3 Oz",
-              "@servingsPerContainer": "50",
-              "@approvedNutrition": "Yes",
-              "@showIngredients": "Yes",
-              "@displayonwebsite": "Yes",
-              "@localItems": "No",
-              "@itemDailyComment": "",
-              "@nutrients": "86.73|    0.43|    0.00|    0.00|    0.00|  277.55|   20.82|    0.87|    0.00|NA|    0.00|    0.00|   17.35|    1.56|    0.00|    0.00",
-              "allergens": {
-                "allergen": [
-                  {
-                    "@id": "Egg",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Fish",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Milk",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Peanut",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Shellfish",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Soy",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Tree Nut",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Wheat",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Tree Nut (Almond)",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Tree Nut (Cashew)",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Tree Nut (Chestnut)",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Tree Nut (Coconut)",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Tree Nut (Hazelnut)",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Tree Nut (Macadamia Nut)",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Tree Nut (Pecan)",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Tree Nut (Pine Nut)",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Tree Nut (Pistachio)",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Tree Nut (Walnut)",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Sesame",
-                    "#text": "No"
-                  }
-                ]
-              },
-              "dietaryChoices": {
-                "dietaryChoice": [
-                  {
-                    "@id": "Vegetarian",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Vegan",
-                    "#text": "Yes"
-                  },
-                  {
-                    "@id": "Organic",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Gluten Free",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Halal",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Kosher",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Contains Beef",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Contains Lamb",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Contains Poultry",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Contains Pork",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Mindful Mondays",
-                    "#text": "No"
-                  }
-                ]
-              },
-              "sustainability": {
-                "dietaryChoice": [
-                  {
-                    "@id": "Local",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Sustainable",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Humanely Raised",
-                    "#text": "No"
-                  }
-                ]
-              },
-              "ingredients": {
-                "#cdata-section": "Cassava, Salt.;"
-              }
-            },
-            {
-              "@id": "6116831",
-              "@category": "Mainline",
-              "@menuPosition": "3195670",
-              "@description": "Chimichurri Sauce",
-              "@shortName": "Chimichurri Sauce",
-              "@servingSize": "36.20",
-              "@servingSizeUnit": "CUP",
-              "@alternatedescription": "N/A",
-              "@servingDescription": "2 FO",
-              "@servingsPerContainer": "52",
-              "@approvedNutrition": "Yes",
-              "@showIngredients": "Yes",
-              "@displayonwebsite": "Yes",
-              "@localItems": "No",
-              "@itemDailyComment": "",
-              "@nutrients": "31.14|    2.84|    0.44|NA|NA|   79.02|    1.01|    0.38|    0.18|NA|    0.36|   12.30|   14.75|    0.60|   11.42|    0.00",
-              "allergens": {
-                "allergen": [
-                  {
-                    "@id": "Egg",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Fish",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Milk",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Peanut",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Shellfish",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Soy",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Tree Nut",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Wheat",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Tree Nut (Almond)",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Tree Nut (Cashew)",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Tree Nut (Chestnut)",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Tree Nut (Coconut)",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Tree Nut (Hazelnut)",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Tree Nut (Macadamia Nut)",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Tree Nut (Pecan)",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Tree Nut (Pine Nut)",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Tree Nut (Pistachio)",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Tree Nut (Walnut)",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Sesame",
-                    "#text": "No"
-                  }
-                ]
-              },
-              "dietaryChoices": {
-                "dietaryChoice": [
-                  {
-                    "@id": "Vegetarian",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Vegan",
-                    "#text": "Yes"
-                  },
-                  {
-                    "@id": "Organic",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Gluten Free",
-                    "#text": "Yes"
-                  },
-                  {
-                    "@id": "Halal",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Kosher",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Contains Beef",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Contains Lamb",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Contains Poultry",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Contains Pork",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Mindful Mondays",
-                    "#text": "No"
-                  }
-                ]
-              },
-              "sustainability": {
-                "dietaryChoice": [
-                  {
-                    "@id": "Local",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Sustainable",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Humanely Raised",
-                    "#text": "No"
-                  }
-                ]
-              },
-              "ingredients": {
-                "#cdata-section": "Rice Bran Oil, Extra Virgin Olive Oil, Avocado Oil, Grapeseed Oil, Parsley, Cilantro, Red Wine Vinegar, Water, Potassium Metabisulfite, Shallots, Garlic, Lemon Juice, Kosher Salt, Crushed Red Pepper"
-              }
-            }
-          ]
-        }
-      },
-      {
-        "@id": "1626",
-        "@name": "Oldenborg FALL 2025 Week 3 NOV 10-14th",
-        "@servedate": "20251113",
-        "@location": "Oldenborg Dining",
-        "@mealperiodname": "Lunch",
-        "@menubulletin": "",
-        "nutrients": "Calories (kcal)~CAL|Total Lipid/Fat (g)~TL|Saturated fatty acid (g)~FAS|Trans Fat (g)~TRF|Cholesterol (mg)~CHO|Sodium (mg)~Na|Carbohydrate (g)~CRB|Total Dietary Fiber (g)~FIB|Total Sugars (g)~SUG|Added Sugar (g)~SugA|Protein (g)~PRO|Vitamin C (mg)~vC|Calcium (mg)~CA|Iron (mg)~Fe|Vitamin A (mcg RAE)~(rae)|Phosphorus (mg)~PHO|Potassium (mg)~K|Vitamin D(iu)~VITD",
-        "recipes": {
-          "recipe": [
-            {
-              "@id": "4844268",
-              "@category": "Pizza",
-              "@menuPosition": "3195684",
-              "@description": "Pepperoni Pizza",
-              "@shortName": "Pepperoni Pizza",
-              "@servingSize": "117.00",
-              "@servingSizeUnit": "PIZ",
-              "@alternatedescription": "N/A",
-              "@servingDescription": "1 Slice",
-              "@servingsPerContainer": "10",
-              "@approvedNutrition": "Yes",
-              "@showIngredients": "Yes",
-              "@displayonwebsite": "Yes",
-              "@localItems": "No",
-              "@itemDailyComment": "",
-              "@nutrients": "252.57|   10.19|    4.28|    0.00|   27.71|  761.15|   28.63|    1.86|    2.24|NA|   12.16|    1.79|  206.57|    1.88|    0.00|    0.00",
-              "allergens": {
-                "allergen": [
-                  {
-                    "@id": "Egg",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Fish",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Milk",
-                    "#text": "Yes"
-                  },
-                  {
-                    "@id": "Peanut",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Shellfish",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Soy",
-                    "#text": "Yes"
-                  },
-                  {
-                    "@id": "Tree Nut",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Wheat",
-                    "#text": "Yes"
-                  },
-                  {
-                    "@id": "Tree Nut (Almond)",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Tree Nut (Cashew)",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Tree Nut (Chestnut)",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Tree Nut (Coconut)",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Tree Nut (Hazelnut)",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Tree Nut (Macadamia Nut)",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Tree Nut (Pecan)",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Tree Nut (Pine Nut)",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Tree Nut (Pistachio)",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Tree Nut (Walnut)",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Sesame",
-                    "#text": "No"
-                  }
-                ]
-              },
-              "dietaryChoices": {
-                "dietaryChoice": [
-                  {
-                    "@id": "Vegetarian",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Vegan",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Organic",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Gluten Free",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Halal",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Kosher",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Contains Beef",
-                    "#text": "Yes"
-                  },
-                  {
-                    "@id": "Contains Lamb",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Contains Poultry",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Contains Pork",
-                    "#text": "Yes"
-                  },
-                  {
-                    "@id": "Mindful Mondays",
-                    "#text": "No"
-                  }
-                ]
-              },
-              "sustainability": {
-                "dietaryChoice": [
-                  {
-                    "@id": "Local",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Sustainable",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Humanely Raised",
-                    "#text": "No"
-                  }
-                ]
-              },
-              "ingredients": {
-                "#cdata-section": "Pizza Dough (Enriched Unbleached Wheat Flour, Water, Yeast, High Fructose Corn Syrup, Salt, Soybean Oil, Wheat Gluten, Ascorbic Acid, Enzyme), Low Moisture Part Skim Mozzarella Cheese (Cultured Pasteurized Part Skim Milk, Skim Milk, Salt, Enzymes, Powdered Cellulose Added To Prevent Caking, Natamycin Preservative), Tomato Puree (Water, Tomato Paste), Less Than 2% Of: Salt, Extra Virgin Olive Oil, Dried Onions, Garlic, Spices, Citric Acid, Pork, Beef, Salt, Contains 2% Or Less Of Water, Spice, Seasoning (Cane Sugar, Celery Juice Powder), Seasoning (Extractives Of Paprika, Natural Spice Extractives), Lactic Acid Starter Culture, Mustard Present. No Nitrites Or Nitrates Added Except For Those Naturally Occurring In Natural Flavoring"
-              }
-            },
-            {
-              "@id": "4571942",
-              "@category": "Pizza",
-              "@menuPosition": "3195688",
-              "@description": "Vegetable Pizza",
-              "@shortName": "Vegetable Pizza",
-              "@servingSize": "103.00",
-              "@servingSizeUnit": "PIZ",
-              "@alternatedescription": "N/A",
-              "@servingDescription": "1 Slice",
-              "@servingsPerContainer": "10",
-              "@approvedNutrition": "Yes",
-              "@showIngredients": "Yes",
-              "@displayonwebsite": "Yes",
-              "@localItems": "No",
-              "@itemDailyComment": "",
-              "@nutrients": "176.83|    7.21|    2.40|NA|   13.82|  697.96|   21.13|    1.55|    2.09|NA|    7.87|   20.06|  145.62|    1.37|   36.43|    0.00",
-              "allergens": {
-                "allergen": [
-                  {
-                    "@id": "Egg",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Fish",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Milk",
-                    "#text": "Yes"
-                  },
-                  {
-                    "@id": "Peanut",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Shellfish",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Soy",
-                    "#text": "Yes"
-                  },
-                  {
-                    "@id": "Tree Nut",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Wheat",
-                    "#text": "Yes"
-                  },
-                  {
-                    "@id": "Tree Nut (Almond)",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Tree Nut (Cashew)",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Tree Nut (Chestnut)",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Tree Nut (Coconut)",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Tree Nut (Hazelnut)",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Tree Nut (Macadamia Nut)",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Tree Nut (Pecan)",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Tree Nut (Pine Nut)",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Tree Nut (Pistachio)",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Tree Nut (Walnut)",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Sesame",
-                    "#text": "No"
-                  }
-                ]
-              },
-              "dietaryChoices": {
-                "dietaryChoice": [
-                  {
-                    "@id": "Vegetarian",
-                    "#text": "Yes"
-                  },
-                  {
-                    "@id": "Vegan",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Organic",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Gluten Free",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Halal",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Kosher",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Contains Beef",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Contains Lamb",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Contains Poultry",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Contains Pork",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Mindful Mondays",
-                    "#text": "No"
-                  }
-                ]
-              },
-              "sustainability": {
-                "dietaryChoice": [
-                  {
-                    "@id": "Local",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Sustainable",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Humanely Raised",
-                    "#text": "No"
-                  }
-                ]
-              },
-              "ingredients": {
-                "#cdata-section": "Pizza Dough (Enriched Unbleached Wheat Flour, Water, Yeast, High Fructose Corn Syrup, Salt, Soybean Oil, Wheat Gluten, Ascorbic Acid, Enzyme), Low Moisture Part Skim Mozzarella Cheese (Cultured Pasteurized Part Skim Milk, Skim Milk, Salt, Enzymes, Powdered Cellulose Added To Prevent Caking, Natamycin Preservative), Tomato Puree (Water, Tomato Paste), Less Than 2% Of: Salt, Extra Virgin Olive Oil, Dried Onions, Garlic, Spices, Citric Acid., Red Onion, Red Bell Pepper, Broccoli, Cauliflower, Green Bell Pepper, Extra Virgin Olive Oil, Kosher Salt, Basil"
-              }
-            }
-          ]
-        }
-      },
-      {
-        "@id": "1626",
-        "@name": "Oldenborg FALL 2025 Week 3 NOV 10-14th",
-        "@servedate": "20251113",
-        "@location": "Oldenborg Dining",
-        "@mealperiodname": "Lunch",
-        "@menubulletin": "",
-        "nutrients": "Calories (kcal)~CAL|Total Lipid/Fat (g)~TL|Saturated fatty acid (g)~FAS|Trans Fat (g)~TRF|Cholesterol (mg)~CHO|Sodium (mg)~Na|Carbohydrate (g)~CRB|Total Dietary Fiber (g)~FIB|Total Sugars (g)~SUG|Added Sugar (g)~SugA|Protein (g)~PRO|Vitamin C (mg)~vC|Calcium (mg)~CA|Iron (mg)~Fe|Vitamin A (mcg RAE)~(rae)|Phosphorus (mg)~PHO|Potassium (mg)~K|Vitamin D(iu)~VITD",
-        "recipes": {
-          "recipe": {
-            "@id": "5471736",
-            "@category": "Soup Station",
-            "@menuPosition": "3195708",
-            "@description": "Aguadito de Pollo (Peruvian Chicken Soup)",
-            "@shortName": "Aguadito de Pollo (Peruvian Chicken Soup)",
-            "@servingSize": "240.00",
-            "@servingSizeUnit": "GAL",
-            "@alternatedescription": "N/A",
-            "@servingDescription": "1 Cup",
-            "@servingsPerContainer": "16",
-            "@approvedNutrition": "Yes",
-            "@showIngredients": "Yes",
-            "@displayonwebsite": "Yes",
-            "@localItems": "No",
-            "@itemDailyComment": "",
-            "@nutrients": "132.55|    3.70|    0.41|    0.01|   26.82|  680.03|   14.96|    1.32|    1.84|NA|   10.20|   27.89|   26.44|    0.90|   67.78|    0.00",
-            "allergens": {
-              "allergen": [
-                {
-                  "@id": "Egg",
-                  "#text": "No"
-                },
-                {
-                  "@id": "Fish",
-                  "#text": "No"
-                },
-                {
-                  "@id": "Milk",
-                  "#text": "No"
-                },
-                {
-                  "@id": "Peanut",
-                  "#text": "No"
-                },
-                {
-                  "@id": "Shellfish",
-                  "#text": "No"
-                },
-                {
-                  "@id": "Soy",
-                  "#text": "No"
-                },
-                {
-                  "@id": "Tree Nut",
-                  "#text": "No"
-                },
-                {
-                  "@id": "Wheat",
-                  "#text": "No"
-                },
-                {
-                  "@id": "Tree Nut (Almond)",
-                  "#text": "No"
-                },
-                {
-                  "@id": "Tree Nut (Cashew)",
-                  "#text": "No"
-                },
-                {
-                  "@id": "Tree Nut (Chestnut)",
-                  "#text": "No"
-                },
-                {
-                  "@id": "Tree Nut (Coconut)",
-                  "#text": "No"
-                },
-                {
-                  "@id": "Tree Nut (Hazelnut)",
-                  "#text": "No"
-                },
-                {
-                  "@id": "Tree Nut (Macadamia Nut)",
-                  "#text": "No"
-                },
-                {
-                  "@id": "Tree Nut (Pecan)",
-                  "#text": "No"
-                },
-                {
-                  "@id": "Tree Nut (Pine Nut)",
-                  "#text": "No"
-                },
-                {
-                  "@id": "Tree Nut (Pistachio)",
-                  "#text": "No"
-                },
-                {
-                  "@id": "Tree Nut (Walnut)",
-                  "#text": "No"
-                },
-                {
-                  "@id": "Sesame",
-                  "#text": "No"
-                }
-              ]
-            },
-            "dietaryChoices": {
-              "dietaryChoice": [
-                {
-                  "@id": "Vegetarian",
-                  "#text": "No"
-                },
-                {
-                  "@id": "Vegan",
-                  "#text": "No"
-                },
-                {
-                  "@id": "Organic",
-                  "#text": "No"
-                },
-                {
-                  "@id": "Gluten Free",
-                  "#text": "No"
-                },
-                {
-                  "@id": "Halal",
-                  "#text": "No"
-                },
-                {
-                  "@id": "Kosher",
-                  "#text": "No"
-                },
-                {
-                  "@id": "Contains Beef",
-                  "#text": "No"
-                },
-                {
-                  "@id": "Contains Lamb",
-                  "#text": "No"
-                },
-                {
-                  "@id": "Contains Poultry",
-                  "#text": "Yes"
-                },
-                {
-                  "@id": "Contains Pork",
-                  "#text": "No"
-                },
-                {
-                  "@id": "Mindful Mondays",
-                  "#text": "No"
-                }
-              ]
-            },
-            "sustainability": {
-              "dietaryChoice": [
-                {
-                  "@id": "Local",
-                  "#text": "No"
-                },
-                {
-                  "@id": "Sustainable",
-                  "#text": "No"
-                },
-                {
-                  "@id": "Humanely Raised",
-                  "#text": "No"
-                }
-              ]
-            },
-            "ingredients": {
-              "#cdata-section": "Water;Chicken;Yukon Gold Potato;White Onion;Cilantro;White Basmati Rice;Carrot;Poblano Chili Pepper;Garlic;Lime;Chicken Meat Including Natural Juices, Salt, Cane Sugar, Maltodextrin, Flavoring, Yeast Extract, Potato Starch, Turmeric, Natural Flavor;Peas;Canola Oil;Apple Cider Vinegar (diluted with water to 5% acidity).;Kosher Salt;Extra Virgin Olive Oil;Lemon Juice;Ginger;Jalapeno;Black Pepper;Cumin;"
-            }
-          }
-        }
-      },
-      {
-        "@id": "1626",
-        "@name": "Oldenborg FALL 2025 Week 3 NOV 10-14th",
-        "@servedate": "20251113",
-        "@location": "Oldenborg Dining",
-        "@mealperiodname": "Lunch",
-        "@menubulletin": "",
-        "nutrients": "Calories (kcal)~CAL|Total Lipid/Fat (g)~TL|Saturated fatty acid (g)~FAS|Trans Fat (g)~TRF|Cholesterol (mg)~CHO|Sodium (mg)~Na|Carbohydrate (g)~CRB|Total Dietary Fiber (g)~FIB|Total Sugars (g)~SUG|Added Sugar (g)~SugA|Protein (g)~PRO|Vitamin C (mg)~vC|Calcium (mg)~CA|Iron (mg)~Fe|Vitamin A (mcg RAE)~(rae)|Phosphorus (mg)~PHO|Potassium (mg)~K|Vitamin D(iu)~VITD",
-        "recipes": {
-          "recipe": {
-            "@id": "5268477",
-            "@category": "Salad Bar",
-            "@menuPosition": "3195727",
-            "@description": "Tomato and Cucumber Salad",
-            "@shortName": "Tomato and Cucumber Salad",
-            "@servingSize": "85.00",
-            "@servingSizeUnit": "FHP2",
-            "@alternatedescription": "N/A",
-            "@servingDescription": "3 Oz",
-            "@servingsPerContainer": "64",
-            "@approvedNutrition": "Yes",
-            "@showIngredients": "Yes",
-            "@displayonwebsite": "Yes",
-            "@localItems": "No",
-            "@itemDailyComment": "",
-            "@nutrients": "23.52|    1.10|    0.17|NA|    0.00|  103.62|    3.21|    0.79|    1.68|NA|    0.64|    9.28|   15.03|    0.29|    0.00|    0.00",
-            "allergens": {
-              "allergen": [
-                {
-                  "@id": "Egg",
-                  "#text": "No"
-                },
-                {
-                  "@id": "Fish",
-                  "#text": "No"
-                },
-                {
-                  "@id": "Milk",
-                  "#text": "No"
-                },
-                {
-                  "@id": "Peanut",
-                  "#text": "No"
-                },
-                {
-                  "@id": "Shellfish",
-                  "#text": "No"
-                },
-                {
-                  "@id": "Soy",
-                  "#text": "No"
-                },
-                {
-                  "@id": "Tree Nut",
-                  "#text": "No"
-                },
-                {
-                  "@id": "Wheat",
-                  "#text": "No"
-                },
-                {
-                  "@id": "Tree Nut (Almond)",
-                  "#text": "No"
-                },
-                {
-                  "@id": "Tree Nut (Cashew)",
-                  "#text": "No"
-                },
-                {
-                  "@id": "Tree Nut (Chestnut)",
-                  "#text": "No"
-                },
-                {
-                  "@id": "Tree Nut (Coconut)",
-                  "#text": "No"
-                },
-                {
-                  "@id": "Tree Nut (Hazelnut)",
-                  "#text": "No"
-                },
-                {
-                  "@id": "Tree Nut (Macadamia Nut)",
-                  "#text": "No"
-                },
-                {
-                  "@id": "Tree Nut (Pecan)",
-                  "#text": "No"
-                },
-                {
-                  "@id": "Tree Nut (Pine Nut)",
-                  "#text": "No"
-                },
-                {
-                  "@id": "Tree Nut (Pistachio)",
-                  "#text": "No"
-                },
-                {
-                  "@id": "Tree Nut (Walnut)",
-                  "#text": "No"
-                },
-                {
-                  "@id": "Sesame",
-                  "#text": "No"
-                }
-              ]
-            },
-            "dietaryChoices": {
-              "dietaryChoice": [
-                {
-                  "@id": "Vegetarian",
-                  "#text": "No"
-                },
-                {
-                  "@id": "Vegan",
-                  "#text": "Yes"
-                },
-                {
-                  "@id": "Organic",
-                  "#text": "No"
-                },
-                {
-                  "@id": "Gluten Free",
-                  "#text": "Yes"
-                },
-                {
-                  "@id": "Halal",
-                  "#text": "No"
-                },
-                {
-                  "@id": "Kosher",
-                  "#text": "No"
-                },
-                {
-                  "@id": "Contains Beef",
-                  "#text": "No"
-                },
-                {
-                  "@id": "Contains Lamb",
-                  "#text": "No"
-                },
-                {
-                  "@id": "Contains Poultry",
-                  "#text": "No"
-                },
-                {
-                  "@id": "Contains Pork",
-                  "#text": "No"
-                },
-                {
-                  "@id": "Mindful Mondays",
-                  "#text": "No"
-                }
-              ]
-            },
-            "sustainability": {
-              "dietaryChoice": [
-                {
-                  "@id": "Local",
-                  "#text": "No"
-                },
-                {
-                  "@id": "Sustainable",
-                  "#text": "No"
-                },
-                {
-                  "@id": "Humanely Raised",
-                  "#text": "No"
-                }
-              ]
-            },
-            "ingredients": {
-              "#cdata-section": "Cucumber, Tomato, Red Onion, Rice Bran Oil, Extra Virgin Olive Oil, Avocado Oil, Grapeseed Oil, Lemon Juice, Basil, Parsley, Kosher Salt, Black Pepper"
-            }
-          }
-        }
-      },
-      {
-        "@id": "1626",
-        "@name": "Oldenborg FALL 2025 Week 3 NOV 10-14th",
-        "@servedate": "20251113",
-        "@location": "Oldenborg Dining",
-        "@mealperiodname": "Lunch",
-        "@menubulletin": "",
-        "nutrients": "Calories (kcal)~CAL|Total Lipid/Fat (g)~TL|Saturated fatty acid (g)~FAS|Trans Fat (g)~TRF|Cholesterol (mg)~CHO|Sodium (mg)~Na|Carbohydrate (g)~CRB|Total Dietary Fiber (g)~FIB|Total Sugars (g)~SUG|Added Sugar (g)~SugA|Protein (g)~PRO|Vitamin C (mg)~vC|Calcium (mg)~CA|Iron (mg)~Fe|Vitamin A (mcg RAE)~(rae)|Phosphorus (mg)~PHO|Potassium (mg)~K|Vitamin D(iu)~VITD",
-        "recipes": {
-          "recipe": [
-            {
-              "@id": "3092776",
-              "@category": "Panini Station",
-              "@menuPosition": "3195739",
-              "@description": "Today`s Smoothie",
-              "@shortName": "TODAY`S SMOOTHIE",
-              "@servingSize": "1.00",
-              "@servingSizeUnit": "EA",
-              "@alternatedescription": "N/A",
-              "@servingDescription": "1 EA",
-              "@servingsPerContainer": "1",
-              "@approvedNutrition": "No",
-              "@showIngredients": "No",
-              "@displayonwebsite": "Yes",
-              "@localItems": "No",
-              "@itemDailyComment": "",
-              "allergens": {
-                "allergen": [
-                  {
-                    "@id": "Egg",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Fish",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Milk",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Peanut",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Shellfish",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Soy",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Tree Nut",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Wheat",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Tree Nut (Almond)",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Tree Nut (Cashew)",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Tree Nut (Chestnut)",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Tree Nut (Coconut)",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Tree Nut (Hazelnut)",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Tree Nut (Macadamia Nut)",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Tree Nut (Pecan)",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Tree Nut (Pine Nut)",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Tree Nut (Pistachio)",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Tree Nut (Walnut)",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Sesame",
-                    "#text": "No"
-                  }
-                ]
-              },
-              "dietaryChoices": {
-                "dietaryChoice": [
-                  {
-                    "@id": "Vegetarian",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Vegan",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Organic",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Gluten Free",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Halal",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Kosher",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Contains Beef",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Contains Lamb",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Contains Poultry",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Contains Pork",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Mindful Mondays",
-                    "#text": "No"
-                  }
-                ]
-              },
-              "sustainability": {
-                "dietaryChoice": [
-                  {
-                    "@id": "Local",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Sustainable",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Humanely Raised",
-                    "#text": "No"
-                  }
-                ]
-              },
-              "ingredients": {
-                "#cdata-section": ""
-              }
-            },
-            {
-              "@id": "4282712",
-              "@category": "Panini Station",
-              "@menuPosition": "3195746",
-              "@description": "Fresh Cut Fruit",
-              "@shortName": "Fresh Cut Fruit - Assorted Seasonal Fruits and Melons",
-              "@servingSize": "1.00",
-              "@servingSizeUnit": "EA",
-              "@alternatedescription": "N/A",
-              "@servingDescription": "1 EA",
-              "@servingsPerContainer": "1",
-              "@approvedNutrition": "No",
-              "@showIngredients": "No",
-              "@displayonwebsite": "Yes",
-              "@localItems": "No",
-              "@itemDailyComment": "",
-              "allergens": {
-                "allergen": [
-                  {
-                    "@id": "Egg",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Fish",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Milk",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Peanut",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Shellfish",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Soy",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Tree Nut",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Wheat",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Tree Nut (Almond)",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Tree Nut (Cashew)",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Tree Nut (Chestnut)",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Tree Nut (Coconut)",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Tree Nut (Hazelnut)",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Tree Nut (Macadamia Nut)",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Tree Nut (Pecan)",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Tree Nut (Pine Nut)",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Tree Nut (Pistachio)",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Tree Nut (Walnut)",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Sesame",
-                    "#text": "No"
-                  }
-                ]
-              },
-              "dietaryChoices": {
-                "dietaryChoice": [
-                  {
-                    "@id": "Vegetarian",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Vegan",
-                    "#text": "Yes"
-                  },
-                  {
-                    "@id": "Organic",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Gluten Free",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Halal",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Kosher",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Contains Beef",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Contains Lamb",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Contains Poultry",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Contains Pork",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Mindful Mondays",
-                    "#text": "No"
-                  }
-                ]
-              },
-              "sustainability": {
-                "dietaryChoice": [
-                  {
-                    "@id": "Local",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Sustainable",
-                    "#text": "No"
-                  },
-                  {
-                    "@id": "Humanely Raised",
-                    "#text": "No"
-                  }
-                ]
-              },
-              "ingredients": {
-                "#cdata-section": ""
-              }
-            }
-          ]
-        }
-      },
-      {
-        "@id": "1626",
-        "@name": "Oldenborg FALL 2025 Week 3 NOV 10-14th",
         "@servedate": "20251114",
         "@location": "Oldenborg Dining",
         "@mealperiodname": "Lunch",
@@ -9920,6 +7881,2549 @@
             "@id": "3092776",
             "@category": "Deli Bar",
             "@menuPosition": "3201781",
+            "@description": "Today`s Smoothie",
+            "@shortName": "TODAY`S SMOOTHIE",
+            "@servingSize": "1.00",
+            "@servingSizeUnit": "EA",
+            "@alternatedescription": "N/A",
+            "@servingDescription": "1 EA",
+            "@servingsPerContainer": "1",
+            "@approvedNutrition": "No",
+            "@showIngredients": "No",
+            "@displayonwebsite": "Yes",
+            "@localItems": "No",
+            "@itemDailyComment": "",
+            "allergens": {
+              "allergen": [
+                {
+                  "@id": "Egg",
+                  "#text": "No"
+                },
+                {
+                  "@id": "Fish",
+                  "#text": "No"
+                },
+                {
+                  "@id": "Milk",
+                  "#text": "No"
+                },
+                {
+                  "@id": "Peanut",
+                  "#text": "No"
+                },
+                {
+                  "@id": "Shellfish",
+                  "#text": "No"
+                },
+                {
+                  "@id": "Soy",
+                  "#text": "No"
+                },
+                {
+                  "@id": "Tree Nut",
+                  "#text": "No"
+                },
+                {
+                  "@id": "Wheat",
+                  "#text": "No"
+                },
+                {
+                  "@id": "Tree Nut (Almond)",
+                  "#text": "No"
+                },
+                {
+                  "@id": "Tree Nut (Cashew)",
+                  "#text": "No"
+                },
+                {
+                  "@id": "Tree Nut (Chestnut)",
+                  "#text": "No"
+                },
+                {
+                  "@id": "Tree Nut (Coconut)",
+                  "#text": "No"
+                },
+                {
+                  "@id": "Tree Nut (Hazelnut)",
+                  "#text": "No"
+                },
+                {
+                  "@id": "Tree Nut (Macadamia Nut)",
+                  "#text": "No"
+                },
+                {
+                  "@id": "Tree Nut (Pecan)",
+                  "#text": "No"
+                },
+                {
+                  "@id": "Tree Nut (Pine Nut)",
+                  "#text": "No"
+                },
+                {
+                  "@id": "Tree Nut (Pistachio)",
+                  "#text": "No"
+                },
+                {
+                  "@id": "Tree Nut (Walnut)",
+                  "#text": "No"
+                },
+                {
+                  "@id": "Sesame",
+                  "#text": "No"
+                }
+              ]
+            },
+            "dietaryChoices": {
+              "dietaryChoice": [
+                {
+                  "@id": "Vegetarian",
+                  "#text": "No"
+                },
+                {
+                  "@id": "Vegan",
+                  "#text": "No"
+                },
+                {
+                  "@id": "Organic",
+                  "#text": "No"
+                },
+                {
+                  "@id": "Gluten Free",
+                  "#text": "No"
+                },
+                {
+                  "@id": "Halal",
+                  "#text": "No"
+                },
+                {
+                  "@id": "Kosher",
+                  "#text": "No"
+                },
+                {
+                  "@id": "Contains Beef",
+                  "#text": "No"
+                },
+                {
+                  "@id": "Contains Lamb",
+                  "#text": "No"
+                },
+                {
+                  "@id": "Contains Poultry",
+                  "#text": "No"
+                },
+                {
+                  "@id": "Contains Pork",
+                  "#text": "No"
+                },
+                {
+                  "@id": "Mindful Mondays",
+                  "#text": "No"
+                }
+              ]
+            },
+            "sustainability": {
+              "dietaryChoice": [
+                {
+                  "@id": "Local",
+                  "#text": "No"
+                },
+                {
+                  "@id": "Sustainable",
+                  "#text": "No"
+                },
+                {
+                  "@id": "Humanely Raised",
+                  "#text": "No"
+                }
+              ]
+            },
+            "ingredients": {
+              "#cdata-section": ""
+            }
+          }
+        }
+      },
+      {
+        "@id": "1632",
+        "@name": "Oldenborg FALL 2025 Week 4 NOV 17nd - 21th",
+        "@servedate": "20251120",
+        "@location": "Oldenborg Dining",
+        "@mealperiodname": "Lunch",
+        "@menubulletin": "",
+        "nutrients": "Calories (kcal)~CAL|Total Lipid/Fat (g)~TL|Saturated fatty acid (g)~FAS|Trans Fat (g)~TRF|Cholesterol (mg)~CHO|Sodium (mg)~Na|Carbohydrate (g)~CRB|Total Dietary Fiber (g)~FIB|Total Sugars (g)~SUG|Added Sugar (g)~SugA|Protein (g)~PRO|Vitamin C (mg)~vC|Calcium (mg)~CA|Iron (mg)~Fe|Vitamin A (mcg RAE)~(rae)|Phosphorus (mg)~PHO|Potassium (mg)~K|Vitamin D(iu)~VITD",
+        "recipes": {
+          "recipe": [
+            {
+              "@id": "4654430",
+              "@category": "Mainline",
+              "@menuPosition": "3201682",
+              "@description": "Marinated Beef/Carne Asada",
+              "@shortName": "Carne Asada",
+              "@servingSize": "85.00",
+              "@servingSizeUnit": "FHP2",
+              "@alternatedescription": "N/A",
+              "@servingDescription": "3 oz",
+              "@servingsPerContainer": "55",
+              "@approvedNutrition": "Yes",
+              "@showIngredients": "Yes",
+              "@displayonwebsite": "Yes",
+              "@localItems": "No",
+              "@itemDailyComment": "",
+              "@nutrients": "179.61|   13.77|    6.89|NA|   60.69|  403.21|    0.57|    0.14|    0.02|NA|   12.25|    4.30|    4.39|    3.18|    2.99|    0.00",
+              "allergens": {
+                "allergen": [
+                  {
+                    "@id": "Egg",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Fish",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Milk",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Peanut",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Shellfish",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Soy",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Tree Nut",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Wheat",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Tree Nut (Almond)",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Tree Nut (Cashew)",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Tree Nut (Chestnut)",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Tree Nut (Coconut)",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Tree Nut (Hazelnut)",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Tree Nut (Macadamia Nut)",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Tree Nut (Pecan)",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Tree Nut (Pine Nut)",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Tree Nut (Pistachio)",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Tree Nut (Walnut)",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Sesame",
+                    "#text": "No"
+                  }
+                ]
+              },
+              "dietaryChoices": {
+                "dietaryChoice": [
+                  {
+                    "@id": "Vegetarian",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Vegan",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Organic",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Gluten Free",
+                    "#text": "Yes"
+                  },
+                  {
+                    "@id": "Halal",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Kosher",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Contains Beef",
+                    "#text": "Yes"
+                  },
+                  {
+                    "@id": "Contains Lamb",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Contains Poultry",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Contains Pork",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Mindful Mondays",
+                    "#text": "No"
+                  }
+                ]
+              },
+              "sustainability": {
+                "dietaryChoice": [
+                  {
+                    "@id": "Local",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Sustainable",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Humanely Raised",
+                    "#text": "No"
+                  }
+                ]
+              },
+              "ingredients": {
+                "#cdata-section": "Native Beef Thin Meats, Lifter Meat, Flap Meat, Rice Bran Oil, Extra Virgin Olive Oil, Avocado Oil, Grapeseed Oil, Garlic, Kosher Salt, Black Pepper, Paprika, Chili Pepper, Spices, Salt, Silicon Dioxide (Added To Make Free Flowing), And Garlic, Cumin, Oregano, Garlic"
+              }
+            },
+            {
+              "@id": "3373244",
+              "@category": "Mainline",
+              "@menuPosition": "3201689",
+              "@description": "Adobo Chicken",
+              "@shortName": "Adobo Chicken",
+              "@servingSize": "255.00",
+              "@servingSizeUnit": "FHP2",
+              "@alternatedescription": "N/A",
+              "@servingDescription": "3 oZ",
+              "@servingsPerContainer": "58",
+              "@approvedNutrition": "Yes",
+              "@showIngredients": "Yes",
+              "@displayonwebsite": "Yes",
+              "@localItems": "No",
+              "@itemDailyComment": "",
+              "@nutrients": "766.33|   33.54|    7.27|    0.09|  432.16| 2675.53|   11.95|    2.51|    1.60|NA|   92.07|    6.60|  133.36|    7.49|   69.13|    0.00",
+              "allergens": {
+                "allergen": [
+                  {
+                    "@id": "Egg",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Fish",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Milk",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Peanut",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Shellfish",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Soy",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Tree Nut",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Wheat",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Tree Nut (Almond)",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Tree Nut (Cashew)",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Tree Nut (Chestnut)",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Tree Nut (Coconut)",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Tree Nut (Hazelnut)",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Tree Nut (Macadamia Nut)",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Tree Nut (Pecan)",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Tree Nut (Pine Nut)",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Tree Nut (Pistachio)",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Tree Nut (Walnut)",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Sesame",
+                    "#text": "No"
+                  }
+                ]
+              },
+              "dietaryChoices": {
+                "dietaryChoice": [
+                  {
+                    "@id": "Vegetarian",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Vegan",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Organic",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Gluten Free",
+                    "#text": "Yes"
+                  },
+                  {
+                    "@id": "Halal",
+                    "#text": "Yes"
+                  },
+                  {
+                    "@id": "Kosher",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Contains Beef",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Contains Lamb",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Contains Poultry",
+                    "#text": "Yes"
+                  },
+                  {
+                    "@id": "Contains Pork",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Mindful Mondays",
+                    "#text": "No"
+                  }
+                ]
+              },
+              "sustainability": {
+                "dietaryChoice": [
+                  {
+                    "@id": "Local",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Sustainable",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Humanely Raised",
+                    "#text": "No"
+                  }
+                ]
+              },
+              "ingredients": {
+                "#cdata-section": "Chicken Skinless Thigh, Rice Bran Oil, Extra Virgin Olive Oil, Avocado Oil, Grapeseed Oil, Wine, Salt, Contains 1% Or Less Of Each Of The Following: Malic Acid, Potassium Metabisulfite (Preservative), Garlic, Kosher Salt, Water, Tomato Paste, Dried Chipotle Peppers, Distilled Vinegar, Corn Oil, Contains 2% Or Less Of: Iodized Salt, Corn Starch, Onion Powder, Garlic Powder, Spices, Black Pepper, Thyme Leaves, Cumin, Dried Oregano, Paprika,"
+              }
+            },
+            {
+              "@id": "4985451",
+              "@category": "Mainline",
+              "@menuPosition": "3201696",
+              "@description": "Refried Beans",
+              "@shortName": "Refried Beans",
+              "@servingSize": "85.00",
+              "@servingSizeUnit": "FHP2",
+              "@alternatedescription": "N/A",
+              "@servingDescription": "3 oz",
+              "@servingsPerContainer": "64",
+              "@approvedNutrition": "Yes",
+              "@showIngredients": "Yes",
+              "@displayonwebsite": "Yes",
+              "@localItems": "No",
+              "@itemDailyComment": "",
+              "@nutrients": "124.52|    0.03|    0.01|NA|    0.00|  180.75|   44.50|   27.41|    2.50|NA|   13.81|    2.12|   84.18|    5.32|    6.98|    0.00",
+              "allergens": {
+                "allergen": [
+                  {
+                    "@id": "Egg",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Fish",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Milk",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Peanut",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Shellfish",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Soy",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Tree Nut",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Wheat",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Tree Nut (Almond)",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Tree Nut (Cashew)",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Tree Nut (Chestnut)",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Tree Nut (Coconut)",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Tree Nut (Hazelnut)",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Tree Nut (Macadamia Nut)",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Tree Nut (Pecan)",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Tree Nut (Pine Nut)",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Tree Nut (Pistachio)",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Tree Nut (Walnut)",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Sesame",
+                    "#text": "No"
+                  }
+                ]
+              },
+              "dietaryChoices": {
+                "dietaryChoice": [
+                  {
+                    "@id": "Vegetarian",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Vegan",
+                    "#text": "Yes"
+                  },
+                  {
+                    "@id": "Organic",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Gluten Free",
+                    "#text": "Yes"
+                  },
+                  {
+                    "@id": "Halal",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Kosher",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Contains Beef",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Contains Lamb",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Contains Poultry",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Contains Pork",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Mindful Mondays",
+                    "#text": "No"
+                  }
+                ]
+              },
+              "sustainability": {
+                "dietaryChoice": [
+                  {
+                    "@id": "Local",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Sustainable",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Humanely Raised",
+                    "#text": "No"
+                  }
+                ]
+              },
+              "ingredients": {
+                "#cdata-section": "Pinto Beans, White Onion, Garlic, Jalapeno, Kosher Salt, White Pepper"
+              }
+            },
+            {
+              "@id": "4681998",
+              "@category": "Mainline",
+              "@menuPosition": "3201701",
+              "@description": "Mexican Rice",
+              "@shortName": "Mexican Rice",
+              "@servingSize": "85.00",
+              "@servingSizeUnit": "FHP2",
+              "@alternatedescription": "N/A",
+              "@servingDescription": "3 oz",
+              "@servingsPerContainer": "50",
+              "@approvedNutrition": "Yes",
+              "@showIngredients": "Yes",
+              "@displayonwebsite": "Yes",
+              "@localItems": "No",
+              "@itemDailyComment": "",
+              "@nutrients": "108.34|    0.22|    0.03|NA|    0.00|  161.91|   23.99|    0.19|    0.39|NA|    2.08|    0.88|    3.17|    0.35|    0.88|    0.00",
+              "allergens": {
+                "allergen": [
+                  {
+                    "@id": "Egg",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Fish",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Milk",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Peanut",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Shellfish",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Soy",
+                    "#text": "Yes"
+                  },
+                  {
+                    "@id": "Tree Nut",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Wheat",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Tree Nut (Almond)",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Tree Nut (Cashew)",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Tree Nut (Chestnut)",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Tree Nut (Coconut)",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Tree Nut (Hazelnut)",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Tree Nut (Macadamia Nut)",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Tree Nut (Pecan)",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Tree Nut (Pine Nut)",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Tree Nut (Pistachio)",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Tree Nut (Walnut)",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Sesame",
+                    "#text": "No"
+                  }
+                ]
+              },
+              "dietaryChoices": {
+                "dietaryChoice": [
+                  {
+                    "@id": "Vegetarian",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Vegan",
+                    "#text": "Yes"
+                  },
+                  {
+                    "@id": "Organic",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Gluten Free",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Halal",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Kosher",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Contains Beef",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Contains Lamb",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Contains Poultry",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Contains Pork",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Mindful Mondays",
+                    "#text": "No"
+                  }
+                ]
+              },
+              "sustainability": {
+                "dietaryChoice": [
+                  {
+                    "@id": "Local",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Sustainable",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Humanely Raised",
+                    "#text": "No"
+                  }
+                ]
+              },
+              "ingredients": {
+                "#cdata-section": "Water, Calrose Rice, Tomatoes, Corn Syrup, Salt, Spices, Onion Powder, Garlic, Powder, Citric Acid, Natural Flavors (Vegan), White Onion, Rice Bran Oil, Extra Virgin Olive Oil, Avocado Oil, Grapeseed Oil, Vegetables And Vegetable Juice Concentrate (Carrots, Celery, Onion, Tomato) Salt, Soy Sauce (Water, Soybeans, Salt, Alcohol), Cane Sugar, Maltodextrin, Yeast Extract, Potato Starch, Onion Powder, Garlic Powder, Spice, Garlic, Kosher Salt, Cumin"
+              }
+            },
+            {
+              "@id": "5423454",
+              "@category": "Mainline",
+              "@menuPosition": "3201706",
+              "@description": "Flour Tortilla 6\" Warmed/SHT2",
+              "@shortName": "Flour Tortillas",
+              "@servingSize": "31.00",
+              "@servingSizeUnit": "SHT2",
+              "@alternatedescription": "N/A",
+              "@servingDescription": "1 Tortilla",
+              "@servingsPerContainer": "60",
+              "@approvedNutrition": "Yes",
+              "@showIngredients": "Yes",
+              "@displayonwebsite": "Yes",
+              "@localItems": "No",
+              "@itemDailyComment": "",
+              "@nutrients": "90.00|    2.00|    1.00|    0.00|    0.00|  220.00|   15.00|    1.00|    0.00|NA|    3.00|    0.00|   60.00|    1.08|    0.00|    0.00",
+              "allergens": {
+                "allergen": [
+                  {
+                    "@id": "Egg",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Fish",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Milk",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Peanut",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Shellfish",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Soy",
+                    "#text": "Yes"
+                  },
+                  {
+                    "@id": "Tree Nut",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Wheat",
+                    "#text": "Yes"
+                  },
+                  {
+                    "@id": "Tree Nut (Almond)",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Tree Nut (Cashew)",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Tree Nut (Chestnut)",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Tree Nut (Coconut)",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Tree Nut (Hazelnut)",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Tree Nut (Macadamia Nut)",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Tree Nut (Pecan)",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Tree Nut (Pine Nut)",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Tree Nut (Pistachio)",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Tree Nut (Walnut)",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Sesame",
+                    "#text": "No"
+                  }
+                ]
+              },
+              "dietaryChoices": {
+                "dietaryChoice": [
+                  {
+                    "@id": "Vegetarian",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Vegan",
+                    "#text": "Yes"
+                  },
+                  {
+                    "@id": "Organic",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Gluten Free",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Halal",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Kosher",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Contains Beef",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Contains Lamb",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Contains Poultry",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Contains Pork",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Mindful Mondays",
+                    "#text": "No"
+                  }
+                ]
+              },
+              "sustainability": {
+                "dietaryChoice": [
+                  {
+                    "@id": "Local",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Sustainable",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Humanely Raised",
+                    "#text": "No"
+                  }
+                ]
+              },
+              "ingredients": {
+                "#cdata-section": "Flour Tortilla (Enriched Bleached Wheat Flour (Wheat Flour, Niacin, Reduced Iron, Thiamine Mononitrate, Riboflavin, Folic Acid), Water, Vegetable Shortening (Interesterified Soybean Oil, Hydrogenated Soybean Oil And/Or Palm Oil), Contains 2% Or Less Of Each Of The Following: Salt, Leavening (Sodium Bicarbonate, Sodium Aluminum Sulfate, Corn Starch, Monocalcium Phosphate And/Or Sodium Acid Pyrophosphate, Calcium Sulfate), Distilled Monoglycerides, Enzymes, Wheat Starch, Calcium Carbonate, Antioxidants (Tocopherols, Ascorbic Acid), Cellulose Gum, Dough Conditioners (Fumaric Acid, Sodium Metabisulfite), Preservatives (Calcium Propionate, Sorbic Acid And/Or Citric Acid).)"
+              }
+            },
+            {
+              "@id": "5431453",
+              "@category": "Mainline",
+              "@menuPosition": "3201709",
+              "@description": "Corn Tortilla Warmed/SHT2",
+              "@shortName": "Corn Tortillas",
+              "@servingSize": "28.00",
+              "@servingSizeUnit": "SHT2",
+              "@alternatedescription": "N/A",
+              "@servingDescription": "1 Tortilla",
+              "@servingsPerContainer": "60",
+              "@approvedNutrition": "No",
+              "@showIngredients": "No",
+              "@displayonwebsite": "Yes",
+              "@localItems": "No",
+              "@itemDailyComment": "",
+              "@nutrients": "60.00|    1.00|    0.00|    0.00|    0.00|    0.00|   12.00|    1.00|    0.00|NA|    1.00|    0.00|    0.00|    0.72|    0.00|    0.00",
+              "allergens": {
+                "allergen": [
+                  {
+                    "@id": "Egg",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Fish",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Milk",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Peanut",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Shellfish",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Soy",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Tree Nut",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Wheat",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Tree Nut (Almond)",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Tree Nut (Cashew)",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Tree Nut (Chestnut)",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Tree Nut (Coconut)",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Tree Nut (Hazelnut)",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Tree Nut (Macadamia Nut)",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Tree Nut (Pecan)",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Tree Nut (Pine Nut)",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Tree Nut (Pistachio)",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Tree Nut (Walnut)",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Sesame",
+                    "#text": "No"
+                  }
+                ]
+              },
+              "dietaryChoices": {
+                "dietaryChoice": [
+                  {
+                    "@id": "Vegetarian",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Vegan",
+                    "#text": "Yes"
+                  },
+                  {
+                    "@id": "Organic",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Gluten Free",
+                    "#text": "Yes"
+                  },
+                  {
+                    "@id": "Halal",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Kosher",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Contains Beef",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Contains Lamb",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Contains Poultry",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Contains Pork",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Mindful Mondays",
+                    "#text": "No"
+                  }
+                ]
+              },
+              "sustainability": {
+                "dietaryChoice": [
+                  {
+                    "@id": "Local",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Sustainable",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Humanely Raised",
+                    "#text": "No"
+                  }
+                ]
+              },
+              "ingredients": {
+                "#cdata-section": "Corn Tortilla (Corn Masa Flour, Water, Contains 2% Or Less Of: Cellulose Gum, Guar Gum, Amylase, And Propionic Acid And Benzoic Acid (To Maintain Freshness)"
+              }
+            },
+            {
+              "@id": "3779344",
+              "@category": "Mainline",
+              "@menuPosition": "3201712",
+              "@description": "Guacamole",
+              "@shortName": "Guacamole",
+              "@servingSize": "91.00",
+              "@servingSizeUnit": "SERV",
+              "@alternatedescription": "N/A",
+              "@servingDescription": "3 Oz",
+              "@servingsPerContainer": "1",
+              "@approvedNutrition": "Yes",
+              "@showIngredients": "Yes",
+              "@displayonwebsite": "Yes",
+              "@localItems": "No",
+              "@itemDailyComment": "",
+              "@nutrients": "111.81|    9.58|    1.39|NA|    0.00|  244.92|    7.26|    4.70|    1.01|NA|    1.55|   10.17|   14.65|    0.50|   16.72|    0.00",
+              "allergens": {
+                "allergen": [
+                  {
+                    "@id": "Egg",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Fish",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Milk",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Peanut",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Shellfish",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Soy",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Tree Nut",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Wheat",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Tree Nut (Almond)",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Tree Nut (Cashew)",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Tree Nut (Chestnut)",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Tree Nut (Coconut)",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Tree Nut (Hazelnut)",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Tree Nut (Macadamia Nut)",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Tree Nut (Pecan)",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Tree Nut (Pine Nut)",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Tree Nut (Pistachio)",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Tree Nut (Walnut)",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Sesame",
+                    "#text": "No"
+                  }
+                ]
+              },
+              "dietaryChoices": {
+                "dietaryChoice": [
+                  {
+                    "@id": "Vegetarian",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Vegan",
+                    "#text": "Yes"
+                  },
+                  {
+                    "@id": "Organic",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Gluten Free",
+                    "#text": "Yes"
+                  },
+                  {
+                    "@id": "Halal",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Kosher",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Contains Beef",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Contains Lamb",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Contains Poultry",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Contains Pork",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Mindful Mondays",
+                    "#text": "No"
+                  }
+                ]
+              },
+              "sustainability": {
+                "dietaryChoice": [
+                  {
+                    "@id": "Local",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Sustainable",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Humanely Raised",
+                    "#text": "No"
+                  }
+                ]
+              },
+              "ingredients": {
+                "#cdata-section": "Avocado, Avocado, Onion, Tomato, Cilantro, Lime Juice (Lime Juice From Concentrate (Water, Concentrated Lime Juice), Sodium Benzoate (Preservative), Lime Oil, Sodium Metabisulfite (Preservative)), Jalapeno, Kosher Salt, Black Pepper"
+              }
+            },
+            {
+              "@id": "5206723",
+              "@category": "Mainline",
+              "@menuPosition": "3201715",
+              "@description": "Pico de Gallo",
+              "@shortName": "Pico de Gallo",
+              "@servingSize": "3721.06",
+              "@servingSizeUnit": "GAL",
+              "@alternatedescription": "N/A",
+              "@servingDescription": "1 GAL",
+              "@servingsPerContainer": "1",
+              "@approvedNutrition": "No",
+              "@showIngredients": "Yes",
+              "@displayonwebsite": "Yes",
+              "@localItems": "No",
+              "@itemDailyComment": "",
+              "@nutrients": "944.17|7.47937|1.39739|NA|0|6845|214.823|56.6553|106.398|NA|36.402|747.165|695.663|13.1007|2613.48|4.57691e-008",
+              "allergens": {
+                "allergen": [
+                  {
+                    "@id": "Egg",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Fish",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Milk",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Peanut",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Shellfish",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Soy",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Tree Nut",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Wheat",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Tree Nut (Almond)",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Tree Nut (Cashew)",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Tree Nut (Chestnut)",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Tree Nut (Coconut)",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Tree Nut (Hazelnut)",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Tree Nut (Macadamia Nut)",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Tree Nut (Pecan)",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Tree Nut (Pine Nut)",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Tree Nut (Pistachio)",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Tree Nut (Walnut)",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Sesame",
+                    "#text": "No"
+                  }
+                ]
+              },
+              "dietaryChoices": {
+                "dietaryChoice": [
+                  {
+                    "@id": "Vegetarian",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Vegan",
+                    "#text": "Yes"
+                  },
+                  {
+                    "@id": "Organic",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Gluten Free",
+                    "#text": "Yes"
+                  },
+                  {
+                    "@id": "Halal",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Kosher",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Contains Beef",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Contains Lamb",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Contains Poultry",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Contains Pork",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Mindful Mondays",
+                    "#text": "No"
+                  }
+                ]
+              },
+              "sustainability": {
+                "dietaryChoice": [
+                  {
+                    "@id": "Local",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Sustainable",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Humanely Raised",
+                    "#text": "No"
+                  }
+                ]
+              },
+              "ingredients": {
+                "#cdata-section": "Tomato;Yellow Onion;Cilantro;Jalapeno;Lime Juice (Lime Juice From Concentrate (Water, Concentrated Lime Juice), Sodium Benzoate (Preservative), Lime Oil, Sodium Metabisulfite (Preservative).);Kosher Salt;Black Pepper;"
+              }
+            },
+            {
+              "@id": "5278128",
+              "@category": "Mainline",
+              "@menuPosition": "3201716",
+              "@description": "Salsa Bar DESCRIPTION ONLY",
+              "@shortName": "Salsa, Pico de Gallo, Guacamole, Shredded Cheese, Cilantro  Onions",
+              "@servingSize": "1.00",
+              "@servingSizeUnit": "EA",
+              "@alternatedescription": "N/A",
+              "@servingDescription": "1 EA",
+              "@servingsPerContainer": "1",
+              "@approvedNutrition": "No",
+              "@showIngredients": "Yes",
+              "@displayonwebsite": "Yes",
+              "@localItems": "No",
+              "@itemDailyComment": "",
+              "@nutrients": "5083.64|282.17|71.8609|NA|242.776|23336.1|611.872|224.016|271.829|NA|152.164|1981.99|2841.55|41.7672|5047.16|1.33653e-007",
+              "allergens": {
+                "allergen": [
+                  {
+                    "@id": "Egg",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Fish",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Milk",
+                    "#text": "Yes"
+                  },
+                  {
+                    "@id": "Peanut",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Shellfish",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Soy",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Tree Nut",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Wheat",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Tree Nut (Almond)",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Tree Nut (Cashew)",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Tree Nut (Chestnut)",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Tree Nut (Coconut)",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Tree Nut (Hazelnut)",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Tree Nut (Macadamia Nut)",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Tree Nut (Pecan)",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Tree Nut (Pine Nut)",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Tree Nut (Pistachio)",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Tree Nut (Walnut)",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Sesame",
+                    "#text": "No"
+                  }
+                ]
+              },
+              "dietaryChoices": {
+                "dietaryChoice": [
+                  {
+                    "@id": "Vegetarian",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Vegan",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Organic",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Gluten Free",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Halal",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Kosher",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Contains Beef",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Contains Lamb",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Contains Poultry",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Contains Pork",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Mindful Mondays",
+                    "#text": "No"
+                  }
+                ]
+              },
+              "sustainability": {
+                "dietaryChoice": [
+                  {
+                    "@id": "Local",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Sustainable",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Humanely Raised",
+                    "#text": "No"
+                  }
+                ]
+              },
+              "ingredients": {
+                "#cdata-section": "Salsa, Salsa Verde, Pico de Gallo, Guacamole, Sour Cream, Cheddar Cheese, Shredded Lettuce"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "@id": "1632",
+        "@name": "Oldenborg FALL 2025 Week 4 NOV 17nd - 21th",
+        "@servedate": "20251120",
+        "@location": "Oldenborg Dining",
+        "@mealperiodname": "Lunch",
+        "@menubulletin": "",
+        "nutrients": "Calories (kcal)~CAL|Total Lipid/Fat (g)~TL|Saturated fatty acid (g)~FAS|Trans Fat (g)~TRF|Cholesterol (mg)~CHO|Sodium (mg)~Na|Carbohydrate (g)~CRB|Total Dietary Fiber (g)~FIB|Total Sugars (g)~SUG|Added Sugar (g)~SugA|Protein (g)~PRO|Vitamin C (mg)~vC|Calcium (mg)~CA|Iron (mg)~Fe|Vitamin A (mcg RAE)~(rae)|Phosphorus (mg)~PHO|Potassium (mg)~K|Vitamin D(iu)~VITD",
+        "recipes": {
+          "recipe": [
+            {
+              "@id": "3665229",
+              "@category": "Pizza",
+              "@menuPosition": "3201726",
+              "@description": "Cheese Pizza",
+              "@shortName": "Cheese Pizza",
+              "@servingSize": "78.00",
+              "@servingSizeUnit": "PIZ",
+              "@alternatedescription": "N/A",
+              "@servingDescription": "1 Slice",
+              "@servingsPerContainer": "10",
+              "@approvedNutrition": "Yes",
+              "@showIngredients": "Yes",
+              "@displayonwebsite": "Yes",
+              "@localItems": "No",
+              "@itemDailyComment": "",
+              "@nutrients": "166.80|    6.12|    2.83|NA|   17.57|  495.30|   19.28|    1.24|    1.53|NA|    9.07|    1.19|  186.44|    1.30|    0.00|    0.00",
+              "allergens": {
+                "allergen": [
+                  {
+                    "@id": "Egg",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Fish",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Milk",
+                    "#text": "Yes"
+                  },
+                  {
+                    "@id": "Peanut",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Shellfish",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Soy",
+                    "#text": "Yes"
+                  },
+                  {
+                    "@id": "Tree Nut",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Wheat",
+                    "#text": "Yes"
+                  },
+                  {
+                    "@id": "Tree Nut (Almond)",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Tree Nut (Cashew)",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Tree Nut (Chestnut)",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Tree Nut (Coconut)",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Tree Nut (Hazelnut)",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Tree Nut (Macadamia Nut)",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Tree Nut (Pecan)",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Tree Nut (Pine Nut)",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Tree Nut (Pistachio)",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Tree Nut (Walnut)",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Sesame",
+                    "#text": "No"
+                  }
+                ]
+              },
+              "dietaryChoices": {
+                "dietaryChoice": [
+                  {
+                    "@id": "Vegetarian",
+                    "#text": "Yes"
+                  },
+                  {
+                    "@id": "Vegan",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Organic",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Gluten Free",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Halal",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Kosher",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Contains Beef",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Contains Lamb",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Contains Poultry",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Contains Pork",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Mindful Mondays",
+                    "#text": "No"
+                  }
+                ]
+              },
+              "sustainability": {
+                "dietaryChoice": [
+                  {
+                    "@id": "Local",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Sustainable",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Humanely Raised",
+                    "#text": "No"
+                  }
+                ]
+              },
+              "ingredients": {
+                "#cdata-section": "Pizza Dough (Enriched Unbleached Wheat Flour, Water, Yeast, High Fructose Corn Syrup, Salt, Soybean Oil, Wheat Gluten, Ascorbic Acid, Enzyme), Low Moisture Part Skim Mozzarella Cheese (Cultured Pasteurized Part Skim Milk, Skim Milk, Salt, Enzymes, Powdered Cellulose Added To Prevent Caking, Natamycin Preservative), Tomato Puree (Water, Tomato Paste), Less Than 2% Of: Salt, Extra Virgin Olive Oil, Dried Onions, Garlic, Spices, Citric Acid, Parmesan Cheese (Pasteurized Cow`s Milk, Cultures, Enzymes, Salt, Cellulose)"
+              }
+            },
+            {
+              "@id": "5861469",
+              "@category": "Pizza",
+              "@menuPosition": "3201731",
+              "@description": "Cheese and Green ChileTamales",
+              "@shortName": "Cheese and Green Chile Tamales",
+              "@servingSize": "142.00",
+              "@servingSizeUnit": "FHP2",
+              "@alternatedescription": "N/A",
+              "@servingDescription": "1 Each",
+              "@servingsPerContainer": "48",
+              "@approvedNutrition": "Yes",
+              "@showIngredients": "Yes",
+              "@displayonwebsite": "Yes",
+              "@localItems": "No",
+              "@itemDailyComment": "",
+              "@nutrients": "370.00|   24.00|   10.00|    0.00|   35.00|  470.01|   29.00|    2.00|    2.00|NA|   11.01|    9.00|  250.00|    0.00|    0.00|    0.00",
+              "allergens": {
+                "allergen": [
+                  {
+                    "@id": "Egg",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Fish",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Milk",
+                    "#text": "Yes"
+                  },
+                  {
+                    "@id": "Peanut",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Shellfish",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Soy",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Tree Nut",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Wheat",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Tree Nut (Almond)",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Tree Nut (Cashew)",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Tree Nut (Chestnut)",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Tree Nut (Coconut)",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Tree Nut (Hazelnut)",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Tree Nut (Macadamia Nut)",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Tree Nut (Pecan)",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Tree Nut (Pine Nut)",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Tree Nut (Pistachio)",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Tree Nut (Walnut)",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Sesame",
+                    "#text": "No"
+                  }
+                ]
+              },
+              "dietaryChoices": {
+                "dietaryChoice": [
+                  {
+                    "@id": "Vegetarian",
+                    "#text": "Yes"
+                  },
+                  {
+                    "@id": "Vegan",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Organic",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Gluten Free",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Halal",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Kosher",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Contains Beef",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Contains Lamb",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Contains Poultry",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Contains Pork",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Mindful Mondays",
+                    "#text": "No"
+                  }
+                ]
+              },
+              "sustainability": {
+                "dietaryChoice": [
+                  {
+                    "@id": "Local",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Sustainable",
+                    "#text": "No"
+                  },
+                  {
+                    "@id": "Humanely Raised",
+                    "#text": "No"
+                  }
+                ]
+              },
+              "ingredients": {
+                "#cdata-section": "Water, Corn (Corn Treated With Lime Water), Vegetable Shortening (Canola Oil And Hydrogenated Cottonseed Oil With Citric Acid), Salt, Seasoning (Modified Food Starch, Apple Pectin  Isolated Apple Product, Xanthan Gum, Guar Gum, Methyl Cellulose), Baking Powder (Corn Starch, Sodium Bicarbonate, Sodium Aluminum Sulfate, Monocalcium Phosphate), Cheese (Cultured Milk, Water, Milk Fat, Skim Milk, Sodium Phosphates, Salt, Sorbic Acid (Preservative), Enzymes, Cellulose, Potassium Sorbate And Natamycin), Green Chilies (Green Chilies, Citric Acid)"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "@id": "1632",
+        "@name": "Oldenborg FALL 2025 Week 4 NOV 17nd - 21th",
+        "@servedate": "20251120",
+        "@location": "Oldenborg Dining",
+        "@mealperiodname": "Lunch",
+        "@menubulletin": "",
+        "nutrients": "Calories (kcal)~CAL|Total Lipid/Fat (g)~TL|Saturated fatty acid (g)~FAS|Trans Fat (g)~TRF|Cholesterol (mg)~CHO|Sodium (mg)~Na|Carbohydrate (g)~CRB|Total Dietary Fiber (g)~FIB|Total Sugars (g)~SUG|Added Sugar (g)~SugA|Protein (g)~PRO|Vitamin C (mg)~vC|Calcium (mg)~CA|Iron (mg)~Fe|Vitamin A (mcg RAE)~(rae)|Phosphorus (mg)~PHO|Potassium (mg)~K|Vitamin D(iu)~VITD",
+        "recipes": {
+          "recipe": {
+            "@id": "5185904",
+            "@category": "Soup Station",
+            "@menuPosition": "3201744",
+            "@description": "Chicken Tortilla Soup/GAL",
+            "@shortName": "Chicken Tortilla Soup",
+            "@servingSize": "233.90",
+            "@servingSizeUnit": "GAL",
+            "@alternatedescription": "N/A",
+            "@servingDescription": "1 Cup",
+            "@servingsPerContainer": "1",
+            "@approvedNutrition": "Yes",
+            "@showIngredients": "Yes",
+            "@displayonwebsite": "Yes",
+            "@localItems": "No",
+            "@itemDailyComment": "",
+            "@nutrients": "91.16|    2.17|    0.30|    0.00|   19.24|  514.37|   12.92|    2.06|    2.41|NA|    5.69|    7.57|   22.72|    1.29|   69.50|    0.00",
+            "allergens": {
+              "allergen": [
+                {
+                  "@id": "Egg",
+                  "#text": "No"
+                },
+                {
+                  "@id": "Fish",
+                  "#text": "No"
+                },
+                {
+                  "@id": "Milk",
+                  "#text": "No"
+                },
+                {
+                  "@id": "Peanut",
+                  "#text": "No"
+                },
+                {
+                  "@id": "Shellfish",
+                  "#text": "No"
+                },
+                {
+                  "@id": "Soy",
+                  "#text": "No"
+                },
+                {
+                  "@id": "Tree Nut",
+                  "#text": "No"
+                },
+                {
+                  "@id": "Wheat",
+                  "#text": "No"
+                },
+                {
+                  "@id": "Tree Nut (Almond)",
+                  "#text": "No"
+                },
+                {
+                  "@id": "Tree Nut (Cashew)",
+                  "#text": "No"
+                },
+                {
+                  "@id": "Tree Nut (Chestnut)",
+                  "#text": "No"
+                },
+                {
+                  "@id": "Tree Nut (Coconut)",
+                  "#text": "No"
+                },
+                {
+                  "@id": "Tree Nut (Hazelnut)",
+                  "#text": "No"
+                },
+                {
+                  "@id": "Tree Nut (Macadamia Nut)",
+                  "#text": "No"
+                },
+                {
+                  "@id": "Tree Nut (Pecan)",
+                  "#text": "No"
+                },
+                {
+                  "@id": "Tree Nut (Pine Nut)",
+                  "#text": "No"
+                },
+                {
+                  "@id": "Tree Nut (Pistachio)",
+                  "#text": "No"
+                },
+                {
+                  "@id": "Tree Nut (Walnut)",
+                  "#text": "No"
+                },
+                {
+                  "@id": "Sesame",
+                  "#text": "No"
+                }
+              ]
+            },
+            "dietaryChoices": {
+              "dietaryChoice": [
+                {
+                  "@id": "Vegetarian",
+                  "#text": "No"
+                },
+                {
+                  "@id": "Vegan",
+                  "#text": "No"
+                },
+                {
+                  "@id": "Organic",
+                  "#text": "No"
+                },
+                {
+                  "@id": "Gluten Free",
+                  "#text": "Yes"
+                },
+                {
+                  "@id": "Halal",
+                  "#text": "Yes"
+                },
+                {
+                  "@id": "Kosher",
+                  "#text": "No"
+                },
+                {
+                  "@id": "Contains Beef",
+                  "#text": "No"
+                },
+                {
+                  "@id": "Contains Lamb",
+                  "#text": "No"
+                },
+                {
+                  "@id": "Contains Poultry",
+                  "#text": "Yes"
+                },
+                {
+                  "@id": "Contains Pork",
+                  "#text": "No"
+                },
+                {
+                  "@id": "Mindful Mondays",
+                  "#text": "No"
+                }
+              ]
+            },
+            "sustainability": {
+              "dietaryChoice": [
+                {
+                  "@id": "Local",
+                  "#text": "No"
+                },
+                {
+                  "@id": "Sustainable",
+                  "#text": "No"
+                },
+                {
+                  "@id": "Humanely Raised",
+                  "#text": "No"
+                }
+              ]
+            },
+            "ingredients": {
+              "#cdata-section": "Water, Tomatoes, Corn Syrup, Salt, Spices, Onion Powder, Garlic, Powder, Citric Acid, Natural Flavors (Vegan), Chicken Skinless Thigh, Corn Tortilla (Corn Masa Flour, Water, Contains 2% Or Less Of: Cellulose Gum, Guar Gum, Amylase, And Propionic Acid And Benzoic Acid (To Maintain Freshness), Carrot, Yellow Onion, Celery, Cilantro, Green Bell Pepper, Chicken Meat Including Natural Juices, Salt, Cane Sugar, Maltodextrin, Flavoring, Yeast Extract, Potato Starch, Turmeric, Natural Flavor, Rice Bran Oil, Extra Virgin Olive Oil, Avocado Oil, Grapeseed Oil, Ancho Chile, Garlic, Canola Oil, Cumin, Kosher Salt, Black Pepper, Garlic, Crushed Red Pepper"
+            }
+          }
+        }
+      },
+      {
+        "@id": "1632",
+        "@name": "Oldenborg FALL 2025 Week 4 NOV 17nd - 21th",
+        "@servedate": "20251120",
+        "@location": "Oldenborg Dining",
+        "@mealperiodname": "Lunch",
+        "@menubulletin": "",
+        "nutrients": "Calories (kcal)~CAL|Total Lipid/Fat (g)~TL|Saturated fatty acid (g)~FAS|Trans Fat (g)~TRF|Cholesterol (mg)~CHO|Sodium (mg)~Na|Carbohydrate (g)~CRB|Total Dietary Fiber (g)~FIB|Total Sugars (g)~SUG|Added Sugar (g)~SugA|Protein (g)~PRO|Vitamin C (mg)~vC|Calcium (mg)~CA|Iron (mg)~Fe|Vitamin A (mcg RAE)~(rae)|Phosphorus (mg)~PHO|Potassium (mg)~K|Vitamin D(iu)~VITD",
+        "recipes": {
+          "recipe": {
+            "@id": "2941435",
+            "@category": "Salad Bar",
+            "@menuPosition": "3201756",
+            "@description": "Caesar Salad",
+            "@shortName": "Caesar Salad",
+            "@servingSize": "85.00",
+            "@servingSizeUnit": "FHP4",
+            "@alternatedescription": "N/A",
+            "@servingDescription": "3 Oz",
+            "@servingsPerContainer": "50",
+            "@approvedNutrition": "Yes",
+            "@showIngredients": "Yes",
+            "@displayonwebsite": "Yes",
+            "@localItems": "No",
+            "@itemDailyComment": "",
+            "@nutrients": "140.81|    7.71|    1.72|    0.00|    9.01|  297.69|   13.67|    1.40|    0.59|NA|    4.75|    2.19|   73.47|    1.20|  122.30|    0.00",
+            "allergens": {
+              "allergen": [
+                {
+                  "@id": "Egg",
+                  "#text": "Yes"
+                },
+                {
+                  "@id": "Fish",
+                  "#text": "Yes"
+                },
+                {
+                  "@id": "Milk",
+                  "#text": "Yes"
+                },
+                {
+                  "@id": "Peanut",
+                  "#text": "No"
+                },
+                {
+                  "@id": "Shellfish",
+                  "#text": "No"
+                },
+                {
+                  "@id": "Soy",
+                  "#text": "Yes"
+                },
+                {
+                  "@id": "Tree Nut",
+                  "#text": "No"
+                },
+                {
+                  "@id": "Wheat",
+                  "#text": "Yes"
+                },
+                {
+                  "@id": "Tree Nut (Almond)",
+                  "#text": "No"
+                },
+                {
+                  "@id": "Tree Nut (Cashew)",
+                  "#text": "No"
+                },
+                {
+                  "@id": "Tree Nut (Chestnut)",
+                  "#text": "No"
+                },
+                {
+                  "@id": "Tree Nut (Coconut)",
+                  "#text": "No"
+                },
+                {
+                  "@id": "Tree Nut (Hazelnut)",
+                  "#text": "No"
+                },
+                {
+                  "@id": "Tree Nut (Macadamia Nut)",
+                  "#text": "No"
+                },
+                {
+                  "@id": "Tree Nut (Pecan)",
+                  "#text": "No"
+                },
+                {
+                  "@id": "Tree Nut (Pine Nut)",
+                  "#text": "No"
+                },
+                {
+                  "@id": "Tree Nut (Pistachio)",
+                  "#text": "No"
+                },
+                {
+                  "@id": "Tree Nut (Walnut)",
+                  "#text": "No"
+                },
+                {
+                  "@id": "Sesame",
+                  "#text": "No"
+                }
+              ]
+            },
+            "dietaryChoices": {
+              "dietaryChoice": [
+                {
+                  "@id": "Vegetarian",
+                  "#text": "No"
+                },
+                {
+                  "@id": "Vegan",
+                  "#text": "No"
+                },
+                {
+                  "@id": "Organic",
+                  "#text": "No"
+                },
+                {
+                  "@id": "Gluten Free",
+                  "#text": "No"
+                },
+                {
+                  "@id": "Halal",
+                  "#text": "No"
+                },
+                {
+                  "@id": "Kosher",
+                  "#text": "No"
+                },
+                {
+                  "@id": "Contains Beef",
+                  "#text": "No"
+                },
+                {
+                  "@id": "Contains Lamb",
+                  "#text": "No"
+                },
+                {
+                  "@id": "Contains Poultry",
+                  "#text": "No"
+                },
+                {
+                  "@id": "Contains Pork",
+                  "#text": "No"
+                },
+                {
+                  "@id": "Mindful Mondays",
+                  "#text": "No"
+                }
+              ]
+            },
+            "sustainability": {
+              "dietaryChoice": [
+                {
+                  "@id": "Local",
+                  "#text": "No"
+                },
+                {
+                  "@id": "Sustainable",
+                  "#text": "No"
+                },
+                {
+                  "@id": "Humanely Raised",
+                  "#text": "No"
+                }
+              ]
+            },
+            "ingredients": {
+              "#cdata-section": "Romaine Lettuce, Unbleached Enriched Flour (Wheat Flour, Malted Barley Flour, Niacin, Reduced Iron, Thiamine Mononitrate, Riboflavin, Folic Acid), Water, Sour Culture, Salt, Yeast, Semolina, Soybean Oil, Water, Parmesan Cheese With Flavor (Parmesan Cheese Cultured Milk, Salt, Enzymes, Flavor Enzyme Modified Parmesan Cheese Cultured Milk, Water, Salt Enzymes, Powdered Cellulose To Prevent Caking), Corn Vinegar, Egg Yolks, Extra Virgin Olive Oil, Contains Less Than 2% Of Salt, Anchovies, Garlic Puree, Spice, Worcestershire Sauce Concentrate (Distilled Vinegar, Molasses, Corn Syrup, Water, Salt, Caramel Color, Garlic Powder, Sugar, Spices, Tamarind, Natural Flavor, Sulfiting Agent), Lemon Juice Concentrate, Garlic, Phosphoric Acid, Sodium Benzoate And Potassium Sorbate (As Preservatives), Xanthan Gum, Caramel Color, Parmesan Cheese (Pasteurized Part Skim Milk, Cheese Cultures, Salt, Enzymes), Powdered Cellulose To Prevent Caking, Natamycin To Protect Flavor, Canola Oil, Dill, Garlic, Kosher Salt, Paprika, Marjoram, Thyme, Rosemary, Savory, Sage, Oregano, Basil"
+            }
+          }
+        }
+      },
+      {
+        "@id": "1632",
+        "@name": "Oldenborg FALL 2025 Week 4 NOV 17nd - 21th",
+        "@servedate": "20251120",
+        "@location": "Oldenborg Dining",
+        "@mealperiodname": "Lunch",
+        "@menubulletin": "",
+        "nutrients": "Calories (kcal)~CAL|Total Lipid/Fat (g)~TL|Saturated fatty acid (g)~FAS|Trans Fat (g)~TRF|Cholesterol (mg)~CHO|Sodium (mg)~Na|Carbohydrate (g)~CRB|Total Dietary Fiber (g)~FIB|Total Sugars (g)~SUG|Added Sugar (g)~SugA|Protein (g)~PRO|Vitamin C (mg)~vC|Calcium (mg)~CA|Iron (mg)~Fe|Vitamin A (mcg RAE)~(rae)|Phosphorus (mg)~PHO|Potassium (mg)~K|Vitamin D(iu)~VITD",
+        "recipes": {
+          "recipe": {
+            "@id": "4282712",
+            "@category": "Panini Station",
+            "@menuPosition": "3201768",
+            "@description": "Fresh Cut Fruit",
+            "@shortName": "Fresh Cut Fruit - Assorted Seasonal Fruits and Melons",
+            "@servingSize": "1.00",
+            "@servingSizeUnit": "EA",
+            "@alternatedescription": "N/A",
+            "@servingDescription": "1 EA",
+            "@servingsPerContainer": "1",
+            "@approvedNutrition": "No",
+            "@showIngredients": "No",
+            "@displayonwebsite": "Yes",
+            "@localItems": "No",
+            "@itemDailyComment": "",
+            "allergens": {
+              "allergen": [
+                {
+                  "@id": "Egg",
+                  "#text": "No"
+                },
+                {
+                  "@id": "Fish",
+                  "#text": "No"
+                },
+                {
+                  "@id": "Milk",
+                  "#text": "No"
+                },
+                {
+                  "@id": "Peanut",
+                  "#text": "No"
+                },
+                {
+                  "@id": "Shellfish",
+                  "#text": "No"
+                },
+                {
+                  "@id": "Soy",
+                  "#text": "No"
+                },
+                {
+                  "@id": "Tree Nut",
+                  "#text": "No"
+                },
+                {
+                  "@id": "Wheat",
+                  "#text": "No"
+                },
+                {
+                  "@id": "Tree Nut (Almond)",
+                  "#text": "No"
+                },
+                {
+                  "@id": "Tree Nut (Cashew)",
+                  "#text": "No"
+                },
+                {
+                  "@id": "Tree Nut (Chestnut)",
+                  "#text": "No"
+                },
+                {
+                  "@id": "Tree Nut (Coconut)",
+                  "#text": "No"
+                },
+                {
+                  "@id": "Tree Nut (Hazelnut)",
+                  "#text": "No"
+                },
+                {
+                  "@id": "Tree Nut (Macadamia Nut)",
+                  "#text": "No"
+                },
+                {
+                  "@id": "Tree Nut (Pecan)",
+                  "#text": "No"
+                },
+                {
+                  "@id": "Tree Nut (Pine Nut)",
+                  "#text": "No"
+                },
+                {
+                  "@id": "Tree Nut (Pistachio)",
+                  "#text": "No"
+                },
+                {
+                  "@id": "Tree Nut (Walnut)",
+                  "#text": "No"
+                },
+                {
+                  "@id": "Sesame",
+                  "#text": "No"
+                }
+              ]
+            },
+            "dietaryChoices": {
+              "dietaryChoice": [
+                {
+                  "@id": "Vegetarian",
+                  "#text": "No"
+                },
+                {
+                  "@id": "Vegan",
+                  "#text": "Yes"
+                },
+                {
+                  "@id": "Organic",
+                  "#text": "No"
+                },
+                {
+                  "@id": "Gluten Free",
+                  "#text": "No"
+                },
+                {
+                  "@id": "Halal",
+                  "#text": "No"
+                },
+                {
+                  "@id": "Kosher",
+                  "#text": "No"
+                },
+                {
+                  "@id": "Contains Beef",
+                  "#text": "No"
+                },
+                {
+                  "@id": "Contains Lamb",
+                  "#text": "No"
+                },
+                {
+                  "@id": "Contains Poultry",
+                  "#text": "No"
+                },
+                {
+                  "@id": "Contains Pork",
+                  "#text": "No"
+                },
+                {
+                  "@id": "Mindful Mondays",
+                  "#text": "No"
+                }
+              ]
+            },
+            "sustainability": {
+              "dietaryChoice": [
+                {
+                  "@id": "Local",
+                  "#text": "No"
+                },
+                {
+                  "@id": "Sustainable",
+                  "#text": "No"
+                },
+                {
+                  "@id": "Humanely Raised",
+                  "#text": "No"
+                }
+              ]
+            },
+            "ingredients": {
+              "#cdata-section": ""
+            }
+          }
+        }
+      },
+      {
+        "@id": "1632",
+        "@name": "Oldenborg FALL 2025 Week 4 NOV 17nd - 21th",
+        "@servedate": "20251120",
+        "@location": "Oldenborg Dining",
+        "@mealperiodname": "Lunch",
+        "@menubulletin": "",
+        "nutrients": "Calories (kcal)~CAL|Total Lipid/Fat (g)~TL|Saturated fatty acid (g)~FAS|Trans Fat (g)~TRF|Cholesterol (mg)~CHO|Sodium (mg)~Na|Carbohydrate (g)~CRB|Total Dietary Fiber (g)~FIB|Total Sugars (g)~SUG|Added Sugar (g)~SugA|Protein (g)~PRO|Vitamin C (mg)~vC|Calcium (mg)~CA|Iron (mg)~Fe|Vitamin A (mcg RAE)~(rae)|Phosphorus (mg)~PHO|Potassium (mg)~K|Vitamin D(iu)~VITD",
+        "recipes": {
+          "recipe": {
+            "@id": "3092776",
+            "@category": "Deli Bar",
+            "@menuPosition": "3201782",
             "@description": "Today`s Smoothie",
             "@shortName": "TODAY`S SMOOTHIE",
             "@servingSize": "1.00",

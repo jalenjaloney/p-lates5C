@@ -5,29 +5,45 @@
 
 import fs from 'node:fs/promises';
 
-const URL_FRARY = 'https://portal.pomona.edu/eatec/Frary.json';
+const DATA_DIR = 'data';
+const DINING_HALLS = {
+  frary: {
+    url: 'https://portal.pomona.edu/eatec/Frary.json',
+    outfile: 'frary-raw.json',
+  },
+  oldenborg: {
+    url: 'https://portal.pomona.edu/eatec/Oldenborg.json',
+    outfile: 'oldenborg-raw.json',
+  },
+  frank: {
+    url: 'https://portal.pomona.edu/eatec/Frank.json',
+    outfile: 'frank-raw.json',
+  }
+};
 
-function buildUrl() {
-  const u = new URL(URL_FRARY);
+function buildUrl(baseUrl) {
+  const u = new URL(baseUrl);
   u.searchParams.set(`_${Date.now()}`, ''); // cache buster
   return u.toString();
 }
 
-// Robustly extract the JSON object from JS/JSONP payloads
-function extractJsonFromJsPayload(s) {
-  let t = s.trim();
-
-  // fallback: slice first {...} block
-  const first = t.indexOf('{');
-  const last = t.lastIndexOf('}');
-  if (first !== -1 && last !== -1 && last > first) {
-    t = t.slice(first, last + 1);
+function extractJson(raw) {
+  const trimmed = raw.trim();
+  const first = trimmed.indexOf('{');
+  const last = trimmed.lastIndexOf('}');
+  if (first === -1 || last === -1 || last <= first) {
+    throw new Error('Could not find JSON object');
   }
-  return t;
+  return trimmed.slice(first, last + 1);
 }
 
-async function main() {
-  const url = buildUrl();
+async function scrapeHall(key) {
+  const hall = DINING_HALLS[key];
+  if (!hall) {
+    throw new Error(`Unknown dining hall "${key}". Options: ${Object.keys(DINING_HALLS).join(', ')}`);
+  }
+
+  const url = buildUrl(hall.url);
   const res = await fetch(url, {
     headers: {
       'Accept': 'application/json, text/javascript;q=0.9, */*;q=0.1',
@@ -35,19 +51,32 @@ async function main() {
   });
 
   const raw = await res.text();
-  let data;
-  try {
-    data = JSON.parse(extractJsonFromJsPayload(raw));
-  } catch (e) {
-    console.error('Parse failed. First 200 chars:\n', raw.slice(0, 200));
-    throw e;
+  const data = JSON.parse(extractJson(raw));
+
+  await fs.mkdir(DATA_DIR, { recursive: true });
+  const outPath = `${DATA_DIR}/${hall.outfile}`;
+  await fs.writeFile(outPath, JSON.stringify(data, null, 2));
+  console.log(`[${key}] Saved ${outPath} with`, Object.keys(data).length, 'top-level keys');
+}
+
+async function main() {
+  const args = process.argv.slice(2).map(arg => arg.toLowerCase());
+  const targets = args.length ? args : Object.keys(DINING_HALLS);
+
+  for (const key of targets) {
+    try {
+      await scrapeHall(key);
+    } catch (err) {
+      console.error(`[${key}] Scrape failed:`, err.message);
+      process.exitCode = 1;
+    }
   }
 
-  await fs.mkdir('data', { recursive: true });
-  await fs.writeFile('data/frary-raw.json', JSON.stringify(data, null, 2));
-  console.log('Saved data/frary-raw.json with', Object.keys(data).length, 'top-level keys');
+  if (process.exitCode) {
+    throw new Error('One or more scrapes failed. See logs above.');
+  }
 
-  // TODO: map to your schema once you inspect the keys
+  // TODO: map to schema after inspecting the keys
 }
 
 main().catch(err => {
