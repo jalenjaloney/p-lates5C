@@ -1,112 +1,194 @@
-import React from 'react'
-import fraryData from '../../data/frary-raw.json';
+import React, { useEffect, useMemo, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { supabase } from '../supabaseClient';
 
-const FaryMenuData = fraryData.EatecExchange.menu;
+const mealOrder = ['breakfast', 'lunch', 'dinner', 'late_night'];
+const mealLabels = {
+  breakfast: 'Breakfast',
+  lunch: 'Lunch',
+  dinner: 'Dinner',
+  late_night: 'Late Night',
+};
 
-function FraryMenu() {
-  const menuByDay = [];
+function slugifyDish(name) {
+  return (name || '')
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '') || 'dish';
+}
 
-  for (let i = 0; i < FaryMenuData.length; i += 1) {
-    const entry = FaryMenuData[i];
-    const servedate = entry['@servedate'];
-    const mealName = entry['@mealperiodname'] || 'Other';
-    const displayDate = servedate
-      ? `${servedate.slice(0, 4)}-${servedate.slice(4, 6)}-${servedate.slice(6, 8)}`
-      : 'Unknown Day';
+function normalizeMeal(raw) {
+  const name = (raw ?? '').toLowerCase();
+  if (name.includes('breakfast')) return 'breakfast';
+  if (name.includes('lunch')) return 'lunch';
+  if (name.includes('dinner')) return 'dinner';
+  if (name.includes('late')) return 'late_night';
+  return null;
+}
 
-    if (!servedate) {
-      continue;
-    }
+function groupRows(rows) {
+  const byHall = new Map();
 
-    let day = menuByDay.find((item) => item.servedate === servedate);
+  rows.forEach((row) => {
+    const meal = normalizeMeal(row.meal);
+    if (!meal) return;
 
-    if (!day) {
-      day = {
-        servedate,
-        label: displayDate,
-        meals: []
-      };
-      menuByDay.push(day);
-    }
+    const hallName = row.halls?.name || 'Unknown Hall';
+    const campus = row.halls?.campus || '';
+    if (!byHall.has(hallName)) byHall.set(hallName, { hallName, campus, meals: {} });
+    const bucket = byHall.get(hallName);
+    if (!bucket.meals[meal]) bucket.meals[meal] = {};
+    const mealBucket = bucket.meals[meal];
+    const sectionKey = row.section?.trim() || 'Unlabeled';
+    if (!mealBucket[sectionKey]) mealBucket[sectionKey] = [];
+    mealBucket[sectionKey].push(row);
+  });
 
-    let meal = day.meals.find((item) => item.name === mealName);
-
-    if (!meal) {
-      meal = {
-        name: mealName,
-        categories: []
-      };
-      day.meals.push(meal);
-    }
-
-    const recipes = entry.recipes?.recipe;
-    const recipeList = Array.isArray(recipes) ? recipes : recipes ? [recipes] : [];
-
-    for (let j = 0; j < recipeList.length; j += 1) {
-      const recipe = recipeList[j];
-
-      if (!recipe || typeof recipe !== 'object') {
-        continue;
-      }
-
-      const categoryName = (recipe['@category'] || 'Miscellaneous').trim() || 'Miscellaneous';
-      let category = meal.categories.find((item) => item.name === categoryName);
-
-      if (!category) {
-        category = {
-          name: categoryName,
-          items: []
-        };
-        meal.categories.push(category);
-      }
-
-      const description = recipe['@description'] && recipe['@description'].trim();
-
-      if (description && !category.items.includes(description)) {
-        category.items.push(description);
-      }
-    }
-  }
-
-  return (
-    <div className="frary-menu">
-      <h1>Frary</h1>
-      {menuByDay.map((day) => (
-        <details className="frary-menu__day" key={day.servedate}>
-          <summary>{day.label}</summary>
-
-          {day.meals.map((meal) => (
-            <details className="frary-menu__meal" key={`${day.servedate}-${meal.name}`}>
-              <summary>{meal.name}</summary>
-
-              {meal.categories.map((category) => (
-                <details className="frary-menu__category" key={`${day.servedate}-${meal.name}-${category.name}`}>
-                  <summary>{category.name}</summary>
-                  <ul>
-                    {category.items.map((item) => (
-                      <li key={`${day.servedate}-${meal.name}-${category.name}-${item}`}>
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
-                </details>
-              ))}
-            </details>
-          ))}
-        </details>
-      ))}
-    </div>
-  )
+  return Array.from(byHall.values())
+    .map((entry) => ({
+      ...entry,
+      meals: Object.fromEntries(
+        mealOrder
+          .filter((m) => entry.meals[m])
+          .map((meal) => [
+            meal,
+            Object.fromEntries(
+              Object.entries(entry.meals[meal])
+                .sort(([a], [b]) => a.localeCompare(b))
+                .map(([section, dishes]) => [
+                  section,
+                  dishes.sort((a, b) =>
+                    (a.displayName || a.dish_name).localeCompare(b.displayName || b.dish_name)
+                  ),
+                ]),
+            ),
+          ]),
+      ),
+    }))
+    .sort((a, b) => a.hallName.localeCompare(b.hallName));
 }
 
 const Dashboard = () => {
+  const todayIso = new Date().toISOString().slice(0, 10);
+  const [selectedDate, setSelectedDate] = useState(todayIso);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+  const [rows, setRows] = useState([]);
+
+  useEffect(() => {
+    async function fetchMenus() {
+      setLoading(true);
+      setError('');
+      try {
+        const pageSize = 1000; // Supabase REST default max rows per request.
+        let page = 0;
+        let allRows = [];
+
+        // Pull pages until fewer than pageSize rows are returned.
+        // Sorting is reapplied per page; grouping later re-sorts dishes/sections.
+        // eslint-disable-next-line no-constant-condition
+        while (true) {
+          const from = page * pageSize;
+          const to = from + pageSize - 1;
+          const { data, error: err } = await supabase
+            .from('menu_items')
+            .select('id, date_served, meal, dish_name, section, description, tags, dishes(name, slug), halls(name, campus)')
+            .eq('date_served', selectedDate)
+            .order('meal', { ascending: true })
+            .order('dish_name', { ascending: true })
+            .range(from, to);
+          if (err) throw err;
+          if (data?.length) allRows = allRows.concat(data);
+          if (!data || data.length < pageSize) break;
+          page += 1;
+        }
+
+        const normalized = (allRows || []).map((r) => {
+          const displayName = r.dishes?.name || r.dish_name;
+          const slug = r.dishes?.slug || slugifyDish(displayName);
+          return { ...r, displayName, slug };
+        });
+
+        setRows(normalized);
+      } catch (e) {
+        console.error('Failed to load menus', e);
+        setError('Could not load menus right now.');
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchMenus();
+  }, [selectedDate]);
+
+  const grouped = useMemo(() => groupRows(rows), [rows]);
 
   return (
-    <div>
-      Dashboard
-      <FraryMenu />
-    </div>
-  )
-}
+    <div className="dashboard">
+      <header className="dashboard__header">
+        <h1>Menus</h1>
+        <label>
+          <span className="sr-only">Menu date</span>
+          <input
+            type="date"
+            value={selectedDate}
+            onChange={(e) => setSelectedDate(e.target.value)}
+          />
+        </label>
+      </header>
 
-export default Dashboard
+      {loading && <p>Loading menus…</p>}
+      {error && <p className="error">{error}</p>}
+      {!loading && !error && grouped.length === 0 && <p>No menus for this date.</p>}
+
+      <div
+        className="dashboard__grid"
+        style={{ gridTemplateColumns: `repeat(${grouped.length || 1}, minmax(0, 1fr))` }}
+      >
+        {grouped.map((hall) => (
+          <section key={hall.hallName} className="hall">
+            <h2>
+              {hall.hallName}
+              {hall.campus ? <span className="hall__campus"> · {hall.campus}</span> : null}
+            </h2>
+            {mealOrder
+              .filter((meal) => hall.meals[meal])
+              .map((meal) => (
+                <details key={meal}>
+                  <summary>{mealLabels[meal] || meal}</summary>
+                  {Object.entries(hall.meals[meal]).map(([section, dishes]) => (
+                    <details key={`${hall.hallName}-${meal}-${section}`} className="hall__section">
+                      <summary>{section}</summary>
+                      <ul>
+                        {dishes.map((dish) => (
+                          <li key={`${hall.hallName}-${meal}-${section}-${dish.dish_name}`}>
+                            <div className="dish__name">
+                              <Link to={`/dish/${hall.hallName}/${dish.slug}`}>{dish.displayName}</Link>
+                            </div>
+                            {dish.description ? (
+                              <p className="dish__description">{dish.description}</p>
+                            ) : null}
+                            {Array.isArray(dish.tags) && dish.tags.length ? (
+                              <div className="dish__tags">
+                                {dish.tags.map((tag) => (
+                                  <span className="dish__tag" key={`${dish.dish_name}-${tag}`}>
+                                    {tag}
+                                  </span>
+                                ))}
+                              </div>
+                            ) : null}
+                          </li>
+                        ))}
+                      </ul>
+                    </details>
+                  ))}
+                </details>
+              ))}
+          </section>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+export default Dashboard;

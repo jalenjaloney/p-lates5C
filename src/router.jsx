@@ -4,6 +4,7 @@ import Signup from "./components/Signup";
 import Signin from "./components/Signin";
 import Dashboard from "./components/Dashboard";
 import PrivateRoute from "./components/PrivateRoute";
+import DishDetail from "./components/DishDetail";
 
 export const router = createBrowserRouter([
     {path: "/", element: <App />},
@@ -16,4 +17,5 @@ export const router = createBrowserRouter([
     </PrivateRoute>
     ),
 },
+{path: "/dish/:hallSlug/:dishSlug", element: <DishDetail />},
 ]);

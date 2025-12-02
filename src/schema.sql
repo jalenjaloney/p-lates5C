@@ -9,19 +9,43 @@ create table if not exists public.halls (
   created_at timestamp not null default now()
 );
 
--- What a hall is serving on a specific date + meal.
--- Example row: "Frank, 2025-09-25, lunch, Teriyaki Tofu"
-create table if not exists public.menu_items (
-  id         integer generated always as identity primary key,
-  hall_id    integer not null references public.halls(id) on delete cascade,
-  date_served date not null,
-  meal       text not null check (meal in ('breakfast','lunch','dinner','late_night')),
-  dish_name  text not null,
-  tags       text[],                  -- optional: ["vegan","gluten_free"]
-  created_at timestamp not null default now(),
+-- Canonical dishes per hall (stable identity for reviews, etc.)
+create table if not exists public.dishes (
+  id               integer generated always as identity primary key,
+  hall_id          integer not null references public.halls(id) on delete cascade,
+  name             text not null,
+  slug             text not null, -- URL-friendly identifier per hall
+  description      text,
+  ingredients      text,
+  allergens        text[],
+  dietary_choices  text[],
+  nutrients        text,
+  tags             text[],
+  created_at       timestamp not null default now(),
+  updated_at       timestamp not null default now(),
+  unique (hall_id, slug),
+  unique (hall_id, lower(name))
+);
 
-  -- Don’t allow duplicate entries like “Frank / lunch / 9-25 / Teriyaki Tofu”
-  unique (hall_id, date_served, meal, dish_name)
+-- What a hall is serving on a specific date + meal (occurrence of a dish)
+create table if not exists public.menu_items (
+  id               integer generated always as identity primary key,
+  hall_id          integer not null references public.halls(id) on delete cascade,
+  dish_id          integer not null references public.dishes(id) on delete cascade,
+  date_served      date not null,
+  meal             text not null check (meal in ('breakfast','lunch','dinner','late_night')),
+  dish_name        text not null, -- denormalized for convenience
+  section          text,          -- e.g. "Panini Station" / "Pizza" / "Mainline"
+  description      text,          -- optional menu description (occurrence-specific)
+  ingredients      text,
+  allergens        text[],
+  dietary_choices  text[],
+  nutrients        text,
+  tags             text[],
+  created_at       timestamp not null default now(),
+
+  -- Don’t allow duplicate entries for the same dish occurrence
+  unique (hall_id, dish_id, date_served, meal, section)
 );
 
 -- Ratings left by students for a specific menu item.
@@ -42,8 +66,9 @@ create table if not exists public.dish_ratings (
 
 -- ---------- INDEXES ----------
 -- These speed up common lookups: e.g. menus by date, reviews by dish.
+create index if not exists idx_dishes_hall_slug on public.dishes (hall_id, slug);
 create index if not exists idx_menu_items_hall_date_meal
-  on public.menu_items (hall_id, date_served, meal);
+  on public.menu_items (hall_id, date_served, meal, section, dish_id);
 
 create index if not exists idx_menu_items_date
   on public.menu_items (date_served);
@@ -60,12 +85,15 @@ create index if not exists idx_dish_ratings_menu_item
 
 -- Turn RLS on
 alter table public.halls        enable row level security;
+alter table public.dishes       enable row level security;
 alter table public.menu_items   enable row level security;
 alter table public.dish_ratings enable row level security;
 
 -- Clean up old policies if re-running
 drop policy if exists halls_select_public      on public.halls;
 drop policy if exists halls_write_service      on public.halls;
+drop policy if exists dishes_select_public     on public.dishes;
+drop policy if exists dishes_write_service     on public.dishes;
 
 drop policy if exists menu_items_select_public on public.menu_items;
 drop policy if exists menu_items_write_service on public.menu_items;
@@ -84,6 +112,18 @@ create policy halls_select_public
 -- Only the backend (service_role key) can create/update/delete halls
 create policy halls_write_service
   on public.halls
+  for all to service_role
+  using (true) with check (true);
+
+-- ----- DISHES -----
+-- Anyone (anon or logged-in) can view dishes
+create policy dishes_select_public
+  on public.dishes
+  for select using (true);
+
+-- Only the backend (service_role key) can create/update/delete dishes
+create policy dishes_write_service
+  on public.dishes
   for all to service_role
   using (true) with check (true);
 
