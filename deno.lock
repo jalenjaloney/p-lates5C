@@ -39,22 +39,21 @@
     "packageJson": {
       "dependencies": [
         "npm:@eslint/js@^9.36.0",
+        "npm:@react-navigation/native-stack@^7.0.0",
+        "npm:@react-navigation/native@^7.0.0",
         "npm:@supabase/supabase-js@^2.75.0",
-        "npm:@tailwindcss/vite@^4.1.14",
-        "npm:@types/react-dom@^19.1.9",
-        "npm:@types/react@^19.1.16",
-        "npm:@vitejs/plugin-react-swc@^4.1.0",
+        "npm:babel-preset-expo@~12.0.0",
         "npm:cheerio@^1.1.2",
         "npm:eslint-plugin-react-hooks@^5.2.0",
-        "npm:eslint-plugin-react-refresh@~0.4.22",
-        "npm:eslint@^9.36.0",
+        "npm:expo-status-bar@~2.0.0",
+        "npm:expo@~52.0.0",
         "npm:globals@^16.4.0",
-        "npm:react-dom@^19.1.1",
-        "npm:react-router-dom@^7.9.4",
-        "npm:react@^19.1.1",
-        "npm:tailwindcss@^4.1.14",
-        "npm:ts-node@^10.9.2",
-        "npm:vite@^7.1.7"
+        "npm:react-native-gesture-handler@~2.20.0",
+        "npm:react-native-safe-area-context@4.12.0",
+        "npm:react-native-screens@~4.3.0",
+        "npm:react-native@0.76.3",
+        "npm:react@18.2.0",
+        "npm:ts-node@^10.9.2"
       ]
     }
   }

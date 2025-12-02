@@ -1,18 +1,57 @@
-# ! TO BE UPDATED !
+# 5C Dining Menus — React Native
 
-# React + Vite
+The web client has been replaced with a React Native app built on Expo so the same Supabase-backed experience is available on iOS, Android, and the Expo web runtime.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Prerequisites
 
-Currently, two official plugins are available:
+- Node.js 18+
+- npm 9+
+- Expo CLI (`npx expo --version` runs automatically, no global install required)
+- Supabase project with the `menu_items` and `dishes` tables that the existing backend already exposes
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Environment variables
 
-## React Compiler
+Create a `.env` file (or copy `env.example`) with the Expo-compatible vars:
 
-The React Compiler is currently not compatible with SWC. See [this issue](https://github.com/vitejs/vite-plugin-react/issues/428) for tracking the progress.
+```
+EXPO_PUBLIC_SUPABASE_URL=your-url-here
+EXPO_PUBLIC_SUPABASE_ANON_KEY=your-anon-key-here
+```
 
-## Expanding the ESLint configuration
+These values are bundled at build-time. Never commit real credentials.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Install & run
+
+```bash
+npm install
+npm run start            # opens the Expo dev tools
+```
+
+From the Expo dev tools you can press:
+
+- `i` to launch the iOS simulator
+- `a` to launch the Android emulator
+- `w` to open the Expo web build (Metro handles bundling)
+
+The usual Expo commands are also available:
+
+- `npm run ios`
+- `npm run android`
+- `npm run web`
+
+## Project layout
+
+- `App.js` — entry point that wires up navigation and auth gating
+- `src/context/AuthContext.jsx` — Supabase auth helpers & session state
+- `src/screens/*` — React Native screens for landing, auth, dashboard, and dish detail views
+- `src/supabaseClient.js` — Supabase client configured for Expo env vars
+
+Existing data tooling (`src/schema.sql`, `src/scraper.js`, `supabase/functions/*`) is unchanged.
+
+## Linting
+
+```bash
+npm run lint
+```
+
+The ESLint config is shared across the React Native app and the auxiliary Node scripts.*** End Patch

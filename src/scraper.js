@@ -1,5 +1,4 @@
 /* eslint-env node */
-/* global process */
 /**
  * scraper.js
  * Local helper to fetch raw menu JSON into data/*.json for debugging the edge function scraper.

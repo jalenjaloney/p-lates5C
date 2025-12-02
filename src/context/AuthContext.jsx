@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState } from 'react';
-import { supabase } from '../supabaseClient.js';
+import { supabase, hasSupabaseConfig } from '../supabaseClient.js';
 
 const AuthContext = createContext();
 
@@ -8,6 +8,13 @@ export const AuthContextProvider = ({ children }) => {
 
   // Sign up
   const signUpNewUser = async (email, password) => {
+    if (!hasSupabaseConfig || !supabase) {
+      const message =
+        'Supabase is not configured. Set EXPO_PUBLIC_SUPABASE_URL and EXPO_PUBLIC_SUPABASE_ANON_KEY in your environment.';
+      console.error(message);
+      return { success: false, error: message };
+    }
+
     const { data, error } = await supabase.auth.signUp({
       email,
       password,
@@ -22,6 +29,13 @@ export const AuthContextProvider = ({ children }) => {
 
   // Sign in
   const signInUser = async (email, password) => {
+    if (!hasSupabaseConfig || !supabase) {
+      const message =
+        'Supabase is not configured. Set EXPO_PUBLIC_SUPABASE_URL and EXPO_PUBLIC_SUPABASE_ANON_KEY in your environment.';
+      console.error(message);
+      return { success: false, error: message };
+    }
+
     try {
       const { data, error } = await supabase.auth.signInWithPassword({
         email,
@@ -39,6 +53,12 @@ export const AuthContextProvider = ({ children }) => {
   };
 
   useEffect(() => {
+    if (!hasSupabaseConfig || !supabase) {
+      // No backend configured: treat as logged out but allow the UI to load.
+      setSession(null);
+      return;
+    }
+
     supabase.auth.getSession().then(({ data: { session: activeSession } }) => {
       setSession(activeSession);
     });
@@ -54,6 +74,13 @@ export const AuthContextProvider = ({ children }) => {
 
   // Sign out
   const signOutUser = async () => {
+    if (!hasSupabaseConfig || !supabase) {
+      const message =
+        'Supabase is not configured. Set EXPO_PUBLIC_SUPABASE_URL and EXPO_PUBLIC_SUPABASE_ANON_KEY in your environment.';
+      console.error(message);
+      return { success: false, error: message };
+    }
+
     const { error } = await supabase.auth.signOut();
     if (error) {
       console.error('Error signing out: ', error);
