@@ -9,7 +9,16 @@ const PrivateRoute = ({ children }) => {
     return <div>Loading...</div>;
   }
 
-  return session ? <>{children}</> : <Navigate to="/signup" />;
+  if (!session) {
+    return <Navigate to="/signup" />;
+  }
+
+  const confirmed = session.user?.email_confirmed_at;
+  if (!confirmed) {
+    return <Navigate to="/verify" replace />;
+  }
+
+  return <>{children}</>;
 };
 
 export default PrivateRoute;

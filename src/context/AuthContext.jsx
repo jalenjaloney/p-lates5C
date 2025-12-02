@@ -7,10 +7,13 @@ export const AuthContextProvider = ({ children }) => {
   const [session, setSession] = useState(undefined);
 
   // Sign up
-  const signUpNewUser = async (email, password) => {
+  const signUpNewUser = async (email, password, metadata = {}) => {
     const { data, error } = await supabase.auth.signUp({
       email,
       password,
+      options: {
+        data: metadata,
+      },
     });
 
     if (error) {
@@ -62,8 +65,47 @@ export const AuthContextProvider = ({ children }) => {
     return { success: true };
   };
 
+  // Update profile metadata for the current user
+  const updateProfile = async (attributes) => {
+    try {
+      const { data, error } = await supabase.auth.updateUser({ data: attributes });
+      if (error) {
+        console.error('Error updating profile: ', error);
+        return { success: false, error: error.message };
+      }
+      if (data?.user) {
+        setSession((prev) => (prev ? { ...prev, user: data.user } : { user: data.user }));
+      }
+      return { success: true, user: data?.user };
+    } catch (err) {
+      console.error('Error updating profile: ', err);
+      return { success: false, error: 'Unexpected error while updating profile' };
+    }
+  };
+
+  // Resend email confirmation
+  const resendVerification = async (email) => {
+    if (!email) return { success: false, error: 'Missing email' };
+    try {
+      const { error } = await supabase.auth.resend({
+        type: 'signup',
+        email,
+      });
+      if (error) {
+        console.error('Error resending verification:', error);
+        return { success: false, error: error.message };
+      }
+      return { success: true };
+    } catch (err) {
+      console.error('Error resending verification:', err);
+      return { success: false, error: 'Unexpected error while resending verification' };
+    }
+  };
+
   return (
-    <AuthContext.Provider value={{ session, signUpNewUser, signInUser, signOutUser }}>
+    <AuthContext.Provider
+      value={{ session, signUpNewUser, signInUser, signOutUser, updateProfile, resendVerification }}
+    >
       {children}
     </AuthContext.Provider>
   );

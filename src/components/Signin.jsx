@@ -18,7 +18,11 @@ const Signin = () => {
 
     try {
       const result = await signInUser(email, password);
-      if (result?.success) navigate('/dashboard');
+      if (result?.success) {
+        const confirmed = result.data?.user?.email_confirmed_at;
+        if (confirmed) navigate('/dashboard');
+        else navigate('/verify', { state: { email } });
+      }
       else if (result?.error) setError(result.error);
     } catch (err) {
       console.error('Sign in failed', err);

@@ -163,3 +163,91 @@ create policy ratings_delete_own
   on public.dish_ratings
   for delete to authenticated
   using (auth.uid() = user_id);
+
+-- ---------- USER PROFILES ----------
+-- Store searchable public profile info (duplicated from auth metadata for querying).
+create table if not exists public.user_profiles (
+  user_id uuid primary key references auth.users(id) on delete cascade,
+  handle text unique not null,
+  full_name text,
+  school text,
+  bio text,
+  created_at timestamp not null default now(),
+  updated_at timestamp not null default now()
+);
+
+alter table public.user_profiles enable row level security;
+
+drop policy if exists profiles_select_public on public.user_profiles;
+drop policy if exists profiles_upsert_owner on public.user_profiles;
+
+create policy profiles_select_public
+  on public.user_profiles
+  for select using (true);
+
+create policy profiles_upsert_owner
+  on public.user_profiles
+  for all to authenticated
+  using (auth.uid() = user_id)
+  with check (auth.uid() = user_id);
+
+-- ---------- FOLLOWS ----------
+create table if not exists public.user_follows (
+  id uuid default gen_random_uuid() primary key,
+  follower_id uuid not null references auth.users(id) on delete cascade,
+  followed_id uuid not null references auth.users(id) on delete cascade,
+  created_at timestamp not null default now(),
+  unique (follower_id, followed_id)
+);
+
+alter table public.user_follows enable row level security;
+
+drop policy if exists follows_select_public on public.user_follows;
+drop policy if exists follows_insert_owner on public.user_follows;
+drop policy if exists follows_delete_owner on public.user_follows;
+
+create policy follows_select_public
+  on public.user_follows
+  for select using (true);
+
+create policy follows_insert_owner
+  on public.user_follows
+  for insert to authenticated
+  with check (auth.uid() = follower_id);
+
+create policy follows_delete_owner
+  on public.user_follows
+  for delete to authenticated
+  using (auth.uid() = follower_id);
+
+-- ---------- REVIEW LIKES ----------
+create table if not exists public.review_likes (
+  id uuid default gen_random_uuid() primary key,
+  rating_id integer not null references public.dish_ratings(id) on delete cascade,
+  user_id uuid not null references auth.users(id) on delete cascade default auth.uid(),
+  created_at timestamp not null default now(),
+  unique (rating_id, user_id)
+);
+
+alter table public.review_likes enable row level security;
+
+drop policy if exists likes_select_public on public.review_likes;
+drop policy if exists likes_insert_owner on public.review_likes;
+drop policy if exists likes_delete_owner on public.review_likes;
+
+create policy likes_select_public
+  on public.review_likes
+  for select using (true);
+
+create policy likes_insert_owner
+  on public.review_likes
+  for insert to authenticated
+  with check (auth.uid() = user_id);
+
+create policy likes_delete_owner
+  on public.review_likes
+  for delete to authenticated
+  using (auth.uid() = user_id);
+
+create index if not exists idx_review_likes_rating on public.review_likes (rating_id);
+create index if not exists idx_user_follows_followed on public.user_follows (followed_id);

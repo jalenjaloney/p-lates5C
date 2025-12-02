@@ -126,14 +126,22 @@ const Dashboard = () => {
     <div className="dashboard">
       <header className="dashboard__header">
         <h1>Menus</h1>
-        <label>
-          <span className="sr-only">Menu date</span>
-          <input
-            type="date"
-            value={selectedDate}
-            onChange={(e) => setSelectedDate(e.target.value)}
-          />
-        </label>
+        <div className="dashboard__controls">
+          <label>
+            <span className="sr-only">Menu date</span>
+            <input
+              type="date"
+              value={selectedDate}
+              onChange={(e) => setSelectedDate(e.target.value)}
+            />
+          </label>
+          <Link className="btn btn--ghost" to="/people">
+            Find people
+          </Link>
+          <Link className="btn btn--ghost" to="/profile">
+            Profile
+          </Link>
+        </div>
       </header>
 
       {loading && <p>Loading menus…</p>}
