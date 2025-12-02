@@ -48,11 +48,11 @@ create table if not exists public.menu_items (
   unique (hall_id, dish_id, date_served, meal, section)
 );
 
--- Ratings left by students for a specific menu item.
--- For now, ties directly to Supabase auth.users via user_id.
+-- Ratings left by students for a specific dish.
+-- Tied directly to Supabase auth.users via user_id.
 create table if not exists public.dish_ratings (
   id           integer generated always as identity primary key,
-  menu_item_id integer not null references public.menu_items(id) on delete cascade,
+  dish_id      integer not null references public.dishes(id) on delete cascade,
   user_id      uuid not null references auth.users(id) on delete cascade
                  default auth.uid(),
   rater_handle text,     -- optional display name, can be null
@@ -60,8 +60,8 @@ create table if not exists public.dish_ratings (
   comment      text,
   created_at   timestamp not null default now(),
 
-  -- Each user can only rate a dish once (per menu occurrence).
-  unique (menu_item_id, user_id)
+  -- Each user can only rate a dish once.
+  unique (dish_id, user_id)
 );
 
 -- ---------- INDEXES ----------
@@ -73,8 +73,8 @@ create index if not exists idx_menu_items_hall_date_meal
 create index if not exists idx_menu_items_date
   on public.menu_items (date_served);
 
-create index if not exists idx_dish_ratings_menu_item
-  on public.dish_ratings (menu_item_id);
+create index if not exists idx_dish_ratings_dish
+  on public.dish_ratings (dish_id);
 
 -- ---------- POLICIES ----------
 -- We use Row Level Security (RLS) to control who can see and modify what.

@@ -86,7 +86,6 @@ const Dashboard = () => {
 
         // Pull pages until fewer than pageSize rows are returned.
         // Sorting is reapplied per page; grouping later re-sorts dishes/sections.
-        // eslint-disable-next-line no-constant-condition
         while (true) {
           const from = page * pageSize;
           const to = from + pageSize - 1;
