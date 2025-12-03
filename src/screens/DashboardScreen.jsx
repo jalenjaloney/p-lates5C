@@ -11,6 +11,7 @@ import {
 import { useNavigation } from '@react-navigation/native';
 import { supabase, hasSupabaseConfig } from '../supabaseClient';
 import { UserAuth } from '../context/AuthContext';
+import { formatTitle } from '../utils/text';
 
 const mealOrder = ['breakfast', 'lunch', 'dinner', 'late_night'];
 const mealLabels = {
@@ -87,7 +88,7 @@ const DashboardScreen = () => {
   const [signOutError, setSignOutError] = useState('');
 
   const navigation = useNavigation();
-  const { signOutUser } = UserAuth();
+  const { signOutUser, session } = UserAuth();
 
   useEffect(() => {
     if (!hasSupabaseConfig || !supabase) {
@@ -143,9 +144,15 @@ const DashboardScreen = () => {
   }, [selectedDate]);
 
   const grouped = useMemo(() => groupRows(rows), [rows]);
+  const [expanded, setExpanded] = useState({});
+  const [sectionExpanded, setSectionExpanded] = useState({});
 
   const handleSignOut = async () => {
     setSignOutError('');
+    if (!session) {
+      navigation.navigate('Signin');
+      return;
+    }
     try {
       await signOutUser();
     } catch (e) {
@@ -154,8 +161,25 @@ const DashboardScreen = () => {
     }
   };
 
+  const toggleSection = (hallName, meal, section) => {
+    const key = `${hallName}-${meal}-${section}`;
+    setSectionExpanded((prev) => ({ ...prev, [key]: !prev[key] }));
+  };
+
   const handleDishPress = (hallName, slug) => {
     navigation.navigate('DishDetail', { hallSlug: hallName, dishSlug: slug });
+  };
+
+  const handleGoProfile = () => {
+    navigation.navigate('Profile');
+  };
+
+  const handleGoSearch = () => {
+    navigation.navigate('Search');
+  };
+
+  const toggleHall = (hallName) => {
+    setExpanded((prev) => ({ ...prev, [hallName]: !prev[hallName] }));
   };
 
   return (
@@ -166,7 +190,7 @@ const DashboardScreen = () => {
           <Text style={styles.subtitle}>Tap a dish to see nutrients and history.</Text>
         </View>
         <Pressable style={styles.signOutButton} onPress={handleSignOut}>
-          <Text style={styles.signOutText}>Sign out</Text>
+          <Text style={styles.signOutText}>{session ? 'Sign out' : 'Sign in'}</Text>
         </Pressable>
       </View>
 
@@ -179,6 +203,14 @@ const DashboardScreen = () => {
           maxLength={10}
           style={styles.dateInput}
         />
+      </View>
+      <View style={styles.shortcuts}>
+        <Pressable style={styles.shortcutButton} onPress={handleGoProfile}>
+          <Text style={styles.shortcutText}>Profile</Text>
+        </Pressable>
+        <Pressable style={styles.shortcutButton} onPress={handleGoSearch}>
+          <Text style={styles.shortcutText}>Search</Text>
+        </Pressable>
       </View>
       {!!signOutError && <Text style={styles.error}>{signOutError}</Text>}
       {!!error && <Text style={styles.error}>{error}</Text>}
@@ -195,43 +227,58 @@ const DashboardScreen = () => {
           ) : (
             grouped.map((hall) => (
               <View key={hall.hallName} style={styles.hallCard}>
-                <View style={styles.hallHeader}>
-                  <Text style={styles.hallTitle}>{hall.hallName}</Text>
-                  {hall.campus ? <Text style={styles.hallMeta}>{hall.campus}</Text> : null}
-                </View>
-                {mealOrder
-                  .filter((meal) => hall.meals[meal])
-                  .map((meal) => (
-                    <View key={`${hall.hallName}-${meal}`} style={styles.mealBlock}>
-                      <Text style={styles.mealTitle}>{mealLabels[meal] || meal}</Text>
-                      {Object.entries(hall.meals[meal]).map(([section, dishes]) => (
-                        <View key={`${hall.hallName}-${meal}-${section}`} style={styles.sectionBlock}>
-                          <Text style={styles.sectionTitle}>{section}</Text>
-                          {dishes.map((dish) => (
+                <Pressable style={styles.hallHeader} onPress={() => toggleHall(hall.hallName)}>
+                  <View style={styles.hallTitleRow}>
+                    <Text style={styles.hallTitle}>{formatTitle(hall.hallName)}</Text>
+                    {hall.campus ? (
+                      <Text style={styles.hallMeta}> · {formatTitle(hall.campus)}</Text>
+                    ) : null}
+                  </View>
+                  <Text style={styles.collapseIcon}>{expanded[hall.hallName] ? '▴' : '▾'}</Text>
+                </Pressable>
+                {expanded[hall.hallName] &&
+                  mealOrder
+                    .filter((meal) => hall.meals[meal])
+                    .map((meal) => (
+                      <View key={`${hall.hallName}-${meal}`} style={styles.mealBlock}>
+                        <Text style={styles.mealTitle}>{mealLabels[meal] || formatTitle(meal)}</Text>
+                        {Object.entries(hall.meals[meal]).map(([section, dishes]) => (
+                          <View key={`${hall.hallName}-${meal}-${section}`} style={styles.sectionBlock}>
                             <Pressable
-                              key={`${hall.hallName}-${meal}-${section}-${dish.dish_name}`}
-                              style={styles.dishCard}
-                              onPress={() => handleDishPress(hall.hallName, dish.slug)}
+                              style={styles.sectionHeader}
+                              onPress={() => toggleSection(hall.hallName, meal, section)}
                             >
-                              <Text style={styles.dishName}>{dish.displayName}</Text>
-                              {dish.description ? (
-                                <Text style={styles.dishDescription}>{dish.description}</Text>
-                              ) : null}
-                              {Array.isArray(dish.tags) && dish.tags.length ? (
-                                <View style={styles.tagRow}>
-                                  {dish.tags.map((tag) => (
-                                    <View key={`${dish.dish_name}-${tag}`} style={styles.tagPill}>
-                                      <Text style={styles.tagText}>{tag}</Text>
-                                    </View>
-                                  ))}
-                                </View>
-                              ) : null}
+                              <Text style={styles.sectionTitle}>{formatTitle(section)}</Text>
+                              <Text style={styles.collapseIcon}>
+                                {sectionExpanded[`${hall.hallName}-${meal}-${section}`] ? '▴' : '▾'}
+                              </Text>
                             </Pressable>
-                          ))}
-                        </View>
-                      ))}
-                    </View>
-                  ))}
+                            {sectionExpanded[`${hall.hallName}-${meal}-${section}`] &&
+                              dishes.map((dish) => (
+                                <Pressable
+                                  key={`${hall.hallName}-${meal}-${section}-${dish.dish_name}`}
+                                  style={styles.dishCard}
+                                  onPress={() => handleDishPress(hall.hallName, dish.slug)}
+                                >
+                                  <Text style={styles.dishName}>{formatTitle(dish.displayName)}</Text>
+                                  {dish.description ? (
+                                    <Text style={styles.dishDescription}>{dish.description}</Text>
+                                  ) : null}
+                                  {Array.isArray(dish.tags) && dish.tags.length ? (
+                                    <View style={styles.tagRow}>
+                                      {dish.tags.map((tag) => (
+                                        <View key={`${dish.dish_name}-${tag}`} style={styles.tagPill}>
+                                          <Text style={styles.tagText}>{formatTitle(tag)}</Text>
+                                        </View>
+                                      ))}
+                                    </View>
+                                  ) : null}
+                                </Pressable>
+                              ))}
+                          </View>
+                        ))}
+                      </View>
+                    ))}
               </View>
             ))
           )}
@@ -284,6 +331,24 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     color: '#374151',
   },
+  shortcuts: {
+    flexDirection: 'row',
+    gap: 8,
+    marginBottom: 8,
+  },
+  shortcutButton: {
+    flex: 1,
+    paddingVertical: 10,
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: '#d1d5db',
+    alignItems: 'center',
+    backgroundColor: '#fff',
+  },
+  shortcutText: {
+    color: '#2563eb',
+    fontWeight: '600',
+  },
   dateInput: {
     flex: 1,
     borderWidth: 1,
@@ -319,11 +384,27 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    paddingVertical: 4,
+  },
+  hallTitleRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   hallTitle: {
     fontSize: 20,
     fontWeight: '700',
     color: '#111827',
+  },
+  hallMeta: {
+    fontSize: 14,
+    fontWeight: '400',
+    color: '#6b7280',
+  },
+  collapseIcon: {
+    fontSize: 20,
+    fontWeight: '900',
+    color: '#1f2937',
+    paddingHorizontal: 4,
   },
   hallMeta: {
     color: '#6b7280',
@@ -346,6 +427,11 @@ const styles = StyleSheet.create({
     padding: 12,
     gap: 8,
     backgroundColor: '#fafafa',
+  },
+  sectionHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
   sectionTitle: {
     fontWeight: '600',

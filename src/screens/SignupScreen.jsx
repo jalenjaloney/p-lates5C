@@ -12,6 +12,21 @@ import {
 import { useNavigation } from '@react-navigation/native';
 import { UserAuth } from '../context/AuthContext';
 
+const domainToSchool = {
+  'mymail.pomona.edu': 'Pomona',
+  'claremontmckenna.edu': 'CMC',
+  'cmc.edu': 'CMC',
+  'scrippscollege.edu': 'Scripps',
+  'pitzer.edu': 'Pitzer',
+  'hmc.edu': 'Harvey Mudd',
+};
+
+function getSchoolFromEmail(email) {
+  if (!email?.includes('@')) return null;
+  const domain = email.split('@')[1].toLowerCase();
+  return domainToSchool[domain] || null;
+}
+
 const SignupScreen = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -26,8 +41,26 @@ const SignupScreen = () => {
     setLoading(true);
 
     try {
-      const result = await signUpNewUser(email.trim(), password);
-      if (!result?.success && result?.error) setError(result.error);
+      const trimmedEmail = email.trim();
+      const school = getSchoolFromEmail(trimmedEmail);
+      if (!school) {
+        setError('Please sign up with a valid 5C school email.');
+        setLoading(false);
+        return;
+      }
+      if (password.length < 6) {
+        setError('Password must be at least 6 characters.');
+        setLoading(false);
+        return;
+      }
+
+      const metadata = { school };
+      const result = await signUpNewUser(trimmedEmail, password, metadata);
+      if (result?.success) {
+        navigation.navigate('VerifyEmail', { email: trimmedEmail });
+      } else if (result?.error) {
+        setError(result.error);
+      }
     } catch (err) {
       console.error('Sign up failed', err);
       setError('Failed to create an account');

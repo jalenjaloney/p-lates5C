@@ -26,8 +26,18 @@ const SigninScreen = () => {
     setLoading(true);
 
     try {
-      const result = await signInUser(email.trim(), password);
-      if (!result?.success && result?.error) setError(result.error);
+      const trimmedEmail = email.trim();
+      const result = await signInUser(trimmedEmail, password);
+      if (result?.success) {
+        const confirmed = result.data?.user?.email_confirmed_at;
+        if (!confirmed) {
+          navigation.navigate('VerifyEmail', { email: trimmedEmail });
+        } else {
+          navigation.navigate('Dashboard');
+        }
+      } else if (result?.error) {
+        setError(result.error);
+      }
     } catch (err) {
       console.error('Sign in failed', err);
       setError('Failed to sign in');

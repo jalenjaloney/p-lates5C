@@ -11,6 +11,10 @@ import SigninScreen from './src/screens/SigninScreen';
 import SignupScreen from './src/screens/SignupScreen';
 import DashboardScreen from './src/screens/DashboardScreen';
 import DishDetailScreen from './src/screens/DishDetailScreen';
+import VerifyEmailScreen from './src/screens/VerifyEmailScreen';
+import ProfileScreen from './src/screens/ProfileScreen';
+import SearchScreen from './src/screens/SearchScreen';
+import UserProfileScreen from './src/screens/UserProfileScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -26,31 +30,16 @@ function RootNavigator() {
   }
 
   return (
-    <Stack.Navigator>
-      {session ? (
-        <>
-          <Stack.Screen
-            name="Dashboard"
-            component={DashboardScreen}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name="DishDetail"
-            component={DishDetailScreen}
-            options={{ title: 'Dish details' }}
-          />
-        </>
-      ) : (
-        <>
-          <Stack.Screen
-            name="Landing"
-            component={LandingScreen}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen name="Signin" component={SigninScreen} options={{ title: 'Sign in' }} />
-          <Stack.Screen name="Signup" component={SignupScreen} options={{ title: 'Sign up' }} />
-        </>
-      )}
+    <Stack.Navigator initialRouteName="Dashboard">
+      <Stack.Screen name="Dashboard" component={DashboardScreen} options={{ headerShown: false }} />
+      <Stack.Screen name="DishDetail" component={DishDetailScreen} options={{ title: 'Dish details' }} />
+      <Stack.Screen name="Search" component={SearchScreen} options={{ title: 'Search' }} />
+      <Stack.Screen name="Profile" component={ProfileScreen} options={{ title: 'Profile' }} />
+      <Stack.Screen name="UserProfile" component={UserProfileScreen} options={{ title: 'User profile' }} />
+      <Stack.Screen name="Landing" component={LandingScreen} options={{ headerShown: false }} />
+      <Stack.Screen name="Signin" component={SigninScreen} options={{ title: 'Sign in' }} />
+      <Stack.Screen name="Signup" component={SignupScreen} options={{ title: 'Sign up' }} />
+      <Stack.Screen name="VerifyEmail" component={VerifyEmailScreen} options={{ title: 'Verify email' }} />
     </Stack.Navigator>
   );
 }
@@ -73,4 +62,3 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
-

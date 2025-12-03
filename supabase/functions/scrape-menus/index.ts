@@ -554,9 +554,9 @@ function inferBonAppMealsFromSections(
     const label = (item?.label || item?.name || "").trim();
     if (!label) continue;
 
-    let meal: Meal | null = null;
-    if (hasSections) meal = inferMealFromSections(label, sections);
-    if (!meal) meal = inferMealFromStation(item?.station);
+    // Prefer explicit meal markers from the station, then fall back to section inference.
+    let meal: Meal | null = inferMealFromStation(item?.station);
+    if (!meal && hasSections) meal = inferMealFromSections(label, sections);
 
     if (meal) {
       const description = cleanDescription(item?.description);
@@ -629,9 +629,14 @@ async function upsertMenuItems(
   }>
 ) {
   if (!items.length) return;
+  const normalized = items.map((item) => ({
+    ...item,
+    // Use empty string to make conflicts hit even when section is absent.
+    section: item.section ?? "",
+  }));
   const { error } = await supabase
     .from("menu_items")
-    .upsert(items, { onConflict: "hall_id,dish_id,date_served,meal,section" });
+    .upsert(normalized, { onConflict: "hall_id,dish_id,date_served,meal,section" });
   if (error) throw error;
 }
 

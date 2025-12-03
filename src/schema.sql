@@ -35,7 +35,7 @@ create table if not exists public.menu_items (
   date_served      date not null,
   meal             text not null check (meal in ('breakfast','lunch','dinner','late_night')),
   dish_name        text not null, -- denormalized for convenience
-  section          text,          -- e.g. "Panini Station" / "Pizza" / "Mainline"
+  section          text not null default '', -- e.g. "Panini Station" / "Pizza" / "Mainline"
   description      text,          -- optional menu description (occurrence-specific)
   ingredients      text,
   allergens        text[],
