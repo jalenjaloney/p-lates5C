@@ -1,481 +1,403 @@
+import { Ionicons } from '@expo/vector-icons';
 import React, { useEffect, useMemo, useState } from 'react';
 import {
   ActivityIndicator,
+  Modal,
   Pressable,
   ScrollView,
   StyleSheet,
   Text,
-  TextInput,
   View,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+
+import DateBanner from '../../components/datebanner';
+import DishItem from '../../components/dishitem';
+import Header from '../../components/header';
 import { supabase, hasSupabaseConfig } from '../supabaseClient';
 import { UserAuth } from '../context/AuthContext';
-import { formatTitle } from '../utils/text';
 
-const mealOrder = ['breakfast', 'lunch', 'dinner', 'late_night'];
-const mealLabels = {
-  breakfast: 'Breakfast',
-  lunch: 'Lunch',
-  dinner: 'Dinner',
-  late_night: 'Late Night',
-};
-
-function slugifyDish(name) {
-  return (name || '')
+const slugifyDish = (name) =>
+  (name || '')
     .toLowerCase()
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/^-+|-+$/g, '') || 'dish';
-}
 
-function normalizeMeal(raw) {
+const HALLS = [
+  { id: 'frank', label: 'Frank', dbName: 'Frank' },
+  { id: 'frary', label: 'Frary', dbName: 'Frary' },
+  { id: 'oldenborg', label: 'Oldenborg', dbName: 'Oldenborg' },
+  { id: 'collins', label: 'Collins', dbName: 'Collins' },
+  { id: 'malott', label: 'Malott', dbName: 'Malott' },
+  { id: 'mcconnell', label: 'McConnell', dbName: 'McConnell' },
+  { id: 'hoch', label: 'Hoch', dbName: 'Hoch-Shanahan' },
+];
+
+const normalizeMealName = (raw) => {
   const name = (raw ?? '').toLowerCase();
-  if (name.includes('breakfast')) return 'breakfast';
-  if (name.includes('lunch')) return 'lunch';
-  if (name.includes('dinner')) return 'dinner';
-  if (name.includes('late')) return 'late_night';
+  if (name.includes('breakfast')) return 'Breakfast';
+  if (name.includes('lunch')) return 'Lunch';
+  if (name.includes('dinner')) return 'Dinner';
+  if (name.includes('late')) return 'Dinner';
   return null;
-}
+};
 
-function groupRows(rows) {
-  const byHall = new Map();
+const buildMenuByMealAndSection = (rows, hallLabel) => {
+  const menu = {};
 
   rows.forEach((row) => {
-    const meal = normalizeMeal(row.meal);
-    if (!meal) return;
+    const mealKey = normalizeMealName(row.meal);
+    if (!mealKey) return;
 
-    const hallName = row.halls?.name || 'Unknown Hall';
-    const campus = row.halls?.campus || '';
-    if (!byHall.has(hallName)) byHall.set(hallName, { hallName, campus, meals: {} });
-    const bucket = byHall.get(hallName);
-    if (!bucket.meals[meal]) bucket.meals[meal] = {};
-    const mealBucket = bucket.meals[meal];
     const sectionKey = row.section?.trim() || 'Unlabeled';
-    if (!mealBucket[sectionKey]) mealBucket[sectionKey] = [];
-    mealBucket[sectionKey].push(row);
+    const mealBucket = (menu[mealKey] ??= {});
+    const sectionBucket = (mealBucket[sectionKey] ??= []);
+
+    sectionBucket.push({
+      id: row.id || `${row.meal}-${row.dish_name}-${sectionKey}`,
+      college: hallLabel.toUpperCase(),
+      dish: row.dish_name,
+      slug: row.slug || row.dishes?.slug,
+      description: row.description,
+      tags: row.tags,
+      rating: row.rating,
+    });
   });
 
-  return Array.from(byHall.values())
-    .map((entry) => ({
-      ...entry,
-      meals: Object.fromEntries(
-        mealOrder
-          .filter((m) => entry.meals[m])
-          .map((meal) => [
-            meal,
-            Object.fromEntries(
-              Object.entries(entry.meals[meal])
-                .sort(([a], [b]) => a.localeCompare(b))
-                .map(([section, dishes]) => [
-                  section,
-                  dishes.sort((a, b) =>
-                    (a.displayName || a.dish_name).localeCompare(b.displayName || b.dish_name)
-                  ),
-                ]),
-            ),
-          ]),
-      ),
-    }))
-    .sort((a, b) => a.hallName.localeCompare(b.hallName));
-}
+  return menu;
+};
 
 const DashboardScreen = () => {
-  const todayIso = new Date().toISOString().slice(0, 10);
-  const [selectedDate, setSelectedDate] = useState(todayIso);
+  const { session } = UserAuth();
+  const navigation = useNavigation();
+  const [hall, setHall] = useState('frank');
+  const [menu, setMenu] = useState({});
+  const [openMeals, setOpenMeals] = useState({});
+  const [openSections, setOpenSections] = useState({});
+  const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-  const [rows, setRows] = useState([]);
-  const [signOutError, setSignOutError] = useState('');
 
-  const navigation = useNavigation();
-  const { signOutUser, session } = UserAuth();
+  const todayIso = useMemo(() => new Date().toISOString().slice(0, 10), []);
 
   useEffect(() => {
-    if (!hasSupabaseConfig || !supabase) {
-      setRows([]);
-      setError(
-        'Supabase is not configured. Set EXPO_PUBLIC_SUPABASE_URL and EXPO_PUBLIC_SUPABASE_ANON_KEY in your environment.'
-      );
-      return;
-    }
+    const fetchMenu = async () => {
+      const selected = HALLS.find((h) => h.id === hall);
+      if (!selected || !supabase || !hasSupabaseConfig) {
+        setMenu({});
+        setError(
+          'Supabase is not configured. Set EXPO_PUBLIC_SUPABASE_URL and EXPO_PUBLIC_SUPABASE_ANON_KEY in your environment.'
+        );
+        return;
+      }
 
-    async function fetchMenus() {
       setLoading(true);
       setError('');
-      try {
-        const pageSize = 1000; // Supabase REST default max rows per request.
-        let page = 0;
-        let allRows = [];
 
-        // Pull pages until fewer than pageSize rows are returned.
-        // Sorting is reapplied per page; grouping later re-sorts dishes/sections.
-        while (true) {
-          const from = page * pageSize;
-          const to = from + pageSize - 1;
-          const { data, error: err } = await supabase
-            .from('menu_items')
-            .select('id, date_served, meal, dish_name, section, description, tags, dishes(name, slug), halls(name, campus)')
-            .eq('date_served', selectedDate)
-            .order('meal', { ascending: true })
-            .order('dish_name', { ascending: true })
-            .range(from, to);
-          if (err) throw err;
-          if (data?.length) allRows = allRows.concat(data);
-          if (!data || data.length < pageSize) break;
-          page += 1;
+      try {
+        const { data, error: err } = await supabase
+          .from('menu_items')
+          .select('id, meal, dish_name, section, description, tags, halls(name), dishes(id, name, slug)')
+          .eq('date_served', todayIso)
+          .order('meal', { ascending: true })
+          .order('dish_name', { ascending: true });
+
+        if (err) throw err;
+
+        const rows = (data ?? []).filter(
+          (row) => (row.halls?.name ?? '').toLowerCase() === selected.dbName.toLowerCase()
+        );
+
+        const dishIds = rows
+          .map((r) => r.dishes?.id)
+          .filter((id) => typeof id === 'number' || typeof id === 'string');
+
+        let averages = {};
+        if (dishIds.length && supabase) {
+          const { data: ratingsData, error: ratingsErr } = await supabase
+            .from('dish_ratings')
+            .select('dish_id, rating')
+            .in('dish_id', dishIds);
+          if (ratingsErr) {
+            console.error('Failed to load ratings', ratingsErr);
+          } else {
+            const buckets = new Map();
+            ratingsData?.forEach((row) => {
+              if (!row.dish_id) return;
+              if (!buckets.has(row.dish_id)) buckets.set(row.dish_id, []);
+              buckets.get(row.dish_id).push(row.rating);
+            });
+            averages = Object.fromEntries(
+              Array.from(buckets.entries()).map(([id, ratings]) => [
+                id,
+                ratings.reduce((a, b) => a + b, 0) / ratings.length,
+              ])
+            );
+          }
         }
 
-        const normalized = (allRows || []).map((r) => {
-          const displayName = r.dishes?.name || r.dish_name;
-          const slug = r.dishes?.slug || slugifyDish(displayName);
-          return { ...r, displayName, slug };
+        const rowsWithSlug = rows.map((r) => {
+          const slug = r.dishes?.slug || slugifyDish(r.dishes?.name || r.dish_name);
+          const rating = r.dishes?.id ? averages[r.dishes.id] ?? 0 : 0;
+          return { ...r, slug, rating };
         });
 
-        setRows(normalized);
+        setMenu(buildMenuByMealAndSection(rowsWithSlug, selected.label));
       } catch (e) {
-        console.error('Failed to load menus', e);
-        setError('Could not load menus right now.');
+        console.error('Failed to load menus for hall', hall, e);
+        setError('Could not load this hall’s menu right now.');
+        setMenu({});
       } finally {
         setLoading(false);
       }
-    }
+    };
 
-    fetchMenus();
-  }, [selectedDate]);
+    fetchMenu();
+  }, [hall, todayIso]);
 
-  const grouped = useMemo(() => groupRows(rows), [rows]);
-  const [expanded, setExpanded] = useState({});
-  const [sectionExpanded, setSectionExpanded] = useState({});
+  const breakfast = useMemo(() => menu.Breakfast ?? {}, [menu]);
+  const lunch = useMemo(() => menu.Lunch ?? {}, [menu]);
+  const dinner = useMemo(() => menu.Dinner ?? {}, [menu]);
 
-  const handleSignOut = async () => {
-    setSignOutError('');
-    if (!session) {
-      navigation.navigate('Signin');
-      return;
-    }
-    try {
-      await signOutUser();
-    } catch (e) {
-      console.error('Failed to sign out', e);
-      setSignOutError('Unable to sign out. Please try again.');
-    }
+  const toggleMeal = (mealKey) => {
+    setOpenMeals((prev) => ({ ...prev, [mealKey]: !prev[mealKey] }));
   };
 
-  const toggleSection = (hallName, meal, section) => {
-    const key = `${hallName}-${meal}-${section}`;
-    setSectionExpanded((prev) => ({ ...prev, [key]: !prev[key] }));
-  };
-
-  const handleDishPress = (hallName, slug) => {
-    navigation.navigate('DishDetail', { hallSlug: hallName, dishSlug: slug });
-  };
-
-  const handleGoProfile = () => {
-    navigation.navigate('Profile');
-  };
-
-  const handleGoSearch = () => {
-    navigation.navigate('Search');
-  };
-
-  const toggleHall = (hallName) => {
-    setExpanded((prev) => ({ ...prev, [hallName]: !prev[hallName] }));
+  const toggleSection = (mealKey, sectionKey) => {
+    const key = `${mealKey}-${sectionKey}`;
+    setOpenSections((prev) => ({ ...prev, [key]: !prev[key] }));
   };
 
   return (
     <View style={styles.container}>
-      <View style={styles.header}>
-        <View>
-          <Text style={styles.title}>Menus</Text>
-          <Text style={styles.subtitle}>Tap a dish to see nutrients and history.</Text>
-        </View>
-        <Pressable style={styles.signOutButton} onPress={handleSignOut}>
-          <Text style={styles.signOutText}>{session ? 'Sign out' : 'Sign in'}</Text>
-        </Pressable>
-      </View>
+      <ScrollView
+        style={{ flex: 1 }}
+        contentContainerStyle={{ flexGrow: 1, paddingTop: 16, paddingBottom: 40 }}
+      >
+        <Header />
+        <DateBanner />
 
-      <View style={styles.dateRow}>
-        <Text style={styles.label}>Menu date</Text>
-        <TextInput
-          value={selectedDate}
-          onChangeText={(value) => setSelectedDate(value.slice(0, 10))}
-          placeholder="YYYY-MM-DD"
-          maxLength={10}
-          style={styles.dateInput}
-        />
-      </View>
-      <View style={styles.shortcuts}>
-        <Pressable style={styles.shortcutButton} onPress={handleGoProfile}>
-          <Text style={styles.shortcutText}>Profile</Text>
-        </Pressable>
-        <Pressable style={styles.shortcutButton} onPress={handleGoSearch}>
-          <Text style={styles.shortcutText}>Search</Text>
-        </Pressable>
-      </View>
-      {!!signOutError && <Text style={styles.error}>{signOutError}</Text>}
-      {!!error && <Text style={styles.error}>{error}</Text>}
-
-      {loading ? (
-        <View style={styles.loader}>
-          <ActivityIndicator size="large" color="#2563eb" />
-          <Text style={styles.muted}>Loading menus…</Text>
+        <View style={styles.selectorWrap}>
+          <Text style={styles.selectorLabel}>Dining Hall</Text>
+          <Pressable
+            onPress={() => setOpen(true)}
+            style={({ pressed }) => [styles.selectorBtn, pressed && { opacity: 0.9 }]}
+            accessibilityRole="button"
+            accessibilityLabel="Choose dining hall"
+          >
+            <Text style={styles.selectorText}>
+              {HALLS.find((h) => h.id === hall)?.label ?? 'Select'}
+            </Text>
+            <Ionicons name="chevron-down" size={18} color="#111" />
+          </Pressable>
         </View>
-      ) : (
-        <ScrollView contentContainerStyle={styles.scrollContent}>
-          {grouped.length === 0 ? (
-            <Text style={styles.muted}>No menus for this date.</Text>
-          ) : (
-            grouped.map((hall) => (
-              <View key={hall.hallName} style={styles.hallCard}>
-                <Pressable style={styles.hallHeader} onPress={() => toggleHall(hall.hallName)}>
-                  <View style={styles.hallTitleRow}>
-                    <Text style={styles.hallTitle}>{formatTitle(hall.hallName)}</Text>
-                    {hall.campus ? (
-                      <Text style={styles.hallMeta}> · {formatTitle(hall.campus)}</Text>
-                    ) : null}
-                  </View>
-                  <Text style={styles.collapseIcon}>{expanded[hall.hallName] ? '▴' : '▾'}</Text>
-                </Pressable>
-                {expanded[hall.hallName] &&
-                  mealOrder
-                    .filter((meal) => hall.meals[meal])
-                    .map((meal) => (
-                      <View key={`${hall.hallName}-${meal}`} style={styles.mealBlock}>
-                        <Text style={styles.mealTitle}>{mealLabels[meal] || formatTitle(meal)}</Text>
-                        {Object.entries(hall.meals[meal]).map(([section, dishes]) => (
-                          <View key={`${hall.hallName}-${meal}-${section}`} style={styles.sectionBlock}>
+
+        {loading && (
+          <View style={styles.loadingRow}>
+            <ActivityIndicator size="small" color="#2563eb" />
+            <Text style={styles.loadingText}>Loading menus…</Text>
+          </View>
+        )}
+
+        {!!error && <Text style={styles.errorText}>{error}</Text>}
+
+        {['Breakfast', 'Lunch', 'Dinner'].map((mealKey) => {
+          const mealData = mealKey === 'Breakfast' ? breakfast : mealKey === 'Lunch' ? lunch : dinner;
+          const sections = Object.entries(mealData).filter(([, dishes]) => (dishes ?? []).length > 0);
+          if (sections.length === 0) return null;
+
+          const isOpen = openMeals[mealKey] ?? false;
+
+          return (
+            <View key={mealKey} style={{ marginTop: 10 }}>
+              <Pressable style={styles.mealHeader} onPress={() => toggleMeal(mealKey)}>
+                <Text style={styles.mealTitle}>{mealKey}</Text>
+                <Ionicons
+                  name={isOpen ? 'chevron-up' : 'chevron-down'}
+                  size={18}
+                  color="#111"
+                />
+              </Pressable>
+              {isOpen &&
+                sections.map(([section, dishes]) => {
+                  const sectionKey = `${mealKey}-${section}`;
+                  const sectionOpen = openSections[sectionKey] ?? false;
+                return (
+                  <View key={sectionKey} style={styles.sectionBlock}>
+                    <Pressable
+                      style={styles.sectionHeader}
+                      onPress={() => toggleSection(mealKey, section)}
+                      >
+                        <Text style={styles.sectionTitle}>{section}</Text>
+                        <Ionicons
+                          name={sectionOpen ? 'chevron-up' : 'chevron-down'}
+                          size={16}
+                          color="#4b5563"
+                        />
+                      </Pressable>
+
+                      {sectionOpen && (
+                        <View style={{ paddingHorizontal: 4 }}>
+                          {dishes.map((d, i) => (
                             <Pressable
-                              style={styles.sectionHeader}
-                              onPress={() => toggleSection(hall.hallName, meal, section)}
+                              key={`${sectionKey}-${i}`}
+                              style={styles.dishCard}
+                              onPress={() => navigation.navigate('DishDetail', { hallSlug: hall, dishSlug: d.slug })}
                             >
-                              <Text style={styles.sectionTitle}>{formatTitle(section)}</Text>
-                              <Text style={styles.collapseIcon}>
-                                {sectionExpanded[`${hall.hallName}-${meal}-${section}`] ? '▴' : '▾'}
-                              </Text>
-                            </Pressable>
-                            {sectionExpanded[`${hall.hallName}-${meal}-${section}`] &&
-                              dishes.map((dish) => (
-                                <Pressable
-                                  key={`${hall.hallName}-${meal}-${section}-${dish.dish_name}`}
-                                  style={styles.dishCard}
-                                  onPress={() => handleDishPress(hall.hallName, dish.slug)}
-                                >
-                                  <Text style={styles.dishName}>{formatTitle(dish.displayName)}</Text>
-                                  {dish.description ? (
-                                    <Text style={styles.dishDescription}>{dish.description}</Text>
-                                  ) : null}
-                                  {Array.isArray(dish.tags) && dish.tags.length ? (
-                                    <View style={styles.tagRow}>
-                                      {dish.tags.map((tag) => (
-                                        <View key={`${dish.dish_name}-${tag}`} style={styles.tagPill}>
-                                          <Text style={styles.tagText}>{formatTitle(tag)}</Text>
-                                        </View>
-                                      ))}
+                              <DishItem dish={d.dish} rating={d.rating ?? 0} interactive={false} />
+                              {d.description ? (
+                                <Text style={styles.dishDescription}>{d.description}</Text>
+                              ) : null}
+                              {Array.isArray(d.tags) && d.tags.length ? (
+                                <View style={styles.tagRow}>
+                                  {d.tags.map((tag) => (
+                                    <View key={`${sectionKey}-${i}-${tag}`} style={styles.tagPill}>
+                                      <Text style={styles.tagText}>{tag}</Text>
                                     </View>
-                                  ) : null}
-                                </Pressable>
-                              ))}
-                          </View>
-                        ))}
-                      </View>
-                    ))}
-              </View>
-            ))
-          )}
-        </ScrollView>
-      )}
+                                  ))}
+                                </View>
+                              ) : null}
+                            </Pressable>
+                          ))}
+                        </View>
+                      )}
+                    </View>
+                  );
+                })}
+            </View>
+          );
+        })}
+      </ScrollView>
+
+      <Modal
+        visible={open}
+        transparent
+        animationType="fade"
+        onRequestClose={() => setOpen(false)}
+      >
+        <Pressable style={styles.backdrop} onPress={() => setOpen(false)} />
+        <View style={styles.modalCard}>
+          <Text style={styles.modalTitle}>Choose a hall</Text>
+          {HALLS.map((item) => {
+            const selected = item.id === hall;
+            return (
+              <Pressable
+                key={item.id}
+                onPress={() => {
+                  setHall(item.id);
+                  setOpen(false);
+                }}
+                style={[styles.optionRow, selected && styles.optionRowSelected]}
+              >
+                <Text style={[styles.optionText, selected && styles.optionTextSelected]}>
+                  {item.label}
+                </Text>
+                {selected && <Ionicons name="checkmark" size={18} color="#fff" />}
+              </Pressable>
+            );
+          })}
+        </View>
+      </Modal>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#f4f4f5',
-    paddingHorizontal: 16,
-    paddingTop: 24,
-  },
-  header: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 16,
-    gap: 12,
-  },
-  title: {
-    fontSize: 28,
-    fontWeight: '700',
-    color: '#111827',
-  },
-  subtitle: {
-    color: '#6b7280',
-  },
-  signOutButton: {
+  container: { flex: 1, backgroundColor: '#f4f4f5' },
+  selectorWrap: { paddingHorizontal: 16, paddingBottom: 8, marginTop: 20, gap: 6 },
+  selectorLabel: { fontSize: 13, color: '#666' },
+  selectorBtn: {
+    borderWidth: 1,
+    borderColor: '#e5e5e5',
+    borderRadius: 12,
     paddingHorizontal: 14,
-    paddingVertical: 8,
-    borderRadius: 999,
-    borderWidth: 1,
-    borderColor: '#e11d48',
-  },
-  signOutText: {
-    color: '#e11d48',
-    fontWeight: '600',
-  },
-  dateRow: {
+    paddingVertical: 12,
+    backgroundColor: '#fff',
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 12,
-    marginBottom: 8,
+    justifyContent: 'space-between',
   },
-  label: {
-    fontWeight: '600',
-    color: '#374151',
-  },
-  shortcuts: {
+  selectorText: { fontSize: 16, color: '#111', fontWeight: '600' },
+  mealHeader: {
+    paddingHorizontal: 16,
+    paddingVertical: 10,
     flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  mealTitle: { fontSize: 18, fontWeight: '700', color: '#111' },
+  noItems: { paddingHorizontal: 16, color: '#666', marginBottom: 8 },
+  loadingRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
     gap: 8,
-    marginBottom: 8,
+    paddingHorizontal: 16,
+    paddingVertical: 8,
   },
-  shortcutButton: {
-    flex: 1,
-    paddingVertical: 10,
-    borderRadius: 10,
-    borderWidth: 1,
-    borderColor: '#d1d5db',
-    alignItems: 'center',
-    backgroundColor: '#fff',
+  loadingText: { color: '#4b5563' },
+  errorText: {
+    paddingHorizontal: 16,
+    paddingVertical: 4,
+    color: '#b91c1c',
   },
-  shortcutText: {
-    color: '#2563eb',
-    fontWeight: '600',
-  },
-  dateInput: {
-    flex: 1,
-    borderWidth: 1,
-    borderColor: '#d1d5db',
-    borderRadius: 12,
-    paddingHorizontal: 12,
-    paddingVertical: 10,
-    backgroundColor: '#fff',
-    fontSize: 16,
-  },
-  loader: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: 12,
-  },
-  scrollContent: {
-    paddingBottom: 48,
-    gap: 16,
-  },
-  hallCard: {
-    backgroundColor: '#fff',
+  backdrop: { flex: 1, backgroundColor: 'rgba(0,0,0,0.25)' },
+  modalCard: {
+    position: 'absolute',
+    left: 16,
+    right: 16,
+    top: 120,
+    backgroundColor: '#111',
     borderRadius: 16,
-    padding: 16,
-    gap: 12,
-    elevation: 1,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.05,
-    shadowRadius: 6,
+    paddingVertical: 10,
+    paddingHorizontal: 12,
   },
-  hallHeader: {
+  modalTitle: { color: '#fff', fontWeight: '700', fontSize: 14, marginBottom: 6, opacity: 0.85 },
+  optionRow: {
+    paddingVertical: 12,
+    paddingHorizontal: 10,
+    borderRadius: 10,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingVertical: 4,
   },
-  hallTitleRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  hallTitle: {
-    fontSize: 20,
-    fontWeight: '700',
-    color: '#111827',
-  },
-  hallMeta: {
-    fontSize: 14,
-    fontWeight: '400',
-    color: '#6b7280',
-  },
-  collapseIcon: {
-    fontSize: 20,
-    fontWeight: '900',
-    color: '#1f2937',
-    paddingHorizontal: 4,
-  },
-  hallMeta: {
-    color: '#6b7280',
-  },
-  mealBlock: {
-    borderTopWidth: 1,
-    borderTopColor: '#f3f4f6',
-    paddingTop: 12,
-    gap: 8,
-  },
-  mealTitle: {
-    fontSize: 18,
-    fontWeight: '600',
-    color: '#1f2937',
-  },
+  optionRowSelected: { backgroundColor: '#222' },
+  optionText: { color: '#ddd', fontSize: 16 },
+  optionTextSelected: { color: '#fff', fontWeight: '700' },
   sectionBlock: {
+    marginHorizontal: 16,
+    marginBottom: 10,
     borderWidth: 1,
-    borderColor: '#e5e7eb',
+    borderColor: '#e5e5e5',
     borderRadius: 12,
-    padding: 12,
-    gap: 8,
     backgroundColor: '#fafafa',
+    overflow: 'hidden',
   },
   sectionHeader: {
+    paddingHorizontal: 12,
+    paddingVertical: 10,
     flexDirection: 'row',
-    justifyContent: 'space-between',
     alignItems: 'center',
+    justifyContent: 'space-between',
+    backgroundColor: '#f3f4f6',
   },
-  sectionTitle: {
-    fontWeight: '600',
-    color: '#4b5563',
-  },
+  sectionTitle: { fontWeight: '700', color: '#111', fontSize: 16 },
   dishCard: {
-    borderRadius: 12,
-    backgroundColor: '#fff',
-    padding: 12,
+    paddingHorizontal: 12,
+    paddingVertical: 10,
+    borderTopWidth: 1,
+    borderTopColor: '#ececec',
     gap: 6,
-    borderWidth: 1,
-    borderColor: '#e5e7eb',
+    backgroundColor: '#fff',
   },
-  dishName: {
-    fontWeight: '600',
-    color: '#111827',
-  },
-  dishDescription: {
-    color: '#6b7280',
-  },
-  tagRow: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    gap: 8,
-  },
+  dishDescription: { color: '#6b7280' },
+  tagRow: { flexDirection: 'row', flexWrap: 'wrap', gap: 8 },
   tagPill: {
     paddingHorizontal: 8,
     paddingVertical: 4,
     borderRadius: 999,
     backgroundColor: '#dbeafe',
   },
-  tagText: {
-    color: '#1d4ed8',
-    fontSize: 12,
-    fontWeight: '600',
-  },
-  error: {
-    color: '#b91c1c',
-    marginBottom: 8,
-  },
-  muted: {
-    color: '#6b7280',
-    textAlign: 'center',
-  },
+  tagText: { color: '#1d4ed8', fontSize: 12, fontWeight: '600' },
 });
 
 export default DashboardScreen;

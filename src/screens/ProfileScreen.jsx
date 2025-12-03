@@ -16,8 +16,18 @@ import { formatTitle } from '../utils/text';
 
 const HANDLE_COOLDOWN_DAYS = 30;
 
+const deriveSchoolFromEmail = (email) => {
+  const domain = (email || '').split('@')[1]?.toLowerCase() || '';
+  if (domain.includes('pomona')) return 'Pomona';
+  if (domain.includes('pitzer')) return 'Pitzer';
+  if (domain.includes('scripps')) return 'Scripps';
+  if (domain.includes('cmc') || domain.includes('claremontmckenna')) return 'Claremont McKenna';
+  if (domain.includes('hmc') || domain.includes('harveymudd')) return 'Harvey Mudd';
+  return 'The Claremont Colleges';
+};
+
 const ProfileScreen = () => {
-  const { session, updateProfile } = UserAuth();
+  const { session, updateProfile, signOutUser } = UserAuth();
   const navigation = useNavigation();
   const [editing, setEditing] = useState(false);
   const [saving, setSaving] = useState(false);
@@ -48,15 +58,16 @@ const ProfileScreen = () => {
   }
 
   const emailHandle = session?.user?.email?.split('@')[0] || 'platesuser';
+  const derivedSchool = deriveSchoolFromEmail(session?.user?.email || '');
   const profile = useMemo(
     () => ({
       handle: session?.user?.user_metadata?.handle || `@${emailHandle}`,
       name: session?.user?.user_metadata?.full_name || 'John Doe',
-      school: session?.user?.user_metadata?.school || 'Pomona',
+      school: derivedSchool,
       bio: session?.user?.user_metadata?.bio || '',
       lastHandleChange: session?.user?.user_metadata?.last_handle_change || null,
     }),
-    [emailHandle, session?.user?.user_metadata],
+    [emailHandle, session?.user?.user_metadata, derivedSchool],
   );
 
   useEffect(() => {
@@ -155,7 +166,7 @@ const ProfileScreen = () => {
       const payload = {
         handle: sanitizedHandle ? `@${sanitizedHandle}` : undefined,
         full_name: form.name,
-        school: form.school,
+        school: profile.school,
         bio: form.bio,
       };
       if (handleChanged) {
@@ -172,7 +183,7 @@ const ProfileScreen = () => {
             user_id: session.user.id,
             handle: sanitizedHandle ? `@${sanitizedHandle}` : profile.handle,
             full_name: form.name,
-            school: form.school,
+            school: profile.school,
             bio: form.bio,
           });
         }
@@ -200,12 +211,6 @@ const ProfileScreen = () => {
 
   return (
     <ScrollView style={styles.scroll} contentContainerStyle={styles.container}>
-      <View style={styles.topbar}>
-        <TouchableOpacity onPress={() => navigation.goBack()}>
-          <Text style={styles.link}>← Back</Text>
-        </TouchableOpacity>
-      </View>
-
       <View style={styles.card}>
         <View style={styles.handleRow}>
           {editing ? (
@@ -239,16 +244,7 @@ const ProfileScreen = () => {
           <Text style={styles.name}>{profile.name}</Text>
         )}
 
-        {editing ? (
-          <TextInput
-            style={styles.input}
-            value={form.school}
-            onChangeText={handleChange('school')}
-            placeholder="School"
-          />
-        ) : (
-          <Text style={styles.school}>{profile.school}</Text>
-        )}
+        <Text style={styles.school}>{profile.school}</Text>
 
         {editing ? (
           <TextInput
@@ -293,9 +289,14 @@ const ProfileScreen = () => {
             </TouchableOpacity>
           </View>
         ) : (
-          <TouchableOpacity style={styles.primaryButton} onPress={() => setEditing(true)}>
-            <Text style={styles.primaryText}>Edit profile</Text>
-          </TouchableOpacity>
+          <>
+            <TouchableOpacity style={styles.primaryButton} onPress={() => setEditing(true)}>
+              <Text style={styles.primaryText}>Edit profile</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.ghostButton} onPress={() => signOutUser()}>
+              <Text style={styles.ghostText}>Sign out</Text>
+            </TouchableOpacity>
+          </>
         )}
 
         {!editing && (
@@ -372,9 +373,17 @@ const styles = StyleSheet.create({
   topbar: {
     marginBottom: 8,
   },
-  link: {
-    color: '#2563eb',
-    fontWeight: '600',
+  ghostButton: {
+    marginTop: 8,
+    paddingVertical: 12,
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: '#fecdd3',
+    alignItems: 'center',
+  },
+  ghostText: {
+    color: '#ef4444',
+    fontWeight: '700',
   },
   card: {
     backgroundColor: '#fff',
@@ -436,6 +445,11 @@ const styles = StyleSheet.create({
   school: {
     textAlign: 'center',
     color: '#6b7280',
+  },
+  schoolNote: {
+    textAlign: 'center',
+    color: '#9ca3af',
+    fontSize: 12,
   },
   bio: {
     textAlign: 'center',

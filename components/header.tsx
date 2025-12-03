@@ -4,7 +4,7 @@ import { View, Text, StyleSheet } from 'react-native';
 export default function Header() {
   return (
     <View style={styles.header}>
-      <Text style={styles.title}>THE CLAREMONT COLLEGES</Text>
+      <Text style={styles.title}>plates5C</Text>
     </View>
   );
 }

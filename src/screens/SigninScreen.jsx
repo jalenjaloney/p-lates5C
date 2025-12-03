@@ -33,7 +33,8 @@ const SigninScreen = () => {
         if (!confirmed) {
           navigation.navigate('VerifyEmail', { email: trimmedEmail });
         } else {
-          navigation.navigate('Dashboard');
+          // Jump straight to the tab navigator’s Home tab
+          navigation.navigate('MainTabs', { screen: 'Home' });
         }
       } else if (result?.error) {
         setError(result.error);

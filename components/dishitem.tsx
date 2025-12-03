@@ -6,27 +6,22 @@ import RatingStars from "./rating-stars";
 type DishItemProps = {
   dish: string;
   rating: number;
+  interactive?: boolean;
 };
 
 export default function DishItem({
   dish,
   rating,
+  interactive = true,
 
 }: DishItemProps) {
-
-  const [currentRating, setRating] = React.useState(rating);
-
-  const handleRatingChange = (newRating: number) => {
-    setRating(newRating);
-    // can send new rating to backend here
-  };
 
   return (
     <View style={styles.dishItem}>
       <View style={{ flexDirection: "column", flex: 1 }}>
         <Text style={styles.dishName}>{dish}</Text>
       </View>
-      <RatingStars rating={currentRating} onRatingChange = {handleRatingChange} />
+      <RatingStars rating={rating} onRatingChange={interactive ? () => {} : undefined} interactive={interactive} />
     </View>
   );
 }

@@ -4,10 +4,11 @@ import { FontAwesome } from "@expo/vector-icons";
 
 type RatingStarsProps = {
   rating: number; // current rating 0-5
-  onRatingChange: (newRating: number) => void; // callback when rating changes
+  onRatingChange?: (newRating: number) => void; // callback when rating changes
+  interactive?: boolean;
 };
 
-export default function RatingStars({ rating, onRatingChange }: RatingStarsProps) {
+export default function RatingStars({ rating, onRatingChange, interactive = true }: RatingStarsProps) {
   const containerWidth = useRef(0);
 
   // Capture the width of the star container
@@ -18,11 +19,13 @@ export default function RatingStars({ rating, onRatingChange }: RatingStarsProps
   // swipe/drag detection
   const panResponder = useRef(
     PanResponder.create({
-      onStartShouldSetPanResponder: () => true,
+      onStartShouldSetPanResponder: () => interactive,
       onPanResponderGrant: (evt) => {
+        if (!interactive || !onRatingChange) return;
         handleTouch(evt.nativeEvent.locationX);
       },
       onPanResponderMove: (evt) => {
+        if (!interactive || !onRatingChange) return;
         handleTouch(evt.nativeEvent.locationX);
       },
     })
@@ -46,8 +49,8 @@ export default function RatingStars({ rating, onRatingChange }: RatingStarsProps
   return (
     <View
       style={styles.stars}
-      onLayout={onLayout}
-      {...panResponder.panHandlers} // enable swipe/drag
+    onLayout={onLayout}
+      {...(interactive ? panResponder.panHandlers : {})} // enable swipe/drag if interactive
     >
       {Array.from({ length: 5 }).map((_, i) => (
         <FontAwesome
