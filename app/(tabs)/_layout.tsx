@@ -3,18 +3,33 @@ import { FontAwesome5 } from "@expo/vector-icons";
 
 import { HapticTab } from "@/components/haptic-tab";
 import { IconSymbol } from "@/components/ui/icon-symbol";
-import { Colors } from "@/constants/theme";
-import { useColorScheme } from "@/hooks/use-color-scheme";
+import { tokens } from "@/constants/tokens";
+import { useTheme } from "@/hooks/useTheme";
 
 export default function TabLayout() {
-  const colorScheme = useColorScheme();
+  const { colors } = useTheme();
 
   return (
     <Tabs
       screenOptions={{
         headerShown: false,
         tabBarButton: HapticTab,
-        tabBarActiveTintColor: Colors[colorScheme ?? "light"].tint,
+        tabBarActiveTintColor: colors.ink,
+        tabBarInactiveTintColor: colors.inkMuted,
+        tabBarStyle: {
+          height: 68,
+          backgroundColor: colors.surface,
+          borderTopWidth: 1,
+          borderTopColor: colors.border,
+          paddingTop: tokens.space.xs,
+          paddingBottom: tokens.space.xs,
+        },
+        tabBarLabelStyle: {
+          fontSize: tokens.fontSize.tiny,
+          letterSpacing: tokens.letterSpacing.wide,
+          fontWeight: "700",
+          fontFamily: tokens.font.body,
+        },
       }}
     >
       <Tabs.Screen
@@ -32,12 +47,11 @@ export default function TabLayout() {
         options={{
           title: "Menus",
           tabBarIcon: ({ color }) => (
-            <IconSymbol size={28} name="fork.knife" color={color} />
+            <FontAwesome5 name="book-open" size={22} color={color} />
           ),
         }}
       />
 
-      {/* Your single Profile tab — consistent, simple, clean */}
       <Tabs.Screen
         name="profile"
         options={{

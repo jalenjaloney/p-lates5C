@@ -3,6 +3,7 @@
     "name": "plates-native",
     "slug": "plates-native",
     "version": "1.0.0",
+    "scheme": "plates5c",
     "orientation": "portrait",
     "userInterfaceStyle": "light",
     "assetBundlePatterns": [
@@ -12,7 +13,17 @@
       "bundler": "metro"
     },
     "plugins": [
-      "expo-asset"
-    ]
+      "expo-asset",
+      "expo-router"
+    ],
+    "experiments": {
+      "typedRoutes": true
+    },
+    "ios": {
+      "bundleIdentifier": "com.anonymous.plates-native"
+    },
+    "android": {
+      "package": "com.anonymous.platesnative"
+    }
   }
 }

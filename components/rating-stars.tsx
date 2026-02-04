@@ -1,6 +1,7 @@
 import React, { useRef } from "react";
 import { View, StyleSheet, PanResponder, LayoutChangeEvent } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
+import { UI } from "@/constants/ui";
 
 type RatingStarsProps = {
   rating: number; // current rating 0-5
@@ -57,7 +58,7 @@ export default function RatingStars({ rating, onRatingChange, interactive = true
           key={i}
           name={getStarIcon(i)}
           size={16}
-          color={getStarIcon(i) == "star-o" ? "lightgray" : "#ffbb00ff"}
+          color={getStarIcon(i) == "star-o" ? UI.colors.border : UI.colors.accentWarm}
           style={styles.starIcon}
         />
       ))}

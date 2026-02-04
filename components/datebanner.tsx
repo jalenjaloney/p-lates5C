@@ -1,61 +1,63 @@
-import React, { useState, useEffect, useMemo } from 'react';
-import { 
-  View, 
-  StyleSheet, 
-  Platform, 
-  Text, 
-  TouchableOpacity, 
-  Modal, 
-  SafeAreaView, 
-  ScrollView 
+import React, { useEffect, useMemo, useState } from 'react';
+import {
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  Modal,
+  SafeAreaView,
+  ScrollView,
+  View,
 } from 'react-native';
-import { AppState } from 'react-native'; // For dynamic updates
-import { LinearGradient } from 'expo-linear-gradient'; // --- NEW ---
+import { AppState } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
+import { tokens } from '@/constants/tokens';
+import { useTheme } from '@/hooks/useTheme';
 
-// Helper function to generate the next 7 days (this is unchanged)
-const generateDateOptions = () => {
-  const options = [];
-  const today = new Date();
+type DateBannerProps = {
+  selectedDate: string;
+  onChange: (dateIso: string) => void;
+};
+
+const formatLabel = (date: Date, indexFromToday?: number) => {
   const dayNames = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
+  const month = date.getMonth() + 1;
+  const day = date.getDate();
+  const formattedDate = `${month}/${day}`;
+
+  if (typeof indexFromToday === 'number') {
+    if (indexFromToday === 0) return `TODAY ${formattedDate}`;
+    if (indexFromToday === 1) return `TOMORROW ${formattedDate}`;
+  }
+
+  return `${dayNames[date.getDay()]} ${formattedDate}`;
+};
+
+const generateFutureOptions = () => {
+  const options = [] as { label: string; value: string }[];
+  const today = new Date();
 
   for (let i = 0; i < 7; i++) {
     const date = new Date(today);
     date.setDate(today.getDate() + i);
-
-    const month = date.getMonth() + 1;
-    const day = date.getDate();
-    const formattedDate = `${month}/${day}`;
-
-    let label = '';
-    if (i === 0) {
-      label = `TODAY ${formattedDate}`;
-    } else if (i === 1) {
-      label = `TOMORROW ${formattedDate}`;
-    } else {
-      label = `${dayNames[date.getDay()]} ${formattedDate}`;
-    }
-
-    options.push({ label, value: date.toISOString() });
+    options.push({ label: formatLabel(date, i), value: date.toISOString() });
   }
+
   return options;
 };
 
-export default function DateBanner() {
-  const [dateOptions, setDateOptions] = useState(generateDateOptions());
-  const [selectedDate, setSelectedDate] = useState(dateOptions[0].value);
-  
-  // --- NEW --- State to control our custom modal
+export default function DateBanner({ selectedDate, onChange }: DateBannerProps) {
+  const { colors } = useTheme();
+  const [futureOptions, setFutureOptions] = useState(generateFutureOptions());
   const [modalVisible, setModalVisible] = useState(false);
+  const [pastCount, setPastCount] = useState(7);
 
-  // This useEffect (from our previous conversation) ensures the date
-  // updates if the app is left open past midnight.
   useEffect(() => {
     const subscription = AppState.addEventListener('change', (nextAppState) => {
       if (nextAppState === 'active') {
-        const newOptions = generateDateOptions();
-        if (newOptions[0].value !== dateOptions[0].value) {
-          setDateOptions(newOptions);
-          setSelectedDate(newOptions[0].value);
+        const newOptions = generateFutureOptions();
+        if (newOptions[0].value !== futureOptions[0].value) {
+          setFutureOptions(newOptions);
+          onChange(newOptions[0].value);
         }
       }
     });
@@ -63,70 +65,99 @@ export default function DateBanner() {
     return () => {
       subscription.remove();
     };
-  }, [dateOptions]);
+  }, [futureOptions, onChange]);
 
-  // --- NEW --- Helper to get the display label for the banner
+  const pastOptions = useMemo(() => {
+    const options: { label: string; value: string }[] = [];
+    const today = new Date();
+    for (let i = 1; i <= pastCount; i++) {
+      const date = new Date(today);
+      date.setDate(today.getDate() - i);
+      options.push({ label: formatLabel(date), value: date.toISOString() });
+    }
+    return options;
+  }, [pastCount]);
+
   const selectedOption = useMemo(() => {
-    return dateOptions.find(opt => opt.value === selectedDate);
-  }, [selectedDate, dateOptions]);
+    const all = [...futureOptions, ...pastOptions];
+    const selected = all.find((opt) => opt.value.slice(0, 10) === selectedDate.slice(0, 10));
+    if (selected) return selected;
+    return { label: formatLabel(new Date(selectedDate)), value: selectedDate };
+  }, [selectedDate, futureOptions, pastOptions]);
 
-  // --- NEW --- Function to handle selecting an item in the modal
-  const handleSelectDate = (value) => {
-    setSelectedDate(value);
+  const handleSelectDate = (value: string) => {
+    onChange(value);
     setModalVisible(false);
   };
 
   return (
     <>
-      {/* This is the new banner. 
-        It's no longer a Picker, but a TouchableOpacity
-        that opens our modal.
-      */}
-      <TouchableOpacity onPress={() => setModalVisible(true)}>
-        <LinearGradient
-          colors={['#D32F2F', '#B71C1C']} // Impressive gradient
-          style={styles.dateBanner}
-        >
-          <Text style={styles.bannerText}>
-            {selectedOption ? selectedOption.label : 'Select a Date'}
+      <TouchableOpacity onPress={() => setModalVisible(true)} style={styles.dateBannerContainer}>
+        <View style={[styles.dateBanner, { backgroundColor: colors.surface, borderColor: colors.borderStrong }]}>
+          <Text style={[styles.bannerText, { color: colors.ink, fontFamily: tokens.font.mono }]}>
+            {selectedOption.label}
           </Text>
-          <Text style={styles.bannerChevron}>▼</Text>
-        </LinearGradient>
+          <Text style={[styles.bannerChevron, { color: colors.inkMuted }]}>▼</Text>
+        </View>
       </TouchableOpacity>
 
-      {/* This is our new custom modal that replaces the old Picker.
-        It slides up from the bottom.
-      */}
       <Modal
         animationType="slide"
         transparent={true}
         visible={modalVisible}
         onRequestClose={() => setModalVisible(false)}
       >
-        <TouchableOpacity 
-          style={styles.modalOverlay} 
-          activeOpacity={1} 
+        <TouchableOpacity
+          style={styles.modalOverlay}
+          activeOpacity={1}
           onPressOut={() => setModalVisible(false)}
         >
-          <View style={styles.modalContent}>
+          <View style={[styles.modalContent, { backgroundColor: colors.surface, borderColor: colors.border }]}>
             <SafeAreaView>
               <ScrollView>
-                {dateOptions.map((option) => (
+                <Text style={[styles.sectionLabel, { color: colors.inkMuted, fontFamily: tokens.font.body }]}>
+                  Upcoming
+                </Text>
+                {futureOptions.map((option) => (
                   <TouchableOpacity
                     key={option.value}
-                    style={styles.modalItem}
+                    style={[styles.modalItem, { borderBottomColor: colors.border }]}
                     onPress={() => handleSelectDate(option.value)}
                   >
-                    <Text style={styles.modalItemText}>{option.label}</Text>
+                    <Text style={[styles.modalItemText, { color: colors.ink, fontFamily: tokens.font.body }]}>
+                      {option.label}
+                    </Text>
                   </TouchableOpacity>
                 ))}
+
+                <Text style={[styles.sectionLabel, { color: colors.inkMuted, fontFamily: tokens.font.body }]}>
+                  Past
+                </Text>
+                {pastOptions.map((option) => (
+                  <TouchableOpacity
+                    key={option.value}
+                    style={[styles.modalItem, { borderBottomColor: colors.border }]}
+                    onPress={() => handleSelectDate(option.value)}
+                  >
+                    <Text style={[styles.modalItemText, { color: colors.ink, fontFamily: tokens.font.body }]}>
+                      {option.label}
+                    </Text>
+                  </TouchableOpacity>
+                ))}
+
+                <TouchableOpacity
+                  style={[styles.loadMore, { borderColor: colors.border, backgroundColor: colors.surfaceAlt }]}
+                  onPress={() => setPastCount((prev) => prev + 14)}
+                >
+                  <Text style={[styles.loadMoreText, { color: colors.ink }]}>Load more past dates</Text>
+                </TouchableOpacity>
               </ScrollView>
-              
+
               <TouchableOpacity
-                style={styles.cancelButton}
+                style={[styles.cancelButton, { backgroundColor: colors.surfaceAlt }]}
                 onPress={() => setModalVisible(false)}
               >
-                <Text style={styles.cancelButtonText}>Cancel</Text>
+                <Text style={[styles.cancelButtonText, { color: colors.accent }]}>Cancel</Text>
               </TouchableOpacity>
             </SafeAreaView>
           </View>
@@ -136,150 +167,71 @@ export default function DateBanner() {
   );
 }
 
-// --- ALL NEW STYLES ---
 const styles = StyleSheet.create({
+  dateBannerContainer: {
+    paddingHorizontal: 0,
+  },
   dateBanner: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
     alignItems: 'center',
-    paddingVertical: 15,
-    paddingHorizontal: 20,
-    // Add a shadow for depth
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,
+    gap: tokens.space.sm,
+    paddingVertical: tokens.space.sm,
+    borderTopWidth: 1,
+    borderBottomWidth: 1,
   },
   bannerText: {
-    color: '#fff',
-    fontWeight: 'bold',
-    fontSize: 18,
+    fontWeight: '400',
+    fontSize: tokens.fontSize.caption,
+    letterSpacing: tokens.letterSpacing.wider,
   },
   bannerChevron: {
-    color: '#fff',
-    fontSize: 16,
+    fontSize: tokens.fontSize.caption,
   },
-  // Modal styles
   modalOverlay: {
     flex: 1,
-    backgroundColor: 'rgba(0,0,0,0.5)',
+    backgroundColor: 'rgba(15,23,42,0.45)',
     justifyContent: 'flex-end',
   },
   modalContent: {
-    backgroundColor: 'white',
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
-    padding: 20,
-    maxHeight: '50%',
+    borderTopLeftRadius: tokens.radius.xxl,
+    borderTopRightRadius: tokens.radius.xxl,
+    padding: tokens.space.lg,
+    maxHeight: '70%',
+    borderTopWidth: 1,
+  },
+  sectionLabel: {
+    fontSize: tokens.fontSize.tiny,
+    letterSpacing: tokens.letterSpacing.wide,
+    marginTop: tokens.space.xs,
+    marginBottom: tokens.space.xs,
   },
   modalItem: {
-    paddingVertical: 18,
+    paddingVertical: tokens.space.md,
     borderBottomWidth: 1,
-    borderBottomColor: '#f0f0f0',
   },
   modalItemText: {
-    fontSize: 18,
+    fontSize: tokens.fontSize.body,
     textAlign: 'center',
-    color: '#333',
+  },
+  loadMore: {
+    marginTop: tokens.space.md,
+    paddingVertical: tokens.space.sm,
+    borderRadius: tokens.radius.lg,
+    borderWidth: 1,
+  },
+  loadMoreText: {
+    textAlign: 'center',
+    fontWeight: '600',
   },
   cancelButton: {
-    marginTop: 10,
-    padding: 18,
-    backgroundColor: '#f6f6f6',
-    borderRadius: 10,
+    marginTop: tokens.space.sm,
+    padding: tokens.space.lg,
+    borderRadius: tokens.radius.lg,
   },
   cancelButtonText: {
     textAlign: 'center',
     fontWeight: 'bold',
-    color: '#D32F2F',
-    fontSize: 18,
+    fontSize: tokens.fontSize.h3,
   },
 });
-// import React, { useState, useMemo } from 'react';
-// import { View, StyleSheet, Platform } from 'react-native';
-// import { Picker } from '@react-native-picker/picker';
-
-// // Helper function to generate the next 7 days
-// const generateDateOptions = () => {
-//   const options = [];
-//   const today = new Date();
-//   const dayNames = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
-
-//   for (let i = 0; i < 7; i++) {
-//     const date = new Date(today);
-//     date.setDate(today.getDate() + i);
-
-//     const month = date.getMonth() + 1; // getMonth() is zero-based
-//     const day = date.getDate();
-//     const formattedDate = `${month}/${day}`;
-
-//     let label = '';
-//     if (i === 0) {
-//       label = `TODAY ${formattedDate}`;
-//     } else if (i === 1) {
-//       label = `TOMORROW ${formattedDate}`;
-//     } else {
-//       label = `${dayNames[date.getDay()]} ${formattedDate}`;
-//     }
-
-//     // The value can be the full date string or any unique identifier
-//     options.push({ label, value: date.toISOString() });
-//   }
-//   return options;
-// };
-
-// export default function DateBanner() {
-//   // Generate the date options. useMemo ensures this is only done once.
-//   const dateOptions = useMemo(() => generateDateOptions(), []);
-  
-//   // State to hold the currently selected date value.
-//   // We'll initialize it with the first option, which is today.
-//   const [selectedDate, setSelectedDate] = useState(dateOptions[0].value);
-
-//   return (
-//     <View style={styles.dateBanner}>
-//       <Picker
-//         selectedValue={selectedDate}
-//         onValueChange={(itemValue, itemIndex) => setSelectedDate(itemValue)}
-//         style={styles.picker}
-//         itemStyle={styles.pickerItem}
-//         dropdownIconColor={'#fff'} // Changes the dropdown arrow color
-//       >
-//         {dateOptions.map((option) => (
-//           <Picker.Item 
-//             key={option.value} 
-//             label={option.label} 
-//             value={option.value} 
-//           />
-//         ))}
-//       </Picker>
-//     </View>
-//   );
-// }
-
-// const styles = StyleSheet.create({
-//   dateBanner: { 
-//     backgroundColor: '#C62828', 
-//     // On iOS, the Picker has a default height. We adjust the container.
-//     // On Android, the picker text is centered by default within the container.
-//     paddingHorizontal: 10,
-//     justifyContent: 'center',
-//     height: Platform.OS === 'ios' ? 100 : 60,
-//   },
-//   picker: {
-//     // On Android, the color applies to the selected item's text
-//     // On iOS, this style is applied to the picker container view
-//     color: '#000', 
-//   },
-//   pickerItem: {
-//     // This style is primarily for iOS to style the items in the dropdown wheel
-//     color: '#fff', // Color of items in the dropdown list
-//     fontWeight: 'bold',
-//     // Unfortunately, direct styling of dropdown items on Android is limited.
-//     // The styling is often controlled by the OS theme.
-//   },
-// });

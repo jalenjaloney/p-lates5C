@@ -58,10 +58,21 @@ create table if not exists public.dish_ratings (
   rater_handle text,     -- optional display name, can be null
   rating       integer not null check (rating between 1 and 5),
   comment      text,
+  image_url    text,
   created_at   timestamp not null default now(),
 
   -- Each user can only rate a dish once.
   unique (dish_id, user_id)
+);
+
+-- Likes on reviews (dish_ratings)
+create table if not exists public.review_likes (
+  id         integer generated always as identity primary key,
+  rating_id  integer not null references public.dish_ratings(id) on delete cascade,
+  user_id    uuid not null references auth.users(id) on delete cascade
+               default auth.uid(),
+  created_at timestamp not null default now(),
+  unique (rating_id, user_id)
 );
 
 -- ---------- INDEXES ----------
@@ -76,6 +87,9 @@ create index if not exists idx_menu_items_date
 create index if not exists idx_dish_ratings_dish
   on public.dish_ratings (dish_id);
 
+create index if not exists idx_review_likes_rating
+  on public.review_likes (rating_id);
+
 -- ---------- POLICIES ----------
 -- We use Row Level Security (RLS) to control who can see and modify what.
 -- Supabase defaults to “everyone can read/write everything”.
@@ -88,6 +102,7 @@ alter table public.halls        enable row level security;
 alter table public.dishes       enable row level security;
 alter table public.menu_items   enable row level security;
 alter table public.dish_ratings enable row level security;
+alter table public.review_likes enable row level security;
 
 -- Clean up old policies if re-running
 drop policy if exists halls_select_public      on public.halls;
@@ -102,6 +117,10 @@ drop policy if exists ratings_select_public    on public.dish_ratings;
 drop policy if exists ratings_insert_own       on public.dish_ratings;
 drop policy if exists ratings_update_own       on public.dish_ratings;
 drop policy if exists ratings_delete_own       on public.dish_ratings;
+
+drop policy if exists review_likes_select_public on public.review_likes;
+drop policy if exists review_likes_insert_own    on public.review_likes;
+drop policy if exists review_likes_delete_own    on public.review_likes;
 
 -- ----- HALLS -----
 -- Anyone (anon or logged-in) can view halls
@@ -161,5 +180,20 @@ create policy ratings_update_own
 -- Logged-in users can only delete their own rating
 create policy ratings_delete_own
   on public.dish_ratings
+  for delete to authenticated
+  using (auth.uid() = user_id);
+
+-- ----- REVIEW LIKES -----
+create policy review_likes_select_public
+  on public.review_likes
+  for select using (true);
+
+create policy review_likes_insert_own
+  on public.review_likes
+  for insert to authenticated
+  with check (auth.uid() = user_id);
+
+create policy review_likes_delete_own
+  on public.review_likes
   for delete to authenticated
   using (auth.uid() = user_id);
