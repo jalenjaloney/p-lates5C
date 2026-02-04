@@ -10,16 +10,23 @@ export const AuthContextProvider = ({ children }) => {
 
   // Sign up
   const signUpNewUser = async (email, password, metadata = {}) => {
+<<<<<<< HEAD
     if (!hasSupabaseConfig || !supabase) {
       console.error(CONFIG_ERROR_MESSAGE);
       return { success: false, error: CONFIG_ERROR_MESSAGE };
     }
 
+=======
+>>>>>>> main
     const { data, error } = await supabase.auth.signUp({
       email,
       password,
       options: {
+<<<<<<< HEAD
         data: metadata, // Expo's supabase-js expects metadata under options.data
+=======
+        data: metadata,
+>>>>>>> main
       },
     });
 
@@ -103,11 +110,14 @@ export const AuthContextProvider = ({ children }) => {
 
   // Update profile metadata for the current user
   const updateProfile = async (attributes) => {
+<<<<<<< HEAD
     if (!hasSupabaseConfig || !supabase) {
       console.error(CONFIG_ERROR_MESSAGE);
       return { success: false, error: CONFIG_ERROR_MESSAGE };
     }
 
+=======
+>>>>>>> main
     try {
       const { data, error } = await supabase.auth.updateUser({ data: attributes });
       if (error) {
@@ -124,11 +134,16 @@ export const AuthContextProvider = ({ children }) => {
     }
   };
 
+<<<<<<< HEAD
   const resendVerification = async (email) => {
     if (!hasSupabaseConfig || !supabase) {
       console.error(CONFIG_ERROR_MESSAGE);
       return { success: false, error: CONFIG_ERROR_MESSAGE };
     }
+=======
+  // Resend email confirmation
+  const resendVerification = async (email) => {
+>>>>>>> main
     if (!email) return { success: false, error: 'Missing email' };
     try {
       const { error } = await supabase.auth.resend({
