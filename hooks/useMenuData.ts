@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 
 import { supabase, hasSupabaseConfig } from '@/src/supabaseClient';
+import { proxyEnabled, proxyGet } from '@/src/supabaseProxy';
 import { normalizeHallName } from '@/constants/hall-hours';
 
 export const mealOrder = ['breakfast', 'lunch', 'dinner', 'late_night'] as const;
@@ -119,18 +120,28 @@ const fetchRatingsMap = async (dishIds: number[]) => {
   const chunkSize = 500;
   for (let i = 0; i < dishIds.length; i += chunkSize) {
     const chunk = dishIds.slice(i, i + chunkSize);
-    const { data, error } = await supabase
-      .from('dish_ratings')
-      .select('dish_id, rating')
-      .in('dish_id', chunk);
-    if (error) throw error;
-    (data || []).forEach((row: any) => {
-      const dishId = row.dish_id as number;
-      const entry = ratings.get(dishId) || { sum: 0, count: 0 };
-      entry.sum += row.rating || 0;
-      entry.count += 1;
-      ratings.set(dishId, entry);
-    });
+    if (proxyEnabled) {
+      const payload = await proxyGet<{ ratings: Record<string, { avg: number | null; count: number }> }>(
+        '/api/ratings',
+        { dishIds: chunk.join(',') }
+      );
+      Object.entries(payload.ratings || {}).forEach(([dishId, entry]) => {
+        ratings.set(Number(dishId), { sum: (entry.avg || 0) * entry.count, count: entry.count });
+      });
+    } else {
+      const { data, error } = await supabase
+        .from('dish_ratings')
+        .select('dish_id, rating')
+        .in('dish_id', chunk);
+      if (error) throw error;
+      (data || []).forEach((row: any) => {
+        const dishId = row.dish_id as number;
+        const entry = ratings.get(dishId) || { sum: 0, count: 0 };
+        entry.sum += row.rating || 0;
+        entry.count += 1;
+        ratings.set(dishId, entry);
+      });
+    }
   }
   return new Map(
     Array.from(ratings.entries()).map(([dishId, { sum, count }]) => [
@@ -242,15 +253,28 @@ export function useMenuData(selectedDate: string) {
       while (true) {
         const from = page * pageSize;
         const to = from + pageSize - 1;
-        const { data, error: err } = await supabase
-          .from('menu_items')
-          .select(
-            'id, dish_id, date_served, meal, dish_name, section, description, tags, dishes(id, name, slug), halls(name, campus)'
-          )
-          .eq('date_served', queryDate)
-          .order('meal', { ascending: true })
-          .order('dish_name', { ascending: true })
-          .range(from, to);
+        let data: any[] | null = null;
+        let err: any = null;
+        if (proxyEnabled) {
+          const payload = await proxyGet<{ data: any[] }>('/api/menu-items', {
+            date: queryDate,
+            offset: from,
+            limit: pageSize,
+          });
+          data = payload.data || [];
+        } else {
+          const result = await supabase
+            .from('menu_items')
+            .select(
+              'id, dish_id, date_served, meal, dish_name, section, description, tags, dishes(id, name, slug), halls(name, campus)'
+            )
+            .eq('date_served', queryDate)
+            .order('meal', { ascending: true })
+            .order('dish_name', { ascending: true })
+            .range(from, to);
+          data = result.data;
+          err = result.error;
+        }
 
         if (err) {
           console.error('[useMenuData] Query error:', err);
@@ -264,16 +288,22 @@ export function useMenuData(selectedDate: string) {
 
       if (!allRows.length) {
         console.log('[useMenuData] No data found for', queryDate, '- checking for latest available date');
-        const { data: latestData, error: latestErr } = await supabase
-          .from('menu_items')
-          .select('date_served')
-          .order('date_served', { ascending: false })
-          .limit(1);
-        if (latestErr) {
-          console.error('[useMenuData] Error fetching latest date:', latestErr);
-          throw latestErr;
+        let latest: string | null = null;
+        if (proxyEnabled) {
+          const payload = await proxyGet<{ date: string | null }>('/api/latest-menu-date');
+          latest = payload.date ?? null;
+        } else {
+          const { data: latestData, error: latestErr } = await supabase
+            .from('menu_items')
+            .select('date_served')
+            .order('date_served', { ascending: false })
+            .limit(1);
+          if (latestErr) {
+            console.error('[useMenuData] Error fetching latest date:', latestErr);
+            throw latestErr;
+          }
+          latest = latestData?.[0]?.date_served ?? null;
         }
-        const latest = latestData?.[0]?.date_served ?? null;
         console.log('[useMenuData] Latest available date in DB:', latest);
         setLatestAvailableDate(latest ? `${latest}T00:00:00` : null);
       } else {

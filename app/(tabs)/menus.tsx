@@ -494,8 +494,8 @@ export default function MenusScreen() {
                                   style={[
                                     styles.sectionLabel,
                                     {
-                                      color: colors.inkMuted,
-                                      fontFamily: tokens.font.mono,
+                                      color: colors.ink,
+                                      fontFamily: tokens.font.bodySemibold,
                                     },
                                   ]}
                                 >
@@ -707,9 +707,9 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   sectionLabel: {
-    fontSize: tokens.fontSize.label,
-    letterSpacing: tokens.letterSpacing.wider,
-    fontWeight: '400',
+    fontSize: tokens.fontSize.body,
+    letterSpacing: tokens.letterSpacing.normal,
+    fontWeight: '600',
     marginBottom: tokens.space.xs,
   },
   sectionChevron: {

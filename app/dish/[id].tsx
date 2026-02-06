@@ -12,6 +12,7 @@ import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useTheme } from '@/hooks/useTheme';
 import { tokens } from '@/constants/tokens';
 import { supabase, hasSupabaseConfig } from '@/src/supabaseClient';
+import { proxyEnabled, proxyGet } from '@/src/supabaseProxy';
 import RatingStars from '@/components/rating-stars';
 import { toTitleCase } from '@/utils/text';
 import { UserAuth } from '@/src/context/AuthContext';
@@ -95,46 +96,73 @@ export default function DishDetailScreen() {
       setLoading(true);
       setError(null);
       try {
-        const { data, error: dishErr } = await supabase
-          .from('dishes')
-          .select('id, name, description, ingredients, allergens, dietary_choices, nutrients, tags, halls(name)')
-          .eq('id', dishId)
-          .single();
-        if (dishErr) throw dishErr;
+        if (proxyEnabled) {
+          const dishPayload = await proxyGet<{ dish: any }>('/api/dish', { dishId });
+          const ratingPayload = await proxyGet<{ avg: number | null; count: number }>(
+            '/api/dish-rating-stats',
+            { dishId }
+          );
+          const occPayload = await proxyGet<{ occurrences: MenuOccurrence[] }>(
+            '/api/dish-occurrences',
+            { dishId }
+          );
+          const data = dishPayload.dish;
+          setDish({
+            id: data.id,
+            name: data.name,
+            description: data.description,
+            ingredients: data.ingredients,
+            allergens: data.allergens,
+            dietary_choices: data.dietary_choices,
+            nutrients: data.nutrients,
+            tags: data.tags,
+            hallName: data.halls?.name ?? null,
+          });
+          setRating(ratingPayload.avg ?? null);
+          setRatingCount(ratingPayload.count ?? 0);
+          setOccurrences(occPayload.occurrences || []);
+        } else {
+          const { data, error: dishErr } = await supabase
+            .from('dishes')
+            .select('id, name, description, ingredients, allergens, dietary_choices, nutrients, tags, halls(name)')
+            .eq('id', dishId)
+            .single();
+          if (dishErr) throw dishErr;
 
-        const { data: ratingRows, error: ratingErr } = await supabase
-          .from('dish_ratings')
-          .select('rating')
-          .eq('dish_id', dishId)
-          .order('created_at', { ascending: false });
-        if (ratingErr) throw ratingErr;
+          const { data: ratingRows, error: ratingErr } = await supabase
+            .from('dish_ratings')
+            .select('rating')
+            .eq('dish_id', dishId)
+            .order('created_at', { ascending: false });
+          if (ratingErr) throw ratingErr;
 
-        const avg =
-          ratingRows && ratingRows.length
-            ? Math.round((ratingRows.reduce((sum: number, r: any) => sum + (r.rating || 0), 0) / ratingRows.length) * 10) / 10
-            : null;
+          const avg =
+            ratingRows && ratingRows.length
+              ? Math.round((ratingRows.reduce((sum: number, r: any) => sum + (r.rating || 0), 0) / ratingRows.length) * 10) / 10
+              : null;
 
-        const { data: occRows, error: occErr } = await supabase
-          .from('menu_items')
-          .select('id, date_served, meal, section')
-          .eq('dish_id', dishId)
-          .order('date_served', { ascending: false });
-        if (occErr) throw occErr;
+          const { data: occRows, error: occErr } = await supabase
+            .from('menu_items')
+            .select('id, date_served, meal, section')
+            .eq('dish_id', dishId)
+            .order('date_served', { ascending: false });
+          if (occErr) throw occErr;
 
-        setDish({
-          id: data.id,
-          name: data.name,
-          description: data.description,
-          ingredients: data.ingredients,
-          allergens: data.allergens,
-          dietary_choices: data.dietary_choices,
-          nutrients: data.nutrients,
-          tags: data.tags,
-          hallName: data.halls?.name ?? null,
-        });
-        setRating(avg);
-        setRatingCount(ratingRows?.length ?? 0);
-        setOccurrences(occRows || []);
+          setDish({
+            id: data.id,
+            name: data.name,
+            description: data.description,
+            ingredients: data.ingredients,
+            allergens: data.allergens,
+            dietary_choices: data.dietary_choices,
+            nutrients: data.nutrients,
+            tags: data.tags,
+            hallName: data.halls?.name ?? null,
+          });
+          setRating(avg);
+          setRatingCount(ratingRows?.length ?? 0);
+          setOccurrences(occRows || []);
+        }
       } catch (e) {
         console.error('Failed to load dish', e);
         setError('Could not load this dish.');
@@ -149,6 +177,19 @@ export default function DishDetailScreen() {
     if (!dishId || !hasSupabaseConfig || !supabase) return;
     setReviewsLoading(true);
     setReviewsError('');
+    if (proxyEnabled) {
+      try {
+        const payload = await proxyGet<{ reviews: DishReview[] }>('/api/dish-reviews', { dishId });
+        setReviews(payload.reviews || []);
+        setLikedIds(new Set());
+      } catch (err) {
+        console.error('Failed to load reviews', err);
+        setReviewsError('Could not load reviews right now.');
+      } finally {
+        setReviewsLoading(false);
+      }
+      return;
+    }
     const { data: revs, error: revErr } = await supabase
       .from('dish_ratings')
       .select('id, rating, comment, created_at, rater_handle, user_id, review_likes(count)')
@@ -426,10 +467,12 @@ export default function DishDetailScreen() {
                             {rev.created_at ? new Date(rev.created_at).toLocaleDateString() : ''}
                           </Text>
                         </View>
-                        <Text style={[styles.reviewRating, { color: colors.accent, fontFamily: tokens.font.body }]}>
-                          {'★'.repeat(rev.rating)}
-                          {'☆'.repeat(Math.max(0, 5 - rev.rating))}
-                        </Text>
+                        <View style={styles.reviewRatingRow}>
+                          <RatingStars rating={rev.rating} interactive={false} />
+                          <Text style={[styles.reviewRatingValue, { color: colors.inkMuted, fontFamily: tokens.font.body }]}>
+                            {Number(rev.rating).toFixed(1)}
+                          </Text>
+                        </View>
                         {rev.comment ? (
                           <Text style={[styles.reviewComment, { color: colors.inkSoft, fontFamily: tokens.font.body }]}>
                             {rev.comment}
@@ -579,8 +622,13 @@ const styles = StyleSheet.create({
   reviewDate: {
     fontSize: tokens.fontSize.tiny,
   },
-  reviewRating: {
-    fontSize: tokens.fontSize.body,
+  reviewRatingRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: tokens.space.xs,
+  },
+  reviewRatingValue: {
+    fontSize: tokens.fontSize.caption,
   },
   reviewComment: {
     fontSize: tokens.fontSize.caption,

@@ -12,7 +12,7 @@ if (Platform.OS !== 'web') {
     // Lazy require avoids web bundler failure if the native storage package isn't installed.
     nativeStorage = require('@react-native-async-storage/async-storage').default;
   } catch (error) {
-    console.warn('AsyncStorage not available. Auth sessions will not persist on native.');
+    console.warn('AsyncStorage not available. Auth sessions will not persist on native.', error);
   }
 }
 

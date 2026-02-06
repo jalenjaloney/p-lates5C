@@ -18,6 +18,7 @@ type MenuRow = {
 const SUPABASE_URL = Deno.env.get("SUPABASE_URL") ?? Deno.env.get("PROJECT_URL");
 const SERVICE_ROLE_KEY = Deno.env.get("SERVICE_ROLE_KEY");
 const DAYS_AHEAD = 5;
+const TIME_ZONE = "America/Los_Angeles";
 
 if (!SUPABASE_URL || !SERVICE_ROLE_KEY) {
   throw new Error("Missing SUPABASE_URL/PROJECT_URL or SERVICE_ROLE_KEY env vars");
@@ -59,6 +60,29 @@ function buildUrl(base: string) {
   const u = new URL(base);
   u.searchParams.set(`_${Date.now()}`, "");
   return u.toString();
+}
+
+function dateFromTimeZoneToday(timeZone: string) {
+  const now = new Date();
+  const parts = new Intl.DateTimeFormat("en-CA", {
+    timeZone,
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  }).formatToParts(now);
+  const year = Number(parts.find((p) => p.type === "year")?.value);
+  const month = Number(parts.find((p) => p.type === "month")?.value);
+  const day = Number(parts.find((p) => p.type === "day")?.value);
+  return new Date(Date.UTC(year, month - 1, day));
+}
+
+function formatDateInTimeZone(date: Date, timeZone: string) {
+  return new Intl.DateTimeFormat("en-CA", {
+    timeZone,
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  }).format(date);
 }
 
 function slugifyDish(name: string) {
@@ -297,6 +321,52 @@ function extractStationLabel(station: any) {
   return cleaned || null;
 }
 
+const EXCLUDED_BONAPP_TAB_LABELS = new Set([
+  "additional lunch favorites",
+  "lunch condiments and extras",
+]);
+
+function extractBonAppExcludedItemIds(html: string) {
+  const excludedTabIds = new Set<string>();
+  const tabButtonRegex =
+    /<button\b[^>]*class=['"][^'"]*\bc-tab__button\b[^'"]*['"][^>]*>([\s\S]*?)<\/button>/gi;
+  let match: RegExpExecArray | null;
+  while ((match = tabButtonRegex.exec(html))) {
+    const label = normalizeHtmlChunk(match[1]);
+    if (!EXCLUDED_BONAPP_TAB_LABELS.has(label)) continue;
+    const controlsMatch = match[0].match(/\baria-controls=['"]([^'"]+)['"]/i);
+    if (controlsMatch?.[1]) excludedTabIds.add(controlsMatch[1]);
+  }
+
+  if (!excludedTabIds.size) return new Set<string>();
+
+  const itemIds = new Set<string>();
+  const contentRegex =
+    /<div\b[^>]*class=['"][^'"]*\bc-tab__content\b[^'"]*['"][^>]*\bid=['"]([^'"]+)['"][^>]*>/gi;
+  const blocks: Array<{ id: string; startTagIndex: number; contentStart: number }> = [];
+  while ((match = contentRegex.exec(html))) {
+    blocks.push({
+      id: match[1],
+      startTagIndex: match.index,
+      contentStart: match.index + match[0].length,
+    });
+  }
+
+  for (let i = 0; i < blocks.length; i += 1) {
+    const block = blocks[i];
+    if (!excludedTabIds.has(block.id)) continue;
+    const end = i + 1 < blocks.length ? blocks[i + 1].startTagIndex : html.length;
+    const chunk = html.slice(block.contentStart, end);
+    const idRegex = /data-id=['"](\d+)['"]/g;
+    let idMatchInner: RegExpExecArray | null;
+    while ((idMatchInner = idRegex.exec(chunk))) {
+      itemIds.add(idMatchInner[1]);
+    }
+  }
+
+  return itemIds;
+}
+
 function toIso(yyyymmdd: string) {
   return `${yyyymmdd.slice(0, 4)}-${yyyymmdd.slice(4, 6)}-${yyyymmdd.slice(6, 8)}`;
 }
@@ -517,7 +587,12 @@ function normalizeSodexo(menuRegion: any, fallbackDate?: string) {
   return uniqBy(rows, (r) => `${r.date_served}|${r.meal}|${r.section ?? ""}|${r.dish_name.toLowerCase()}`);
 }
 
-function normalizeBonApp(menuItems: Record<string, any>, dailyMenus: any, dayDate: string) {
+function normalizeBonApp(
+  menuItems: Record<string, any>,
+  dailyMenus: any,
+  dayDate: string,
+  excludedItemIds?: Set<string>
+) {
   const rows: MenuRow[] = [];
   const dateMenu = dailyMenus?.[dayDate];
   const daypartsRaw = dateMenu?.dayparts ?? [];
@@ -530,6 +605,7 @@ function normalizeBonApp(menuItems: Record<string, any>, dailyMenus: any, dayDat
       const section = extractStationLabel(station);
       const itemIds: (string | number)[] = station?.items ?? [];
       for (const id of itemIds) {
+        if (excludedItemIds?.has(String(id))) continue;
         const dish = menuItems?.[id]?.label?.trim();
         if (dish) {
           const description = cleanDescription(menuItems?.[id]?.description);
@@ -545,12 +621,14 @@ function normalizeBonApp(menuItems: Record<string, any>, dailyMenus: any, dayDat
 function inferBonAppMealsFromSections(
   menuItems: Record<string, any>,
   sections: Partial<Record<Meal, string>>,
-  date: string
+  date: string,
+  excludedItemIds?: Set<string>
 ) {
   const rows: MenuRow[] = [];
   const hasSections = Object.keys(sections).length > 0;
 
-  for (const item of Object.values(menuItems)) {
+  for (const [id, item] of Object.entries(menuItems)) {
+    if (excludedItemIds?.has(String(id))) continue;
     const label = (item?.label || item?.name || "").trim();
     if (!label) continue;
 
@@ -559,13 +637,14 @@ function inferBonAppMealsFromSections(
     if (!meal && hasSections) meal = inferMealFromSections(label, sections);
 
     if (meal) {
+      const sectionLabel = extractStationLabel(item?.station);
       const description = cleanDescription(item?.description);
       const tags = extractBonAppTags(item);
       rows.push({
         date_served: date,
         meal,
         dish_name: label,
-        section: extractStationLabel(item?.station),
+        section: sectionLabel,
         description,
         tags,
       });
@@ -662,12 +741,12 @@ async function scrapePomona(hall: (typeof DINING_HALLS)[keyof typeof DINING_HALL
 async function scrapeSodexo(hall: (typeof DINING_HALLS)["hoch"]) {
   const dateParam = hall.meta?.dateParam || "date";
   const rows: MenuRow[] = [];
-  const start = new Date();
+  const start = dateFromTimeZoneToday(TIME_ZONE);
 
   for (let offset = 0; offset <= DAYS_AHEAD; offset += 1) {
     const target = new Date(start);
-    target.setDate(start.getDate() + offset);
-    const isoDate = target.toISOString().slice(0, 10);
+    target.setUTCDate(start.getUTCDate() + offset);
+    const isoDate = formatDateInTimeZone(target, TIME_ZONE);
 
     const dayUrl = new URL(hall.url);
     dayUrl.searchParams.set(dateParam, isoDate);
@@ -693,12 +772,12 @@ async function scrapeBonApp(
   hall: Extract<(typeof DINING_HALLS)[keyof typeof DINING_HALLS], { type: "bonappetit" }>
 ) {
   const rows: MenuRow[] = [];
-  const start = new Date();
+  const start = dateFromTimeZoneToday(TIME_ZONE);
 
   for (let offset = 0; offset <= DAYS_AHEAD; offset += 1) {
     const target = new Date(start);
-    target.setDate(start.getDate() + offset);
-    const isoDate = target.toISOString().slice(0, 10);
+    target.setUTCDate(start.getUTCDate() + offset);
+    const isoDate = formatDateInTimeZone(target, TIME_ZONE);
 
     const normalizedPath = (hall.meta?.cafePath ?? "").replace(/\/$/, "");
     const pathSegment = normalizedPath ? `${normalizedPath}/${isoDate}/` : `${isoDate}/`;
@@ -716,19 +795,27 @@ async function scrapeBonApp(
     const menuItems = extractBonAppJsonBlock(html, "menu_items");
     const dailyMenus = extractBonAppJsonBlock(html, "daily_menus");
     const sectionTextByMeal = extractBonAppMealSections(html);
+    const excludedItemIds = extractBonAppExcludedItemIds(html);
 
     if (!menuItems) {
       console.warn(`Bon App: missing menu_items for ${pageUrl}; skipping`);
       continue;
     }
 
-    const daypartRows = dailyMenus ? normalizeBonApp(menuItems, dailyMenus, isoDate) : [];
+    const daypartRows = dailyMenus
+      ? normalizeBonApp(menuItems, dailyMenus, isoDate, excludedItemIds)
+      : [];
     if (daypartRows.length) {
       rows.push(...daypartRows);
       continue;
     }
 
-    const inferredRows = inferBonAppMealsFromSections(menuItems, sectionTextByMeal, isoDate);
+    const inferredRows = inferBonAppMealsFromSections(
+      menuItems,
+      sectionTextByMeal,
+      isoDate,
+      excludedItemIds
+    );
     if (!inferredRows.length) {
       console.warn(`Bon App: no inferable meal periods for ${pageUrl}; skipping`);
       continue;

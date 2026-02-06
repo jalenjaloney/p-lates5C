@@ -1,5 +1,6 @@
 import { useState, useCallback, useEffect } from 'react';
 import { supabase, hasSupabaseConfig } from '@/src/supabaseClient';
+import { proxyEnabled, proxyGet } from '@/src/supabaseProxy';
 import type { NormalizedMenuItem } from './useMenuData';
 
 export type SearchResult = {
@@ -33,15 +34,26 @@ export function useSearchDishes(selectedDate: string) {
         const dateKey = selectedDate.slice(0, 10);
         const searchTerm = `%${searchQuery.toLowerCase()}%`;
 
-        const { data, error: err } = await supabase
-          .from('menu_items')
-          .select('id, date_served, meal, dish_name, section, description, tags, dishes(name, slug), halls(name, campus)')
-          .eq('date_served', dateKey)
-          .or(`dish_name.ilike.${searchTerm},description.ilike.${searchTerm}`)
-          .order('dish_name', { ascending: true })
-          .limit(50);
+        let data: any[] | null = null;
+        if (proxyEnabled) {
+          const payload = await proxyGet<{ data: any[] }>('/api/search-dishes', {
+            date: dateKey,
+            q: searchQuery,
+            limit: 50,
+          });
+          data = payload.data || [];
+        } else {
+          const { data: rows, error: err } = await supabase
+            .from('menu_items')
+            .select('id, date_served, meal, dish_name, section, description, tags, dishes(name, slug), halls(name, campus)')
+            .eq('date_served', dateKey)
+            .or(`dish_name.ilike.${searchTerm},description.ilike.${searchTerm}`)
+            .order('dish_name', { ascending: true })
+            .limit(50);
 
-        if (err) throw err;
+          if (err) throw err;
+          data = rows;
+        }
 
         const searchResults: SearchResult[] = (data || []).map((row: any) => ({
           dish: {

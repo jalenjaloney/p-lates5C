@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, Modal, TextInput, Alert, ScrollView, Image } from 'react-native';
+import { View, Text, StyleSheet, Modal, TextInput, Alert, ScrollView, Image, Platform } from 'react-native';
 import { useTheme } from '@/hooks/useTheme';
 import { tokens } from '@/constants/tokens';
 import { Button } from '../primitives/Button';
@@ -22,29 +22,72 @@ export function RateDishModal({ visible, onClose, dishId, dishName }: RateDishMo
   const [comment, setComment] = useState('');
   const [imageUrl, setImageUrl] = useState('');
   const [imageUri, setImageUri] = useState<string | null>(null);
+  const [imageMimeType, setImageMimeType] = useState<string | null>(null);
   const [uploading, setUploading] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [errorText, setErrorText] = useState('');
   const [statusText, setStatusText] = useState('');
 
-  const pickImage = async () => {
-    const permission = await ImagePicker.requestMediaLibraryPermissionsAsync();
+  const MAX_IMAGE_BYTES = 5 * 1024 * 1024;
+  const ALLOWED_MIME = ['image/jpeg', 'image/png', 'image/heic', 'image/heif', 'image/webp'];
+  const ALLOWED_EXT = ['jpg', 'jpeg', 'png', 'heic', 'heif', 'webp'];
+
+  const validateAsset = (asset: ImagePicker.ImagePickerAsset) => {
+    const mimeType = asset.mimeType || '';
+    const fileName = asset.fileName || '';
+    const ext = fileName.split('.').pop()?.toLowerCase();
+    if (mimeType && !ALLOWED_MIME.includes(mimeType)) {
+      return `Unsupported file type: ${mimeType}`;
+    }
+    if (ext && !ALLOWED_EXT.includes(ext)) {
+      return `Unsupported file extension: .${ext}`;
+    }
+    if (typeof asset.fileSize === 'number' && asset.fileSize > MAX_IMAGE_BYTES) {
+      return 'Image is too large. Please choose a file under 5MB.';
+    }
+    return null;
+  };
+
+  const pickImage = async (source: 'library' | 'camera') => {
+    const permission =
+      source === 'camera'
+        ? await ImagePicker.requestCameraPermissionsAsync()
+        : await ImagePicker.requestMediaLibraryPermissionsAsync();
     if (!permission.granted) {
-      Alert.alert('Permission required', 'Please allow access to your photo library.');
+      Alert.alert(
+        'Permission required',
+        source === 'camera'
+          ? 'Please allow access to your camera.'
+          : 'Please allow access to your photo library.'
+      );
       return;
     }
-    const result = await ImagePicker.launchImageLibraryAsync({
+    const pickerFn =
+      source === 'camera'
+        ? ImagePicker.launchCameraAsync
+        : ImagePicker.launchImageLibraryAsync;
+    const result = await pickerFn({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       quality: 0.8,
       allowsEditing: true,
       aspect: [4, 3],
     });
     if (result.canceled) return;
-    const uri = result.assets?.[0]?.uri;
-    if (uri) {
-      setImageUri(uri);
-      setImageUrl('');
+    const asset = result.assets?.[0];
+    if (!asset?.uri) return;
+    const validationError = validateAsset(asset);
+    if (validationError) {
+      setErrorText(validationError);
+      return;
     }
+    setImageUri(asset.uri);
+    setImageMimeType(asset.mimeType || null);
+    setImageUrl('');
+  };
+
+  const removeImage = () => {
+    setImageUri(null);
+    setImageMimeType(null);
   };
 
   const uploadImageIfNeeded = async () => {
@@ -58,7 +101,10 @@ export function RateDishModal({ visible, onClose, dishId, dishName }: RateDishMo
       const blob = await response.blob();
       const { error } = await supabase.storage
         .from('review-images')
-        .upload(filePath, blob, { contentType: blob.type || 'image/jpeg', upsert: false });
+        .upload(filePath, blob, {
+          contentType: imageMimeType || blob.type || 'image/jpeg',
+          upsert: false,
+        });
       if (error) throw error;
       const { data } = supabase.storage.from('review-images').getPublicUrl(filePath);
       return data.publicUrl;
@@ -93,14 +139,18 @@ export function RateDishModal({ visible, onClose, dishId, dishName }: RateDishMo
 
     try {
       const uploadedUrl = imageUri ? await uploadImageIfNeeded() : null;
-      const { error } = await supabase.from('dish_ratings').upsert({
-        user_id: session.user.id,
-        dish_id: dishId,
-        rating,
-        comment: comment.trim() || null,
-        image_url: uploadedUrl || imageUrl.trim() || null,
-        rater_handle: session.user.user_metadata?.handle || null,
-      }, { onConflict: 'dish_id,user_id' });
+      const clampedRating = Math.max(0.5, Math.min(5, rating));
+      const { error } = await supabase.from('dish_ratings').upsert(
+        {
+          user_id: session.user.id,
+          dish_id: dishId,
+          rating: clampedRating,
+          comment: comment.trim() || null,
+          image_url: uploadedUrl || imageUrl.trim() || null,
+          rater_handle: session.user.user_metadata?.handle || null,
+        },
+        { onConflict: 'dish_id,user_id' }
+      );
 
       if (error) {
         setErrorText(error.message || 'Failed to submit rating.');
@@ -173,7 +223,7 @@ export function RateDishModal({ visible, onClose, dishId, dishName }: RateDishMo
 
             <View style={styles.commentSection}>
               <Text style={[styles.label, { color: colors.ink, fontFamily: tokens.font.body }]}>
-                Image URL (optional)
+                Photo (optional)
               </Text>
               <TextInput
                 value={imageUrl}
@@ -182,6 +232,7 @@ export function RateDishModal({ visible, onClose, dishId, dishName }: RateDishMo
                 placeholderTextColor={colors.inkMuted}
                 autoCapitalize="none"
                 autoCorrect={false}
+                editable={!imageUri}
                 style={[
                   styles.commentInput,
                   {
@@ -189,17 +240,47 @@ export function RateDishModal({ visible, onClose, dishId, dishName }: RateDishMo
                     borderColor: colors.border,
                     color: colors.ink,
                     fontFamily: tokens.font.body,
+                    opacity: imageUri ? 0.6 : 1,
                   },
                 ]}
               />
-              <Button
-                label={imageUri ? 'Change Photo' : 'Add Photo'}
-                onPress={pickImage}
-                variant="ghost"
-                fullWidth
-                disabled={uploading || submitting}
-              />
-              {imageUri ? <Image source={{ uri: imageUri }} style={styles.preview} /> : null}
+              <View style={styles.photoActions}>
+                <Button
+                  label="Choose Photo"
+                  onPress={() => pickImage('library')}
+                  variant="ghost"
+                  fullWidth
+                  disabled={uploading || submitting}
+                />
+                <Button
+                  label="Take Photo"
+                  onPress={() => pickImage('camera')}
+                  variant="ghost"
+                  fullWidth
+                  disabled={uploading || submitting || Platform.OS === 'web'}
+                />
+              </View>
+              {imageUri ? (
+                <View style={styles.previewWrap}>
+                  <Image source={{ uri: imageUri }} style={styles.preview} />
+                  <View style={styles.previewActions}>
+                    <Button
+                      label="Replace"
+                      onPress={() => pickImage('library')}
+                      variant="ghost"
+                      fullWidth
+                      disabled={uploading || submitting}
+                    />
+                    <Button
+                      label="Remove"
+                      onPress={removeImage}
+                      variant="ghost"
+                      fullWidth
+                      disabled={uploading || submitting}
+                    />
+                  </View>
+                </View>
+              ) : null}
             </View>
 
             <View style={styles.actions}>
@@ -266,6 +347,12 @@ const styles = StyleSheet.create({
   commentSection: {
     gap: tokens.space.sm,
   },
+  photoActions: {
+    gap: tokens.space.xs,
+  },
+  previewWrap: {
+    gap: tokens.space.xs,
+  },
   commentInput: {
     minHeight: 100,
     borderRadius: tokens.radius.lg,
@@ -279,6 +366,10 @@ const styles = StyleSheet.create({
     height: 180,
     borderRadius: tokens.radius.lg,
     marginTop: tokens.space.sm,
+  },
+  previewActions: {
+    flexDirection: 'row',
+    gap: tokens.space.xs,
   },
   charCount: {
     fontSize: tokens.fontSize.tiny,

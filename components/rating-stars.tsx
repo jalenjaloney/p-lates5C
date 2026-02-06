@@ -7,9 +7,17 @@ type RatingStarsProps = {
   rating: number; // current rating 0-5
   onRatingChange?: (newRating: number) => void; // callback when rating changes
   interactive?: boolean;
+  activeColor?: string;
+  inactiveColor?: string;
 };
 
-export default function RatingStars({ rating, onRatingChange, interactive = true }: RatingStarsProps) {
+export default function RatingStars({
+  rating,
+  onRatingChange,
+  interactive = true,
+  activeColor = UI.colors.accentWarm,
+  inactiveColor = UI.colors.border,
+}: RatingStarsProps) {
   const containerWidth = useRef(0);
 
   // Capture the width of the star container
@@ -58,7 +66,7 @@ export default function RatingStars({ rating, onRatingChange, interactive = true
           key={i}
           name={getStarIcon(i)}
           size={16}
-          color={getStarIcon(i) == "star-o" ? UI.colors.border : UI.colors.accentWarm}
+          color={getStarIcon(i) == "star-o" ? inactiveColor : activeColor}
           style={styles.starIcon}
         />
       ))}

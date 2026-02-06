@@ -5,16 +5,38 @@ import { tokens } from '@/constants/tokens';
 import { useMenuData, MealKey, NormalizedMenuItem } from '@/hooks/useMenuData';
 import { toTitleCase } from '@/utils/text';
 import { supabase, hasSupabaseConfig } from '@/src/supabaseClient';
+import { proxyEnabled, proxyGet } from '@/src/supabaseProxy';
 import RatingStars from '@/components/rating-stars';
 import { useRouter } from 'expo-router';
 import { getHallStatus } from '@/utils/hall-status';
 import { HALL_NAMES } from '@/constants/hall-hours';
+import { HALL_TO_SCHOOL, SCHOOL_COLORS } from '@/constants/school-colors';
 
 export default function HomeScreen() {
   const { colors } = useTheme();
   const { width } = useWindowDimensions();
+  const title = 'PLATES5C';
+  const horizontalPadding = tokens.space.lg * 2;
+  const availableWidth = Math.max(0, width - horizontalPadding);
+  const estimatedCharWidth = 0.62;
+  const maxTitleSize = tokens.fontSize.display;
+  const minTitleSize = tokens.fontSize.h1;
+  const fittedTitleSize = Math.min(
+    maxTitleSize,
+    Math.max(minTitleSize, Math.floor(availableWidth / (title.length * estimatedCharWidth)))
+  );
   const gridColumns = width < 768 ? 2 : 3;
   const gridItemWidth = gridColumns === 2 ? '48%' : '32%';
+  const normalizeColor = (value?: string) => {
+    if (!value) return undefined;
+    if (value.startsWith('#rgb(') || value.startsWith('#rgba(')) return value.slice(1);
+    return value;
+  };
+  const getHallStarColor = (hallName?: string | null) => {
+    if (!hallName) return undefined;
+    const school = HALL_TO_SCHOOL[hallName];
+    return normalizeColor(SCHOOL_COLORS[school]?.primary);
+  };
   const router = useRouter();
   const [selectedDate] = useState(new Date().toISOString());
   const { groupedByMeal } = useMenuData(selectedDate);
@@ -96,6 +118,21 @@ export default function HomeScreen() {
     const loadDishImages = async () => {
       if (!hasSupabaseConfig || !supabase) return;
       if (popularDishIds.length === 0) return;
+      if (proxyEnabled) {
+        try {
+          const payload = await proxyGet<{ images: Record<string, string> }>('/api/dish-images', {
+            dishIds: popularDishIds.join(','),
+          });
+          const map: Record<number, string> = {};
+          Object.entries(payload.images || {}).forEach(([dishId, url]) => {
+            map[Number(dishId)] = url;
+          });
+          setDishImages(map);
+        } catch (err) {
+          console.error('Failed to load dish images', err);
+        }
+        return;
+      }
       const { data, error } = await supabase
         .from('dish_ratings')
         .select('dish_id, image_url, created_at')
@@ -121,6 +158,21 @@ export default function HomeScreen() {
     const loadDishTopReviews = async () => {
       if (!hasSupabaseConfig || !supabase) return;
       if (popularDishIds.length === 0) return;
+      if (proxyEnabled) {
+        try {
+          const payload = await proxyGet<{ reviews: Record<string, string> }>('/api/dish-top-reviews', {
+            dishIds: popularDishIds.join(','),
+          });
+          const map: Record<number, string[]> = {};
+          Object.entries(payload.reviews || {}).forEach(([dishId, comment]) => {
+            map[Number(dishId)] = [comment];
+          });
+          setDishTopReviews(map);
+        } catch (err) {
+          console.error('Failed to load dish reviews', err);
+        }
+        return;
+      }
       const { data, error } = await supabase
         .from('dish_ratings')
         .select('dish_id, comment, created_at, review_likes(count)')
@@ -161,6 +213,24 @@ export default function HomeScreen() {
   useEffect(() => {
     const loadReviews = async () => {
       if (!hasSupabaseConfig || !supabase) return;
+      if (proxyEnabled) {
+        try {
+          const payload = await proxyGet<{ reviews: any[] }>('/api/recent-reviews', { limit: 6 });
+          setReviews(
+            (payload.reviews || []).map((row: any) => ({
+              id: row.id,
+              rating: row.rating,
+              comment: row.comment,
+              image_url: row.image_url,
+              dishName: row.dishName ?? row.dishes?.name ?? null,
+              hallName: row.hallName ?? row.dishes?.halls?.name ?? null,
+            }))
+          );
+        } catch (err) {
+          console.error('Failed to load reviews', err);
+        }
+        return;
+      }
       const { data, error } = await supabase
         .from('dish_ratings')
         .select('id, rating, comment, image_url, dishes(name, halls(name))')
@@ -189,8 +259,14 @@ export default function HomeScreen() {
     <View style={[styles.container, { backgroundColor: colors.background }]}>
       <ScrollView contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
         <View style={styles.hero}>
-          <Text style={[styles.heroText, { color: colors.ink, fontFamily: tokens.font.displayBlack }]}>
-            PLATES5C
+          <Text
+            style={[
+              styles.heroText,
+              { color: colors.ink, fontFamily: tokens.font.displayBlack, fontSize: fittedTitleSize },
+            ]}
+            numberOfLines={1}
+          >
+            {title}
           </Text>
           <Text style={[styles.dateText, { color: colors.inkMuted, fontFamily: tokens.font.mono }]}>
             {new Date().toLocaleDateString('en-US', {
@@ -259,7 +335,12 @@ export default function HomeScreen() {
                             )}
                           </View>
                           <View style={styles.gridRating}>
-                            <RatingStars rating={dish.rating ?? 0} interactive={false} />
+                            <RatingStars
+                              rating={dish.rating ?? 0}
+                              interactive={false}
+                              activeColor={getHallStarColor(dish.hallName)}
+                              inactiveColor={colors.border}
+                            />
                             <Text style={[styles.gridRatingText, { color: colors.inkMuted, fontFamily: tokens.font.body }]}>
                               {(dish.rating ?? 0).toFixed(1)}
                             </Text>
@@ -346,7 +427,12 @@ export default function HomeScreen() {
                             )}
                           </View>
                           <View style={styles.gridRating}>
-                            <RatingStars rating={dish.rating ?? 0} interactive={false} />
+                            <RatingStars
+                              rating={dish.rating ?? 0}
+                              interactive={false}
+                              activeColor={getHallStarColor(dish.hallName)}
+                              inactiveColor={colors.border}
+                            />
                             <Text style={[styles.gridRatingText, { color: colors.inkMuted, fontFamily: tokens.font.body }]}>
                               {(dish.rating ?? 0).toFixed(1)}
                             </Text>

@@ -52,7 +52,7 @@ export function DishRow({
         <View style={styles.info}>
           <View style={styles.nameRow}>
             <Text
-              style={[styles.name, { color: colors.ink, fontFamily: tokens.font.bodySemibold }]}
+              style={[styles.name, { color: colors.inkSoft, fontFamily: tokens.font.bodySemibold }]}
               numberOfLines={1}
               ellipsizeMode="tail"
             >
