@@ -17,6 +17,7 @@ import {
 import { IBMPlexMono_400Regular } from '@expo-google-fonts/ibm-plex-mono';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useEffect } from 'react';
+import { Analytics } from '@vercel/analytics/react';
 
 import { AuthContextProvider, UserAuth } from '../src/context/AuthContext';
 import { ThemeProvider } from '../providers/ThemeProvider';
@@ -96,6 +97,7 @@ export default function RootLayout() {
       <ThemeProvider>
         <AuthContextProvider>
           <RootStack />
+          <Analytics />
         </AuthContextProvider>
       </ThemeProvider>
     </QueryClientProvider>
